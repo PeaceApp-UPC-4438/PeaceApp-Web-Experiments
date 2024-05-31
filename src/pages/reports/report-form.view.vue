@@ -41,9 +41,9 @@
               </div>
             </div>
             <div class="column">
-              <img src="../assets/Map-Placeholder.png" alt="Map" class="map-image">
+              <img src="../../assets/Map-Placeholder.png" alt="Map" class="map-image">
               <div class="button-container">
-                <router-link to="/muni-report">
+                <router-link to="/authority/report">
                   <button type="submit">Send</button>
                 </router-link>
               </div>

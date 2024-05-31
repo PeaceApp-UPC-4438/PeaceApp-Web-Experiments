@@ -1,9 +1,9 @@
 <script setup>
-import Toolbar from "./components/toolbar.component.vue";
+import Toolbar from "./components/toolbar/toolbar.component.vue";
 
 //To-do: Debe moverse a donde sera utilizado
 //import ReportListComponent from "./reports/report-list.component.vue";
-//import MunicipalityReportListComponent from "./reports/municipality-report-list.component.vue";
+//import MunicipalityReportListComponent from "./reports/authority-report-list.component.vue";
 //export default{
   //name: "app",
   //components: {ReportListComponent, MunicipalityReportListComponent}

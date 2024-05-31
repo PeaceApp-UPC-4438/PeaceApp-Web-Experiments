@@ -1,6 +1,6 @@
 <script>
-import SendAlert from '../components/SendAlert.vue';
-import NotificationList from '../components/view-notifications.vue';
+import SendAlert from '../../components/alerts/send-alert.component.vue';
+import NotificationList from '../../components/notifications/view-notifications.component.vue';
 
 export default {
   components: {
@@ -20,12 +20,15 @@ export default {
       const severityOptions = ['Alto', 'Medio', 'Bajo'];
       const randomSeverity = severityOptions[Math.floor(Math.random() * severityOptions.length)];
 
-      const locationOptions = ['Lince', 'Los Olivos', 'Lurigancho', 'Lurín', 'Magdalena del Mar', 'Miraflores'];
+      const locationOptions = ['Lince', 'Los Olivos', 'Lurigancho', 'Lurín', 'Magdalena del Mar', 'Miraflores','San Isidro','La Molina','Surco'];
       const randomLocation = locationOptions[Math.floor(Math.random() * locationOptions.length)];
+
+      const crimeOptions = ['A robbery', 'A murder', 'An assault', 'Sexual harassment'];
+      const randomCrime = crimeOptions[Math.floor(Math.random() * crimeOptions.length)];
 
       const newNotification = {
         id: this.NotificationData.length + 1,
-        location: "A robbery has been reported in " + randomLocation,
+        location: randomCrime + " has been reported in " + randomLocation,
         severity: randomSeverity,
       };
 

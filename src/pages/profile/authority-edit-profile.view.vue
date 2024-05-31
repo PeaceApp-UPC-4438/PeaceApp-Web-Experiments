@@ -4,55 +4,36 @@
       <div class="profile-bg">
         <div class="profile-info">
           <h1>Edit Profile</h1>
-          <img src="../assets/Citizen.png" alt="Citizen" class="profile-image">
+          <img src="../../assets/municipalidad.png" alt="Municipalidad" class="profile-image">
         </div>
         <div class="form-container">
           <form class="form-flex">
             <div class="column">
               <div class="form-group">
-                <label for="names" class="label-black">First Names:</label>
+                <label for="names" class="label-black">Name of the Municipality:</label>
                 <input type="text" id="names" name="names" required class="border-black" placeholder="First names">
-              </div>
-              <div class="form-group">
-                <label for="last-names" class="label-black">Last Names:</label>
-                <input type="text" id="last-names" name="last-names" required class="border-black" placeholder="Last names">
-              </div>
-              <div class="form-group">
-                <label for="district" class="label-black">District:</label>
-                <input type="text" id="district" name="district" required class="border-black" placeholder="District">
               </div>
               <div class="form-group">
                 <label for="emails" class="label-black">Email:</label>
                 <input type="email" id="emails" name="emails" required class="border-black" placeholder="Email">
               </div>
               <div class="form-group">
-                <label for="route-type" class="label-black">Route Type:</label>
-                <select id="route-type" name="route-type" required class="border-black">
-                  <option value="safe">Safe</option>
-                  <option value="fast">Fast</option>
-                </select>
+                <label for="description" class="label-black">Contact Number:</label>
+                <input type="text" id="names" name="names" required class="border-black" placeholder="Number">
               </div>
               <div class="form-group">
-                <label for="notification" class="label-black">Alert Frequency:</label>
-                <select id="notification" name="notification" required class="border-black">
-                  <option value="high">High</option>
-                  <option value="medium">Medium</option>
-                  <option value="low">Low</option>
-                </select>
+                <label for="description" class="label-black">Office Addres:</label>
+                <input type="text" id="names" name="names" required class="border-black" placeholder="Address">
               </div>
             </div>
             <div class="column">
-              <div class="form-group">
-                <label for="location" class="label-black">Location (Optional):</label>
-                <input type="text" id="location" name="location" class="border-black" placeholder="Location">
-              </div>
               <div class="form-group">
                 <label for="description" class="label-black">Description:</label>
                 <textarea id="description" name="description" required class="border-black" rows="5" placeholder="Description"></textarea>
               </div>
               <div class="button-container">
-              <button type="submit">Confirm Changes</button>
-                </div>
+                <button type="submit">Confirm Changes</button>
+              </div>
             </div>
           </form>
 
@@ -279,3 +260,5 @@ button:hover {
 }
 
 </style>
+<script setup lang="ts">
+</script>

@@ -5,14 +5,14 @@
 <template>
   <nav class="toolbar">
     <ul class="left-icons">
-      <li><a href="/"><img src="../assets/PeaceApp.png" alt="PeaceApp" /></a></li> <!-- Left-aligned icon -->
+      <li><a href="/public"><img src="../../assets/PeaceApp.png" alt="PeaceApp" /></a></li> <!-- Left-aligned icon -->
     </ul>
     <ul class="right-icons">
 
-      <li><router-link to="/citizen/map"><img src="../assets/Map.png" alt="Map" /></router-link></li>
-      <li><router-link to="/report"><img src="../assets/Report.png" alt="Report" /></router-link></li>
-      <li><router-link to="/notifications"><img src="../assets/Notification.png" alt="Notification" /></router-link></li>
-      <li><router-link to="/profile"><img src="../assets/Profile.png" alt="Profile" /></router-link></li>
+      <li><router-link to="/user/map"><img src="../../assets/Map.png" alt="Map" /></router-link></li>
+      <li><router-link to="/user/report"><img src="../../assets/Report.png" alt="Report" /></router-link></li>
+      <li><router-link to="/notifications"><img src="../../assets/Notification.png" alt="Notification" /></router-link></li>
+      <li><router-link to="/profile"><img src="../../assets/Profile.png" alt="Profile" /></router-link></li>
     </ul>
   </nav>
 </template>

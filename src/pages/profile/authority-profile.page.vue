@@ -5,20 +5,22 @@
 <template>
   <div class="container">
     <div class="left">
-      <img src="../assets/Anatoly.png" alt="Usuario" class="img" />
+      <img src="../../assets/municipalidad.png" alt="User" class="img" />
     </div>
+
     <div class="right">
-      <p>Full name: Anatoly Andrey Noriega Suschenko</p>
-      <p>E-mail: lorersz@gmail.com</p>
-      <p>District: Breña</p>
-      <p>Route Type: Safe</p>
-      <p>Alert Frequency: High</p>
-      <p>Location: NA</p>
-      <p>Description: Enthusiastic advocate of community safety and active user of the platform. I dedicate myself
-        to share crucial information and stay on top of updates to ensure transfers safe for me and others.</p>
+      <p>Name of the Municipality: Municipalidad Distrital de La Victoria</p>
+      <p>Email: info@munilavictoria.gob.pe</p>
+      <p>Contact Number: (01) 510-2070</p>
+      <p>Office Address: 500 Iquitos Ave, La victoria 18018</p>
+      <p>Description: This profile facilitates the interaction between the Municipality of La Victoria and citizens,
+        allowing local authorities to monitor and respond to security incidents. Find here
+        official updates, security alerts and a direct link to report emergencies, all in focus
+        to improve safety and life quality in the district.</p>
+
     </div>
     <div class="buttons">
-      <router-link to="/edit-profile">
+      <router-link to="/authority/edit-profile">
         <button>Edit Profile</button>
       </router-link>
       <router-link to="/">
@@ -86,5 +88,4 @@ button {
   }
 
 }
-
 </style>

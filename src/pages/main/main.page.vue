@@ -3,7 +3,6 @@ export default {
   methods: {
     redirectLanding() {
       const Link = 'https://g2webapplication-wx54.github.io/landing-page-web-app/';
-
       window.location.href = Link;
     }
   }
@@ -30,7 +29,7 @@ export default {
         <label for="input" class="label">Password</label>
         <div class="underline"></div>
       </div>
-      <router-link to="/government/map">
+      <router-link to="/authority/map">
         <button>Log in</button>
       </router-link>
       <h4>Don't have an account? <a href="#">Sign up</a></h4>

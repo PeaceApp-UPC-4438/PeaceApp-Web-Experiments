@@ -3,11 +3,12 @@
 </script>
 
 <template>
+  <!-- Evolucionar a component -->
   <div class="container">
-    <router-link to="/userProfile">
+    <router-link to="/profile/user">
       <button>User</button>
     </router-link>
-    <router-link to="/authorityProfile">
+    <router-link to="/profile/authority">
       <button>Authority</button>
     </router-link>
   </div>
