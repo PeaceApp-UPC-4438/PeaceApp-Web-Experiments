@@ -1,6 +1,6 @@
 <script setup>
-import sign from '../sign-in/user-sign-in.page.vue';
-import authoritySign from '../sign-in/authority-sign-in.page.vue';
+import userSign from '../../components/dialogs/user-sign-in.page.vue';
+import authoritySign from '../../components/dialogs/authority-sign-in.page.vue';
 </script>
 <script>
 export default {
@@ -25,7 +25,7 @@ export default {
     <div class="box1">
       <img class="logo" src="/src/assets/PeaceApp.png" alt="logo" />
       <h2 class="info">For more info, check out our Landing Page and discover what we offer</h2>
-      <button @click="redirectLanding">More Information</button>
+      <button class="butInfo" @click="redirectLanding">More Information</button>
     </div>
     <div class="box2">
       <h2>Welcome to Peace App</h2>
@@ -55,15 +55,11 @@ export default {
         <button class="not" @click="signAuthority=true">Authority</button>
       </div>
     </Dialog>
-    <Dialog v-model:visible="signUser" modal header="Select type:" :style="{ width: '50vw' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
-      <div class="opc">
-        <sign/>
-      </div>
+    <Dialog v-model:visible="signUser" modal header="Usuario:" :style="{ width: '50vw' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
+      <user-sign/>
     </Dialog>
-    <Dialog v-model:visible="signAuthority" modal header="Select type:" :style="{ width: '50vw' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
-      <div class="opc">
-        <authority-sign/>
-      </div>
+    <Dialog v-model:visible="signAuthority" modal header="Authority:" :style="{ width: '50vw' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
+      <authority-sign/>
     </Dialog>
   </div>
 </template>
@@ -163,6 +159,24 @@ button {
 .input-container input[type="password"]:focus ~ .underline,
 .input-container input[type="password"]:valid ~ .underline{
   transform: scaleX(1);
+}
+
+@media screen and (max-width: 900px) {
+  .container {
+    display: inline-block;
+  }
+  .box1, .box2 {
+    width: 100%;
+  }
+  .input-container {
+    width: 80%;
+  }
+  .not{
+    width: 100%;
+  }
+  .butInfo{
+    height: 16%;
+  }
 }
 
 </style>
