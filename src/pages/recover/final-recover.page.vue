@@ -1,16 +1,5 @@
-<script setup>
-import userSign from '../../components/dialogs/user-sign-in.page.vue';
-import authoritySign from '../../components/dialogs/authority-sign-in.page.vue';
-</script>
 <script>
 export default {
-  data() {
-    return {
-      visible: false,
-      signUser: false,
-      signAuthority: false
-    };
-  },
   methods: {
     redirectLanding() {
       const Link = 'https://g2webapplication-wx54.github.io/landing-page-web-app/';
@@ -28,39 +17,11 @@ export default {
       <button class="butInfo" @click="redirectLanding">More Information</button>
     </div>
     <div class="box2">
-      <h2>Welcome to Peace App</h2>
       <h3>Please, log in to start</h3>
-      <div class="input-container">
-        <input type="text" id="input" required="">
-        <label for="input" class="label">E-mail</label>
-        <div class="underline"></div>
-      </div>
-      <div class="input-container">
-        <input type="password" id="input" required="">
-        <label for="input" class="label">Password</label>
-        <div class="underline"></div>
-      </div>
-      <router-link to="/profile">
-        <Button>Log in</Button>
+      <router-link to="/">
+        <Button>Volver</Button>
       </router-link>
-      <h4>Don't have an account? <a href="#" @click="visible=true">Sign up</a></h4>
-      <h4>Forgot your password? <a href="/password-recover">Click here</a></h4>
     </div>
-  </div>
-
-  <div class="card flex justify-content-center">
-    <Dialog v-model:visible="visible" modal header="Select type:" :style="{ width: '50vw' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
-      <div class="opc">
-        <button class="not" @click="signUser=true">User</button>
-        <button class="not" @click="signAuthority=true">Authority</button>
-      </div>
-    </Dialog>
-    <Dialog v-model:visible="signUser" modal header="Usuario:" :style="{ width: '50vw' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
-      <user-sign/>
-    </Dialog>
-    <Dialog v-model:visible="signAuthority" modal header="Authority:" :style="{ width: '50vw' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
-      <authority-sign/>
-    </Dialog>
   </div>
 </template>
 
@@ -103,16 +64,8 @@ button {
   width: 100%;
   height: 60vh;
 }
-
-.not{
-  width: 47%;
-}
-
-
-.input-container {
-  position: relative;
-  margin: 20px auto;
-  width: 40%
+h3{
+  margin-top: 20%;
 }
 
 .input-container input[type="text"], .input-container input[type="password"]{
@@ -166,12 +119,6 @@ button {
     display: inline-block;
   }
   .box1, .box2 {
-    width: 100%;
-  }
-  .input-container {
-    width: 80%;
-  }
-  .not{
     width: 100%;
   }
   .butInfo{

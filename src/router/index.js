@@ -13,6 +13,8 @@ import Notification from '../pages/notifications/notifications.page.vue'
 import Principal from '../pages/main/main.page.vue'
 import muniReport from '../components/reports/authority-report-list.component.vue'
 import reportList from '../components/reports/report-list.component.vue'
+import passwordRecover from '../pages/recover/password-recover.page.vue'
+import finalRecover from '../pages/recover/final-recover.page.vue'
 
 const router= createRouter({
     history: createWebHistory(),
@@ -30,7 +32,9 @@ const router= createRouter({
         {path: '/authority/map', component: MapGovernment, name: 'mapgovernment' },
         {path: '/user/create-report-form', component: ReportFormView},
         {path: '/view-notifications', component: SendAlert},
-        {path: '/notifications', component: Notification}
+        {path: '/notifications', component: Notification},
+        {path: '/password-recover', component: passwordRecover},
+        {path: '/recover', component: finalRecover},
     ]
 });
 
