@@ -1,8 +1,14 @@
+<script setup>
+import sign from '../sign-in/user-sign-in.page.vue';
+import authoritySign from '../sign-in/authority-sign-in.page.vue';
+</script>
 <script>
 export default {
   data() {
     return {
-      visible: false
+      visible: false,
+      signUser: false,
+      signAuthority: false
     };
   },
   methods: {
@@ -34,8 +40,10 @@ export default {
         <label for="input" class="label">Password</label>
         <div class="underline"></div>
       </div>
-      <Button label="Show" @click="visible=true">Log in</Button>
-      <h4>Don't have an account? <a href="#">Sign up</a></h4>
+      <router-link to="/profile">
+        <Button>Log in</Button>
+      </router-link>
+      <h4>Don't have an account? <a href="#" @click="visible=true">Sign up</a></h4>
       <h4>Forgot your password? <a href="#">Click here</a></h4>
     </div>
   </div>
@@ -43,16 +51,21 @@ export default {
   <div class="card flex justify-content-center">
     <Dialog v-model:visible="visible" modal header="Select type:" :style="{ width: '50vw' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
       <div class="opc">
-        <router-link to="/user/sign-in">
-          <button class="not">User</button>
-        </router-link>
-        <router-link to="/authority/sign-in">
-          <button class="not">Authority</button>
-        </router-link>
+        <button class="not" @click="signUser=true">User</button>
+        <button class="not" @click="signAuthority=true">Authority</button>
+      </div>
+    </Dialog>
+    <Dialog v-model:visible="signUser" modal header="Select type:" :style="{ width: '50vw' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
+      <div class="opc">
+        <sign/>
+      </div>
+    </Dialog>
+    <Dialog v-model:visible="signAuthority" modal header="Select type:" :style="{ width: '50vw' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
+      <div class="opc">
+        <authority-sign/>
       </div>
     </Dialog>
   </div>
-
 </template>
 
 <style scoped>
