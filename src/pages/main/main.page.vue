@@ -1,5 +1,10 @@
 <script>
 export default {
+  data() {
+    return {
+      visible: false
+    };
+  },
   methods: {
     redirectLanding() {
       const Link = 'https://g2webapplication-wx54.github.io/landing-page-web-app/';
@@ -29,13 +34,25 @@ export default {
         <label for="input" class="label">Password</label>
         <div class="underline"></div>
       </div>
-      <router-link to="/authority/map">
-        <button>Log in</button>
-      </router-link>
+      <Button label="Show" @click="visible=true">Log in</Button>
       <h4>Don't have an account? <a href="#">Sign up</a></h4>
       <h4>Forgot your password? <a href="#">Click here</a></h4>
     </div>
   </div>
+
+  <div class="card flex justify-content-center">
+    <Dialog v-model:visible="visible" modal header="Select type:" :style="{ width: '50vw' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
+      <div class="opc">
+        <router-link to="/profile/user">
+          <button class="not">User</button>
+        </router-link>
+        <router-link to="/profile/authority">
+          <button class="not">Authority</button>
+        </router-link>
+      </div>
+    </Dialog>
+  </div>
+
 </template>
 
 <style scoped>
@@ -78,14 +95,9 @@ button {
   height: 60vh;
 }
 
-
-
-
-
-
-
-
-
+.not{
+  width: 47%;
+}
 
 
 .input-container {
