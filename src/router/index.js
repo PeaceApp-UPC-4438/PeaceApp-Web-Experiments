@@ -13,6 +13,9 @@ import Notification from '../pages/notifications/notifications.page.vue'
 import Principal from '../pages/main/main.page.vue'
 import muniReport from '../components/reports/authority-report-list.component.vue'
 import reportList from '../components/reports/report-list.component.vue'
+import userSignIn from '../pages/sign-in/user-sign-in.page.vue'
+import authoritySignIn from '../pages/sign-in/authority-sign-in.page.vue'
+import verification from '../pages/sign-in/authority-verification.page.vue'
 
 const router= createRouter({
     history: createWebHistory(),
@@ -25,6 +28,9 @@ const router= createRouter({
         {path: '/user/map', component: MapCitizen, name: 'mapcitizen' },
         {path: '/user/edit-profile', component: EditProfileView},
         {path: '/authority/edit-profile', component: editProfileAuthority},
+        {path: '/user/sign-in', component: userSignIn},
+        {path: '/authority/sign-in', component: authoritySignIn},
+        {path: '/authority/sign-in/verification', component: verification},
         {path: '/authority/report', component: muniReport},
         {path: '/user/report', component: reportList},
         {path: '/authority/map', component: MapGovernment, name: 'mapgovernment' },

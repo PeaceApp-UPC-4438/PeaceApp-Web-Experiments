@@ -43,10 +43,10 @@ export default {
   <div class="card flex justify-content-center">
     <Dialog v-model:visible="visible" modal header="Select type:" :style="{ width: '50vw' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
       <div class="opc">
-        <router-link to="/profile/user">
+        <router-link to="/user/sign-in">
           <button class="not">User</button>
         </router-link>
-        <router-link to="/profile/authority">
+        <router-link to="/authority/sign-in">
           <button class="not">Authority</button>
         </router-link>
       </div>
