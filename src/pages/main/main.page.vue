@@ -76,7 +76,7 @@ button {
   cursor: pointer;
   font-size: 20px;
   height: 10%;
-  width: 30%;
+  width: 40%;
 }
 
 .box2{
@@ -88,20 +88,23 @@ button {
 }
 .container {
   display: flex;
+  align-items: center;
   font-family: 'Montserrat', sans-serif;
   color: black;
   flex-wrap: wrap;
   text-align: center;
-  min-height: 50%;
-  margin-top: 10%;
+  margin: auto;
+  padding: 20vh 0 0 0;
+  height: fit-content;
+  width: fit-content;
 }
 
 .box1, .box2 {
   flex: 1;
-  padding: 20px;
+  padding: 20px 0;
   margin: 10px;
-  width: 100%;
-  height: 60vh;
+  border-radius: 2%;
+  height: fit-content;
 }
 
 .not{
@@ -161,12 +164,15 @@ button {
   transform: scaleX(1);
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1000px) {
   .container {
     display: inline-block;
+    padding: 15vw 0 0 0;
+    width: 100%;
   }
   .box1, .box2 {
     width: 100%;
+    padding: 0;
   }
   .input-container {
     width: 80%;
@@ -174,7 +180,11 @@ button {
   .not{
     width: 100%;
   }
+}
+
+@media screen and (max-width: 90vw) {
   .butInfo{
+    width: 32%;
     height: 16%;
   }
 }
