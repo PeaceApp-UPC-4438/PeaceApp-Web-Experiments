@@ -84,7 +84,6 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  max-width: 500px;
   margin: 0 auto;
   padding: 20px;
   border-radius: 20px;
@@ -102,7 +101,6 @@ export default {
 
 .flex {
   display: flex;
-  width: 100%;
   gap: 15px;
 }
 
@@ -111,7 +109,7 @@ export default {
 }
 
 .form label .input {
-  width: 100%;
+  width: 210px;
   padding: 10px 10px 20px 10px;
   outline: 0;
   border: 1px solid rgba(105, 105, 105, 0.397);

@@ -71,7 +71,6 @@
 
 .flex {
   display: flex;
-  width: 100%;
   gap: 15px;
 }
 
@@ -80,7 +79,7 @@
 }
 
 .form label .input {
-  width: 100%;
+  width: 210px;
   padding: 10px 10px 20px 10px;
   outline: 0;
   border: 1px solid rgba(105, 105, 105, 0.397);
