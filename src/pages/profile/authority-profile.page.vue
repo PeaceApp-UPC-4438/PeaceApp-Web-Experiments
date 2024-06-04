@@ -61,12 +61,12 @@ button {
 }
 
 .img{
-  width: 22vw;
+  height: 20vw;
 }
 .left {
   display: flex;
   align-items: center;
-  flex: 1 15%;
+  padding: 10vh;
 }
 .right {
   font-family: 'Montserrat', sans-serif;
@@ -79,7 +79,7 @@ button {
 .buttons {
   flex: 100%;
 }
-@media (max-width: 600px) {
+@media (max-width: 1000px) {
   .left, .right {
     flex: 1 1 100%; /* Toma el 100% del contenedor en pantallas pequeñas */
   }

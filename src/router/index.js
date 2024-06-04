@@ -34,7 +34,7 @@ const router= createRouter({
         {path: '/view-notifications', component: SendAlert},
         {path: '/notifications', component: Notification},
         {path: '/password-recover', component: passwordRecover},
-        {path: '/recover', component: finalRecover},
+        {path: '/recover', component: finalRecover}
     ]
 });
 

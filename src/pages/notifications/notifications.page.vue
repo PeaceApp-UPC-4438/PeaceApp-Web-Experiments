@@ -78,14 +78,9 @@ button {
   height: 45px;
 }
 .container {
-  padding: 70px;
+  padding: 20vh;
   display: grid;
   place-items: center;
-  min-width: 500px;
   text-align: center;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 </style>

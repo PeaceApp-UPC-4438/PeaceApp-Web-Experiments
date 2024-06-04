@@ -115,7 +115,7 @@ button {
 .input-container {
   position: relative;
   margin: 20px auto;
-  width: 40%
+  width: 50%
 }
 
 .input-container input[type="text"], .input-container input[type="password"]{

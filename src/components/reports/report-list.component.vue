@@ -48,11 +48,11 @@ export default {
           <!--<div class="flex-initial flex align-items-center justify-content-center">
             <Button label="New Report" @click="agregarElemento" />
           </div>-->
-          <router-link to="/report-form">
+          <router-link to="/user/create-report-form">
             <Button label="New Report" />
           </router-link>
           <div class="flex-initial flex align-items-center justify-content-center">
-            <OrderList class="w-30rem" v-model="elementos" list-style-type="decimal">
+            <OrderList class="text" v-model="elementos" list-style-type="decimal">
               <template #item="reports">
                 <div class="flex-1 flex flex-column gap-2">
                   <span class="font-bold">{{ reports.item.number }}</span>
@@ -73,13 +73,17 @@ export default {
 
 <style scoped>
   .container {
+    padding: 20vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
   }
   .cardpe{
-    width:70%;
+    width:70vw;
+  }
+  .text{
+    width: 50vw;
   }
 
 </style>
