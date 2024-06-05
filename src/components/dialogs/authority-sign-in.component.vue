@@ -1,5 +1,5 @@
 <script setup>
-import authorityVerification from '../../components/dialogs/authority-verification.page.vue';
+import authorityVerification from './authority-verification.component.vue';
 </script>
 
 <script>

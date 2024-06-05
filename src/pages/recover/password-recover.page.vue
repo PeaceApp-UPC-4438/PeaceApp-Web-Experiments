@@ -54,7 +54,7 @@ button {
   cursor: pointer;
   font-size: 20px;
   height: 10%;
-  width: 40%;
+  width: 50%;
 }
 
 .box2{

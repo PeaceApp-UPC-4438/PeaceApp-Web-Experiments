@@ -1,6 +1,6 @@
 <script setup>
-import userSign from '../../components/dialogs/user-sign-in.page.vue';
-import authoritySign from '../../components/dialogs/authority-sign-in.page.vue';
+import userSign from '../../components/dialogs/user-sign-in.component.vue';
+import authoritySign from '../../components/dialogs/authority-sign-in.component.vue';
 </script>
 <script>
 export default {
