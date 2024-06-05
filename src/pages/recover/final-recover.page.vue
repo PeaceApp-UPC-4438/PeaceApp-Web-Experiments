@@ -10,22 +10,28 @@ export default {
 </script>
 
 <template>
-  <div class="container">
-    <div class="box1">
-      <img class="logo" src="/src/assets/PeaceApp.png" alt="logo" />
-      <h2 class="info">For more info, check out our Landing Page and discover what we offer</h2>
-      <button class="butInfo" @click="redirectLanding">More Information</button>
-    </div>
-    <div class="box2">
-      <h3>Please, log in to start</h3>
-      <router-link to="/">
-        <Button>Volver</Button>
-      </router-link>
+  <div class="padre">
+    <div class="container">
+      <div class="box1">
+        <img class="logo" src="/src/assets/PeaceApp.png" alt="logo" />
+        <h2 class="info">For more info, check out our Landing Page and discover what we offer</h2>
+        <button class="butInfo" @click="redirectLanding">More Information</button>
+      </div>
+      <div class="box2">
+        <h3>Please, log in to start</h3>
+        <router-link to="/">
+          <Button>Volver</Button>
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
+.padre{
+  padding: 20vh 10vw 0 10vw;
+}
+
 button {
   background-color: #EEF221;
   color: #161616;
@@ -37,7 +43,7 @@ button {
   cursor: pointer;
   font-size: 20px;
   height: 10%;
-  width: 30%;
+  width: 40%;
 }
 
 .box2{
@@ -49,23 +55,22 @@ button {
 }
 .container {
   display: flex;
+  align-items: center;
   font-family: 'Montserrat', sans-serif;
   color: black;
   flex-wrap: wrap;
   text-align: center;
-  min-height: 50%;
-  margin-top: 10%;
+  margin: auto;
+  height: fit-content;
+  width: fit-content;
 }
 
 .box1, .box2 {
   flex: 1;
-  padding: 20px;
+  padding: 20px 0;
   margin: 10px;
-  width: 100%;
-  height: 60vh;
-}
-h3{
-  margin-top: 20%;
+  border-radius: 2%;
+  height: fit-content;
 }
 
 .input-container input[type="text"], .input-container input[type="password"]{
@@ -114,14 +119,24 @@ h3{
   transform: scaleX(1);
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1000px) {
   .container {
     display: inline-block;
-  }
-  .box1, .box2 {
+    padding: 15vw 0 0 0;
     width: 100%;
   }
+  .box1, .box2 {
+    width: 95%;
+    padding: 5px;
+  }
+  .padre{
+    padding: 0;
+  }
+}
+
+@media screen and (max-width: 90vw) {
   .butInfo{
+    width: 32%;
     height: 16%;
   }
 }

@@ -21,30 +21,32 @@ export default {
 </script>
 
 <template>
-  <div class="container">
-    <div class="box1">
-      <img class="logo" src="/src/assets/PeaceApp.png" alt="logo" />
-      <h2 class="info">For more info, check out our Landing Page and discover what we offer</h2>
-      <button class="butInfo" @click="redirectLanding">More Information</button>
-    </div>
-    <div class="box2">
-      <h2>Welcome to Peace App</h2>
-      <h3>Please, log in to start</h3>
-      <div class="input-container">
-        <input type="text" id="input" required="">
-        <label for="input" class="label">E-mail</label>
-        <div class="underline"></div>
+  <div class="padre">
+    <div class="container">
+      <div class="box1">
+        <img class="logo" src="/src/assets/PeaceApp.png" alt="logo" />
+        <h2 class="info">For more info, check out our Landing Page and discover what we offer</h2>
+        <button class="butInfo" @click="redirectLanding">More Information</button>
       </div>
-      <div class="input-container">
-        <input type="password" id="input" required="">
-        <label for="input" class="label">Password</label>
-        <div class="underline"></div>
+      <div class="box2">
+        <h2>Welcome to Peace App</h2>
+        <h3>Please, log in to start</h3>
+        <div class="input-container">
+          <input type="text" id="input" required="">
+          <label for="input" class="label">E-mail</label>
+          <div class="underline"></div>
+        </div>
+        <div class="input-container">
+          <input type="password" id="input" required="">
+          <label for="input" class="label">Password</label>
+          <div class="underline"></div>
+        </div>
+        <router-link to="/profile">
+          <Button>Log in</Button>
+        </router-link>
+        <h4>Don't have an account? <a href="#" @click="visible=true">Sign up</a></h4>
+        <h4>Forgot your password? <a href="/password-recover">Click here</a></h4>
       </div>
-      <router-link to="/profile">
-        <Button>Log in</Button>
-      </router-link>
-      <h4>Don't have an account? <a href="#" @click="visible=true">Sign up</a></h4>
-      <h4>Forgot your password? <a href="/password-recover">Click here</a></h4>
     </div>
   </div>
 
@@ -65,6 +67,10 @@ export default {
 </template>
 
 <style scoped>
+.padre{
+  padding: 20vh 10vw 0 10vw;
+}
+
 button {
   background-color: #EEF221;
   color: #161616;
@@ -94,7 +100,6 @@ button {
   flex-wrap: wrap;
   text-align: center;
   margin: auto;
-  padding: 20vh 0 0 0;
   height: fit-content;
   width: fit-content;
 }
@@ -110,7 +115,6 @@ button {
 .not{
   width: 47%;
 }
-
 
 .input-container {
   position: relative;
@@ -171,8 +175,8 @@ button {
     width: 100%;
   }
   .box1, .box2 {
-    width: 100%;
-    padding: 0;
+    width: 95%;
+    padding: 5px;
   }
   .input-container {
     width: 80%;
@@ -180,13 +184,8 @@ button {
   .not{
     width: 100%;
   }
-}
-
-@media screen and (max-width: 90vw) {
-  .butInfo{
-    width: 32%;
-    height: 16%;
+  .padre{
+    padding: 0;
   }
 }
-
 </style>

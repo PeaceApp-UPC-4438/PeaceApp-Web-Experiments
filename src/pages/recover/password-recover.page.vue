@@ -10,33 +10,39 @@ export default {
 </script>
 
 <template>
-  <div class="container">
-    <div class="box1">
-      <img class="logo" src="/src/assets/PeaceApp.png" alt="logo" />
-      <h2 class="info">For more info, check out our Landing Page and discover what we offer</h2>
-      <button class="butInfo" @click="redirectLanding">More Information</button>
-    </div>
-    <div class="box2">
-      <h3>Si usted ha olvidado su contraseña, por favor ingrese su correo registrado. Al momento de confirmar su cuenta,
-        le enviaremos un enlace para que pueda reestablecer su contraseña.</h3>
-      <div class="input-container">
-        <input type="text" id="input" required="">
-        <label for="input" class="label">E-mail</label>
-        <div class="underline"></div>
+  <div class="padre">
+    <div class="container">
+      <div class="box1">
+        <img class="logo" src="/src/assets/PeaceApp.png" alt="logo" />
+        <h2 class="info">For more info, check out our Landing Page and discover what we offer</h2>
+        <button class="butInfo" @click="redirectLanding">More Information</button>
       </div>
-      <div class="bts">
-        <router-link to="/recover">
-          <Button>Ingresar</Button>
-        </router-link>
-        <router-link to="/">
-          <Button>Conozco mi contraseña</Button>
-        </router-link>
+      <div class="box2">
+        <h3>Si usted ha olvidado su contraseña, por favor ingrese su correo registrado. Al momento de confirmar su cuenta,
+          le enviaremos un enlace para que pueda reestablecer su contraseña.</h3>
+        <div class="input-container">
+          <input type="text" id="input" required="">
+          <label for="input" class="label">E-mail</label>
+          <div class="underline"></div>
+        </div>
+        <div class="bts">
+          <router-link to="/recover">
+            <Button>Ingresar</Button>
+          </router-link>
+          <router-link to="/">
+            <Button>Conozco mi contraseña</Button>
+          </router-link>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <style scoped>
+.padre{
+  padding: 20vh 10vw 0 10vw;
+}
+
 button {
   background-color: #EEF221;
   color: #161616;
@@ -47,42 +53,42 @@ button {
   margin: 0.5em;
   cursor: pointer;
   font-size: 20px;
-  width: 30%;
+  height: 10%;
+  width: 40%;
 }
 
 .box2{
   background-color: #6DC9FF;
+  font-size: 0.9rem;
 }
-
-.bts{
-  display: grid;
- }
 
 .info{
   padding: 50px;
 }
 .container {
   display: flex;
+  align-items: center;
   font-family: 'Montserrat', sans-serif;
   color: black;
   flex-wrap: wrap;
   text-align: center;
-  min-height: 50%;
-  margin-top: 10%;
+  margin: auto;
+  height: fit-content;
+  width: fit-content;
 }
 
 .box1, .box2 {
   flex: 1;
   padding: 20px;
   margin: 10px;
-  width: 100%;
-  height: 60vh;
+  border-radius: 2%;
+  height: fit-content;
 }
 
 .input-container {
   position: relative;
   margin: 20px auto;
-  width: 40%
+  width: 50%
 }
 
 .input-container input[type="text"], .input-container input[type="password"]{
@@ -131,18 +137,25 @@ button {
   transform: scaleX(1);
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1000px) {
   .container {
     display: inline-block;
+    padding: 15vw 0 0 0;
+    width: 100%;
   }
   .box1, .box2 {
-    width: 100%;
+    width: 95%;
+    padding: 5px;
   }
   .input-container {
     width: 80%;
   }
-  .butInfo{
-    height: 16%;
+  .padre{
+    padding: 0;
+  }
+  .bts{
+    display: flex;
+    flex-direction: column;
   }
 }
 
