@@ -42,67 +42,31 @@
     </div>
   </div>
 </template>
-
 <style scoped>
 .page-container {
   background-color: #01A1FF;
-  display: flex;
-  justify-content: space-between;
   align-items: center;
-  height: 100%;
-  width: 100%; /* Ensure it spans the entire width */
   color: white;
   padding: 4rem; /* Start with a moderate padding */
   left: 0;
-  box-sizing: border-box; /* Include padding in the width calculation */
+  box-sizing: border-box;
 }
+
 .profile-image {
-  width: 100%; /* Scales with the width of its container */
-  height: auto; /* Maintains aspect ratio */
+  width: 25vw;
   max-width: 500px; /* Prevents the image from becoming too large on big screens */
   margin-top: 20px;
   align-items: center;
 }
 .form-flex {
   display: flex;
+  gap: 50px;
 }
 .column {
-  flex: 1;
+  width: 50%;
+
 }
-.column:not(:last-child) {
-  margin-right: 80px; /* Add margin to the right of each column except the last one */
-}
-.column:not(:first-child) {
-  margin-left: 80px; /* Add margin to the left of each column except the first one */
-}
-@media screen and (max-width: 1100px) {
-  .form-flex {
-    flex-direction: column; /* Stack columns vertically on smaller screens */
-  }
-  .profile-image {
-    width: 95%; /* Scales with the width of its container */
-    height: auto; /* Maintains aspect ratio */
-    max-width: 500px; /* Prevents the image from becoming too large on big screens */
-    margin-top: 20px;
-    align-items: center;
-  }
-  .column:not(:last-child) {
-    margin-right: 0; /* Remove margin from the right of each column on smaller screens */
-  }
-  .column:not(:first-child) {
-    margin-left: 0; /* Remove margin from the left of each column on smaller screens */
-  }
-  .profile-bg {
-    flex-direction: column; /* Stack elements in the profile-bg container vertically on smaller screens */
-    align-items: center; /* Center align items horizontally */
-  }
-  .form-container {
-    width: 100%; /* Ensure the form container spans the full width */
-  }
-  .column {
-    margin: 20px 0; /* Add vertical margin between columns */
-  }
-}
+
 .label-black {
   color: black;
   text-align: left;
@@ -127,19 +91,41 @@ input, select, textarea {
   transition: background-color 0.3s ease, border-color 0.3s ease;
   resize: none; /* Allow vertical resizing */
 }
-@media screen and (max-width: 1100px) {
-  input,
-  select{
-    width: calc(100% - 100px); /* Reduce width by 20px to create some spacing */
-    max-width: 80%; /* Ensure inputs don't overflow container */
+@media (max-width: 1000px) {
+  .page-container{
+    padding: 0;
+    align-items: center;
+  }
+  .form-flex {
+    flex-direction: column;
+    width: 100%;
+  }
+  .profile-image {
+    width: 50vw; /* Scales with the width of its container */
+    height: auto; /* Maintains aspect ratio */
+    max-width: 500px; /* Prevents the image from becoming too large on big screens */
+    margin-top: 20px;
+    align-items: center;
+  }
+  .profile-bg {
+    flex-direction: column; /* Stack elements in the profile-bg container vertically on smaller screens */
+    align-items: center;
+  }
+  .form-container {
+    width: 100%; /* Ensure the form container spans the full width */
+  }
+  .column {
+    width: 100%;
+  }
+  input, select{
+    width: 100%;
   }
   textarea {
     width: calc(80% - 100px); /* Reduce width by 20px to create some spacing */
     max-width: 80%; /* Ensure inputs don't overflow container */
   }
   #description {
-    width: calc(80% - 40px); /* Reduce width by 20px to create some spacing */
-    max-width: 100%; /* Ensure textarea doesn't overflow container */
+    width: 100%; /* Ensure textarea doesn't overflow container */
   }
 }
 .profile-bg {
@@ -148,18 +134,17 @@ input, select, textarea {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  width: 87%;
+
   margin-left: auto; /* Center aligning the element by setting left margin to auto */
   margin-right: 6%; /* Slightly less than half of the remaining space to push it a bit to the right */
-  margin-top: 100px; /* Adjust this value to set how far down you want the element */
+  margin-top: 100px;
 }
 
 .profile-info {
-  flex: 1; /* Take the remaining space */
   display: flex;
   flex-direction: column;
   align-items: flex-start; /* Align items to the left */
-  margin-left: 20px; /* Adjust margin to move content to the left */
+  margin-left: 20px;
 }
 /* Media Query for smaller screens */
 .form-group {
@@ -206,47 +191,48 @@ button:hover {
   margin-right:auto;
   margin-left:auto;
 }
-@media screen and (max-width: 480px) {
+
+/*@media screen and (max-width: 480px) {
   .form-group {
-    margin-bottom: 15px; /* Reduce bottom margin for form groups */
+    margin-bottom: 15px; /* Reduce bottom margin for form groups
   }
   .column {
-    margin-right: 0; /* Remove right margin from columns */
-    margin-left: 0; /* Remove left margin from columns */
+    margin-right: 0; /* Remove right margin from columns
+    margin-left: 0; /* Remove left margin from columns
   }
   .profile-bg {
-    width: 55%; /* Set width to 90% of its container */
+    width: 55%; /* Set width to 90% of its container
 
-    margin-top: 50px; /* Adjust top margin for profile background */
-    padding: 5px; /* Reduce padding for profile background */
-    margin-left: -15px; /* Center aligning the element by setting left margin to auto */
+    margin-top: 50px; /* Adjust top margin for profile background
+    padding: 5px; /* Reduce padding for profile background
+    margin-left: -15px; /* Center aligning the element by setting left margin to auto
   }
   .label-black {
-    font-size: 1rem; /* Decrease font size for labels */
+    font-size: 1rem; /* Decrease font size for labels
     margin-left:-15px;
   }
   input, select, textarea {
     margin-left:-15px;
-    padding: 0.6em; /* Reduce padding for inputs and textarea */
-    font-size: 14px; /* Decrease font size for inputs and textarea */
+    padding: 0.6em; /* Reduce padding for inputs and textarea
+    font-size: 14px; /* Decrease font size for inputs and textarea
   }
   .profile-image {
-    width: 90%; /* Adjust width to 80% of its container */
-    max-width: none; /* Remove the maximum width constraint */
-    margin-top: 10px; /* Adjust margin-top for spacing */
+    width: 90%; /* Adjust width to 80% of its container
+    max-width: none; /* Remove the maximum width constraint
+    margin-top: 10px; /* Adjust margin-top for spacing
   }
   input,
   select{
-    width: calc(100% - 70px); /* Reduce width by 20px to create some spacing */
-    max-width: 80%; /* Ensure inputs don't overflow container */
+    width: calc(100% - 70px); /* Reduce width by 20px to create some spacing
+    max-width: 80%; /* Ensure inputs don't overflow container
   }
   textarea {
-    width: calc(60% - 100px); /* Reduce width by 20px to create some spacing */
-    max-width: 60%; /* Ensure inputs don't overflow container */
+    width: calc(60% - 100px); /* Reduce width by 20px to create some spacing
+    max-width: 60%; /* Ensure inputs don't overflow container
   }
   #description {
-    width: calc(100% - 70px); /* Reduce width by 20px to create some spacing */
-    max-width: 100%; /* Ensure textarea doesn't overflow container */
+    width: calc(100% - 70px); /* Reduce width by 20px to create some spacing
+    max-width: 100%; /* Ensure textarea doesn't overflow container
   }
   button {
     padding: 10px 10px;
@@ -257,8 +243,9 @@ button:hover {
     border-radius: 5px;
     cursor: pointer;
   }
-}
+}*/
 
 </style>
+
 <script setup lang="ts">
 </script>
