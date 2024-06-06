@@ -13,8 +13,7 @@ export default {
   },
   methods: {
     redirectLanding() {
-      const Link = 'https://g2webapplication-wx54.github.io/landing-page-web-app/';
-      window.location.href = Link;
+      window.location.href = 'https://g2webapplication-wx54.github.io/landing-page-web-app/';
     }
   }
 }
@@ -90,7 +89,7 @@ button {
 }
 
 .info{
-  padding: 50px;
+  padding: 1vw;
 }
 .container {
   display: flex;
@@ -108,12 +107,12 @@ button {
   flex: 1;
   padding: 20px 0;
   margin: 10px;
-  border-radius: 2%;
+  border-radius: 24px;
   height: fit-content;
 }
 
-.not{
-  width: 47%;
+.butInfo, .not{
+  width: fit-content;
 }
 
 .input-container {
@@ -186,6 +185,10 @@ button {
   }
   .padre{
     padding: 0;
+  }
+  .logo{
+    width: 100%;
+    margin: 0 auto;
   }
 }
 </style>

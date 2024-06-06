@@ -36,6 +36,7 @@
 <style scoped>
 .padre {
   padding: 20vh 0 0 0;
+  margin: 0 auto;
 }
 button {
   background-color: #EEF221;
@@ -51,25 +52,27 @@ button {
   width: 30%;
 }
 .container {
+  border-radius: 24px;
   background-color: #6DC9FF;
-  width: 70vw;
+  width: 60vw;
   height: fit-content;
   display: flex;
   flex-wrap: wrap;
-  justify-items: center;
-  align-items: center;
   text-align: center;
   margin: auto;
 
 }
-
 .img{
-  height: 20vw;
+  height: 100%;
+  width: auto;
+  border: 1px solid black;
+  border-radius: 100%;
 }
 .left {
   display: flex;
   align-items: center;
-  padding: 10vh;
+  padding: 3vh;
+  margin: 0 auto;
 }
 .right {
   font-family: 'Montserrat', sans-serif;
@@ -77,25 +80,26 @@ button {
   text-align: justify;
   font-weight: bold;
   font-size: 18px;
-  flex: 1 15%;
+  padding: 3vh;
+  flex: 1;
 }
 .buttons {
   flex: 100%;
+  padding: 0 0 3vh 0;
 }
 @media (max-width: 1000px) {
-  .left, .right {
-    width: 100%; /* Toma el 100% del contenedor en pantallas pequeñas */
+  .padre{
+    padding: 10vh 0 0 0;
   }
   .left{
     padding: 0;
-    display: flex;
   }
   button{
     width: 90%;
   }
   .container{
     width: 90vw;
-    padding: 25px;
+    padding: 15px 0 0 0;
   }
   .img{
     height: 40vw;

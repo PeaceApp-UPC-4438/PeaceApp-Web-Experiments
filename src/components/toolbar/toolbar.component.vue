@@ -5,10 +5,9 @@
 <template>
   <nav class="toolbar">
     <ul class="left-icons">
-      <li><a href="/public"><img src="../../assets/PeaceApp.png" alt="PeaceApp" /></a></li> <!-- Left-aligned icon -->
+      <li><a href="/"><img src="../../assets/PeaceApp.png" alt="PeaceApp" /></a></li> <!-- Left-aligned icon -->
     </ul>
     <ul class="right-icons">
-
       <li><router-link to="/user/map"><img src="../../assets/Map.png" alt="Map" /></router-link></li>
       <li><router-link to="/user/report"><img src="../../assets/Report.png" alt="Report" /></router-link></li>
       <li><router-link to="/notifications"><img src="../../assets/Notification.png" alt="Notification" /></router-link></li>
@@ -29,6 +28,9 @@
   top: 0;
   left: 0;
   z-index: 1000;
+}
+.left-icons, .right-icons{
+  height: 100%;
 }
 
 .toolbar .left-icons, .toolbar .right-icons {
@@ -67,45 +69,23 @@
   opacity: 0.8;  /* Hover effect for icons */
 }
 
-/* Media Queries for different screen sizes */
 
-@media (max-width: 768px) {
-  .toolbar {
-    padding: 8px 10px;  /* Further reduced padding for small tablets and large phones */
-  }
-
-  .toolbar .right-icons li {
-    margin-left: 10px;  /* Reduced spacing between items */
-  }
-
-  .right-icons img {
-    height: 30px;  /* Further reduction in icon size */
-  }
+@media (max-width: 1000px) {
   .left-icons img {
-    height: 50px;  /* Further reduction in icon size */
+    width: 40vw;
+    height: auto;
   }
-}
-
-@media (max-width: 480px) {
-  .toolbar {
-    padding: 5px 8px;  /* Minimal padding for very small screens */
+  .right-icons img {
+    height: 3vh; /* Smallest icon size for mobile devices */
   }
-
   .toolbar .right-icons {
-    margin-right: 200px;  /* Adjusted margin for right-aligned icons */
+    margin-right: 0;  /* Reduced initial right margin for better screen usage */
   }
 
-  .toolbar .right-icons li {
-    margin-left: 5px;  /* Minimal spacing between items */
+  .toolbar .left-icons {
+    margin-left: 0;  /* Reduced initial left margin */
   }
 
-  .left-icons img {
-    height: 30px;  /* Further reduction in icon size */
-  }
-
-  .right-icons img {
-    height: 20px;  /* Smallest icon size for mobile devices */
-  }
 }
 
 </style>
