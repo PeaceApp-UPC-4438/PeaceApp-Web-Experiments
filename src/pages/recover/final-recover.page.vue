@@ -32,6 +32,10 @@ export default {
   padding: 20vh 10vw 0 10vw;
 }
 
+.logo{
+  width: 50%;
+}
+
 button {
   background-color: #EEF221;
   color: #161616;
@@ -132,12 +136,9 @@ button {
   .padre{
     padding: 0;
   }
-}
-
-@media screen and (max-width: 90vw) {
-  .butInfo{
-    width: 32%;
-    height: 16%;
+  .logo{
+    width: 100%;
+    margin: 0 auto;
   }
 }
 

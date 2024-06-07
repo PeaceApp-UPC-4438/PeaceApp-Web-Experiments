@@ -42,6 +42,9 @@ export default {
 .padre{
   padding: 20vh 10vw 0 10vw;
 }
+.logo{
+  width: 50%;
+}
 
 button {
   background-color: #EEF221;
@@ -156,6 +159,10 @@ button {
   .bts{
     display: flex;
     flex-direction: column;
+  }
+  .logo{
+    width: 100%;
+    margin: 0 auto;
   }
 }
 

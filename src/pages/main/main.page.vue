@@ -70,6 +70,10 @@ export default {
   padding: 20vh 10vw 0 10vw;
 }
 
+.logo{
+  width: 50%;
+}
+
 button {
   background-color: #EEF221;
   color: #161616;
