@@ -63,7 +63,6 @@ button {
 
 }
 .img{
-  height: 100%;
   width: auto;
   border: 1px solid black;
   border-radius: 100%;
@@ -106,6 +105,5 @@ button {
     align-items: center;
     justify-items: center;
   }
-
 }
 </style>

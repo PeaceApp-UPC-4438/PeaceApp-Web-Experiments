@@ -60,7 +60,6 @@ button {
   margin: auto;
 }
 .img{
-  height: 100%;
   width: auto;
   border: 1px solid black;
   border-radius: 100%;
@@ -91,19 +90,20 @@ button {
   }
   .left{
     padding: 0;
+    width: fit-content;
   }
   button{
     width: 90%;
   }
   .container{
-    width: 90vw;
+    width: 95vw;
     padding: 15px 0 0 0;
+    display: inline-block;
   }
   .img{
     height: 40vw;
     align-items: center;
     justify-items: center;
   }
-
 }
 </style>
