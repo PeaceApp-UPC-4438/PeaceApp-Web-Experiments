@@ -145,7 +145,6 @@ export default {
 }
 
 .reports-container {
-  padding: 20px;
   border-radius: 8px;
   max-width: 1200px;
   width: 100%;

@@ -83,6 +83,7 @@ export default {
           <div v-if="successMessage" :class="{ 'success-message-overlay': true, 'show': showSuccessMessage }">
             <div class="success-message">
               {{ successMessage }}
+              <!--JSON time wait to redirect-->
             </div>
           </div>
         </div>
@@ -92,6 +93,12 @@ export default {
 </template>
 
 <style scoped>
+.profile-bg{
+  border-style: solid;
+  border-color: black;
+  border-width: 1px;
+}
+
 .page-container {
   background-color: #01A1FF;
   display: flex;
@@ -224,6 +231,7 @@ input, select, textarea {
   margin-left: auto; /* Center aligning the element by setting left margin to auto */
   margin-right: 6%; /* Slightly less than half of the remaining space to push it a bit to the right */
   margin-top: 100px; /* Adjust this value to set how far down you want the element */
+  border-radius: 24px;
 }
 /* Media Query for smaller screens */
 .form-group {
@@ -315,7 +323,6 @@ button:hover {
   /* Styles for screens up to 1100px wide */
   .page-container {
     padding: 0.01rem; /* Minimal padding to maintain layout integrity */
-
   }
 
   .form-container {
@@ -386,7 +393,7 @@ button:hover {
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 1000px) {
   .form-container input, .form-container select, .form-container textarea, .form-container button {
     font-size: clamp(10px, 1vw, 10px); /* Smaller font sizes for all form elements */
   }
@@ -410,8 +417,7 @@ button:hover {
 
   /* Styles for screens up to 1100px wide */
   .page-container {
-    padding: 0.01rem; /* Minimal padding to maintain layout integrity */
-    padding-bottom: 90px; /* Add padding to the bottom */
+    padding: 10vh 0 0 0;
   }
   .column-half {
     display: inline-block; /* Ensures inputs are inline */
@@ -494,9 +500,9 @@ button:hover {
     color:black;
   }
   .profile-bg {
-
-    width: 55%; /* Adjust width to your desired value */
-    margin-left:10px;
+    width: 100vw; /* Adjust width to your desired value */
+    margin:0;
+    padding: 4vh 0 0 0
   }
 }
 
