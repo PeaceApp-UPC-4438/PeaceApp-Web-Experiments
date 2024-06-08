@@ -7,7 +7,7 @@ import MapCitizen from "../pages/maps/user-map.page.vue"
 import MapGovernment from "../pages/maps/authority-map.page.vue"
 import EditProfileView from '../pages/profile/user-edit-profile.page.vue';
 import editProfileAuthority from '../pages/profile/authority-edit-profile.view.vue';
-import ReportFormView from "../pages/reports/report-form.view.vue";
+import ReportFormView from "../pages/reports/report-form.page.vue";
 import SendAlert from "../components/alerts/send-alert.component.vue";
 import Notification from '../pages/notifications/notifications.page.vue'
 import Principal from '../pages/main/main.page.vue'
@@ -28,7 +28,7 @@ const router= createRouter({
         {path: '/user/edit-profile', component: EditProfileView},
         {path: '/authority/edit-profile', component: editProfileAuthority},
         {path: '/authority/report', component: muniReport},
-        {path: '/user/report', component: reportList},
+        {path: '/user/report', component: reportList, name: 'reportlist'},
         {path: '/authority/map', component: MapGovernment, name: 'mapgovernment' },
         {path: '/user/create-report-form', component: ReportFormView},
         {path: '/view-notifications', component: SendAlert},

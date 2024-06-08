@@ -49,6 +49,9 @@ button {
   height: 10%;
   width: 40%;
 }
+button:hover {
+  background-color: #9EA016;
+}
 
 .box2{
   background-color: #6DC9FF;

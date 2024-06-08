@@ -13,6 +13,13 @@ export default {
   },
   methods: {
     async createReport() {
+      await this.new();
+
+      setTimeout(() => {
+        this.$router.push({ name: 'reportlist' });
+      }, 4000);
+    },
+    async new(){
       try {
         await this.api.create(this.report);
         this.successMessage = "Report created successfully"; // Set success message
@@ -124,7 +131,6 @@ export default {
         <div v-if="successMessage" :class="{ 'success-message-overlay': true, 'show': showSuccessMessage }">
           <div class="success-message">
             {{ successMessage }}
-            <!--JSON time wait to redirect-->
           </div>
         </div>
       </div>
