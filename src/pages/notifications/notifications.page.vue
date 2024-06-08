@@ -1,16 +1,16 @@
 <script>
-import SendAlert from '../../components/alerts/send-alert.component.vue';
 import NotificationList from '../../components/notifications/view-notifications.component.vue';
 
 export default {
   components: {
-    NotificationList,
-    SendAlert,
+    NotificationList
   },
   data() {
     return {
       NotificationData: [],
       alertMessage: '',
+      successMessage: '',
+      showSuccessMessage: false,
     };
   },
   methods: {
@@ -35,11 +35,12 @@ export default {
       this.NotificationData.push(newNotification);
     },
     showSendAlert() {
-      this.alertMessage = 'Alert Sent'; // Set message to be displayed
-    },
-    hideSendAlert() {
-      this.alertMessage = ''; // Clear message to hide popup
-    },
+      this.successMessage = "Alert has been sent";
+      this.showSuccessMessage = true; // Show the popup
+      setTimeout(() => {
+        this.showSuccessMessage = false; // Hide the popup after 5 seconds
+      }, 4000);
+    }
   },
 };
 </script>
@@ -54,13 +55,13 @@ export default {
           :addNotification="addNotification"
       />
       <button class="send-alert" @click="showSendAlert">Send Alert</button>
-
-      <SendAlert
-          :message="alertMessage"
-          :togglePopup="hideSendAlert"
-      />
     </div>
   </main>
+  <div v-if="successMessage" :class="{ 'success-message-overlay': true, 'show': showSuccessMessage }">
+    <div class="success-message">
+      {{ successMessage }}
+    </div>
+  </div>
 
 </template>
 
@@ -77,10 +78,50 @@ button {
   font-size: 20px;
   height: 45px;
 }
+button:hover {
+  background-color: #9EA016;
+}
 .container {
   padding: 20vh;
   display: grid;
   place-items: center;
   text-align: center;
+}
+.success-message-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Black background with transparency */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensure it appears above other elements */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+}
+
+.success-message {
+  background-color: #d4edda; /* Light green background */
+  color: #155724; /* Dark green color for text */
+  border: 1px solid #c3e6cb; /* Border to match the background */
+  padding: 20px 40px; /* Padding around the text */
+  border-radius: 8px; /* Rounded corners */
+  font-size: 16px; /* Font size */
+  text-align: center; /* Center the text */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.success-message-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+@media (max-width: 1000px) {
+  .container {
+    padding: 15vh 0 0 0;
+  }
 }
 </style>

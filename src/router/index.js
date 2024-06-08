@@ -8,7 +8,6 @@ import MapGovernment from "../pages/maps/authority-map.page.vue"
 import EditProfileView from '../pages/profile/user-edit-profile.page.vue';
 import editProfileAuthority from '../pages/profile/authority-edit-profile.view.vue';
 import ReportFormView from "../pages/reports/report-form.page.vue";
-import SendAlert from "../components/alerts/send-alert.component.vue";
 import Notification from '../pages/notifications/notifications.page.vue'
 import Principal from '../pages/main/main.page.vue'
 import muniReport from '../components/reports/authority-report-list.component.vue'
@@ -31,7 +30,6 @@ const router= createRouter({
         {path: '/user/report', component: reportList, name: 'reportlist'},
         {path: '/authority/map', component: MapGovernment, name: 'mapgovernment' },
         {path: '/user/create-report-form', component: ReportFormView},
-        {path: '/view-notifications', component: SendAlert},
         {path: '/notifications', component: Notification},
         {path: '/password-recover', component: passwordRecover},
         {path: '/recover', component: finalRecover}
