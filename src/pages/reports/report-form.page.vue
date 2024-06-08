@@ -139,6 +139,7 @@ export default {
 </template>
 
 <style scoped>
+
 .page-container {
   display: flex;
   align-items: center;

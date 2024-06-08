@@ -57,4 +57,7 @@ export default {
   font-size: 20px;
   text-decoration: none;
 }
+.btn:hover {
+  background-color: #9EA016;
+}
 </style>

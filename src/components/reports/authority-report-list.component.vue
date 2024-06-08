@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <h1>Report List</h1>
     <div class="filters">
       <div class="filter-option">
         <label for="filter-type">Type:</label>
@@ -24,7 +25,6 @@
       </div>
     </div>
     <div class="reports-container">
-      <h1>Report List</h1>
       <ul v-if="filteredReports.length" class="reports-grid">
         <li v-for="report in filteredReports" :key="report.id" class="report-item">
           <h2>{{ report.type }}</h2>
@@ -96,12 +96,12 @@ export default {
 <style scoped>
 .container {
   background-color: #01A1FF;
-  padding: 70px 0 0 0;
+  padding: 10vh 0 0 0;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: 60px;
+  margin-top: 20px;
 }
 
 .filters {
@@ -196,5 +196,16 @@ a {
 
 a:hover {
   text-decoration: underline;
+}
+@media (max-width: 1000px){
+  .container{
+    padding: 3vh 0 0 0;
+  }
+  .filter-option{
+    margin-bottom: 0;
+  }
+  .reports-container{
+    padding: 20px 0 0 0;
+  }
 }
 </style>
