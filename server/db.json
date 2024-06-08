@@ -19,6 +19,16 @@
       "location": "UPC Monterrico",
       "description": "A robbery at a convenience store.",
       "urlEvidence": "http://example.com/evidence2"
+    },
+    {
+      "type": "Asalto",
+      "date": "2024-05-30",
+      "time": "22:50",
+      "district": "Barranco",
+      "location": "Discoteca",
+      "description": "Arma de fuego",
+      "urlEvidence": "",
+      "id": 3
     }
   ]
 }
