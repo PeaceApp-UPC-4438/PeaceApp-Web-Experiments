@@ -18,7 +18,7 @@ import InputText from "primevue/inputtext";
 
 import InputGroup from "primevue/inputgroup";
 
-import { GoogleMap, Marker, HeatmapLayer} from "vue3-google-map";
+import { GoogleMap, Marker, HeatmapLayer, Polyline, MarkerCluster} from "vue3-google-map";
 
 
 createApp(App)
@@ -32,6 +32,8 @@ createApp(App)
     .component('google-map', GoogleMap)
     .component('marker-map', Marker)
     .component('heatmap', HeatmapLayer)
+    .component('polyLine', Polyline)
+    .component('marker-cluster', MarkerCluster)
     .component('pv-button', Button)
     .component('pv-panel', Panel)
     .component('pv-data-view', DataView)

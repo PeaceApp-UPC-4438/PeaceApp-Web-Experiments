@@ -1,3 +1,34 @@
+<script>
+import { ReportApiService } from "./service/reportapi.service.js";
+import { Report } from "./model/report.entity.js";
+export default {
+  name: "report-component",
+  data() {
+    return {
+      report: new Report(),
+      api: new ReportApiService(),
+      successMessage: "",
+      showSuccessMessage: false,
+    };
+  },
+  methods: {
+    async createReport() {
+      try {
+        await this.api.create(this.report);
+        this.successMessage = "Report created successfully"; // Set success message
+        this.showSuccessMessage = true; // Show the popup
+        setTimeout(() => {
+          this.showSuccessMessage = false; // Hide the popup after 5 seconds
+        }, 5000);
+        console.log("New report added:", this.report);
+      } catch (error) {
+        console.error("Error creating report:", error);
+      }
+    }
+  }
+};
+</script>
+
 <template>
   <div class="container-fluid px-0">
     <div class="page-container">
@@ -5,36 +36,36 @@
         <div class="form-container">
           <h1>Report Sending</h1>
           <p>Please complete the following fields to help us accurately record the incident.</p>
-          <form class="form-flex">
+          <form @submit.prevent="createReport" class="form-flex">
             <div class="column">
               <div class="form-group">
                 <label for="report-type" class="label-black">Type of Report:</label>
-                <input type="text" id="report" name="report" required class="border-black" placeholder="Type of Report">
+                <input v-model="report.type" id="type" type="text" name="type" placeholder="Type" required class="border-black" >
               </div>
-                <label for="date" class="label-black">Date and Time:</label>
-                <div class="date-time-container">
-                <input type="date" id="date" name="date" required class="border-black">
-                <input type="time" id="time" name="time" required class="border-black">
+              <label for="date" class="label-black">Date and Time:</label>
+              <div class="date-time-container">
+                <input v-model="report.date" id="date" type="date" name="date" required class="border-black">
+                <input v-model="report.time" id="time" type="time" name="time" required class="border-black">
               </div>
               <div class="form-group">
                 <div class="row">
                   <div class="column-half">
                     <label for="district" class="label-black">District:</label>
-                    <input type="text" id="district" name="district" required class="border-black" placeholder="District">
+                    <input v-model="report.district" id="district" type="text" placeholder="District" name="district" required class="border-black" >
                   </div>
                   <div class="column-half">
                     <label for="location" class="label-black">Location:</label>
-                    <input type="text" id="location" name="location" class="border-black" placeholder="Location">
+                    <input v-model="report.location" id="location" type="text" placeholder="Location" name="location" required class="border-black" >
                   </div>
                 </div>
               </div>
               <div class="form-group">
                 <label for="description" class="label-black">Description:</label>
-                <textarea id="description" name="description" required class="border-black" rows="5" placeholder="Description"></textarea>
+                <textarea v-model="report.description" id="description" placeholder="Description" name="description" required class="border-black" rows="5" ></textarea>
               </div>
               <div class="form-group">
                 <div class="evidence-container">
-                  <label for="description" class="label-black">Evidence:</label>
+                  <label for="evidence" class="label-black">Evidence:</label>
                   <label for="file-upload" class="upload-button">Upload File</label>
                   <input type="file" id="file-upload" name="file-upload" class="file-input" style="display: none;">
                 </div>
@@ -43,12 +74,17 @@
             <div class="column">
               <img src="../../assets/Map-Placeholder.png" alt="Map" class="map-image">
               <div class="button-container">
-                <router-link to="/authority/report">
-                  <button type="submit">Send</button>
-                </router-link>
+                <!--                <router-link to="/authority/report">-->
+                <button type="submit">Send</button>
+                <!--                </router-link>-->
               </div>
             </div>
           </form>
+          <div v-if="successMessage" :class="{ 'success-message-overlay': true, 'show': showSuccessMessage }">
+            <div class="success-message">
+              {{ successMessage }}
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -354,7 +390,7 @@ button:hover {
   .form-container input, .form-container select, .form-container textarea, .form-container button {
     font-size: clamp(10px, 1vw, 10px); /* Smaller font sizes for all form elements */
   }
-  form-container label {
+  .form-container label {
     font-size: clamp(10px, 2.5vw, 10px); /* Smaller yet readable font sizes for labels */
   }
   .form-container input, .form-container select, .form-container textarea, #description{
@@ -463,6 +499,38 @@ button:hover {
     margin-left:10px;
   }
 }
+
+.success-message-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Black background with transparency */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensure it appears above other elements */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+}
+
+.success-message {
+  background-color: #d4edda; /* Light green background */
+  color: #155724; /* Dark green color for text */
+  border: 1px solid #c3e6cb; /* Border to match the background */
+  padding: 20px 40px; /* Padding around the text */
+  border-radius: 8px; /* Rounded corners */
+  font-size: 16px; /* Font size */
+  text-align: center; /* Center the text */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.success-message-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+
 </style>
-<script setup lang="ts">
-</script>

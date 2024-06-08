@@ -1,95 +1,82 @@
-<script>
-import Button from "primevue/button";
-import Card from "primevue/card";
-import DataView from "primevue/dataview";
-import OrderList  from "primevue/orderlist";
-
-export default {
-  name: "report-list",
-  components: {
-    Card,
-    Button,
-    DataView,
-    OrderList
-  },
-  data() {
-    return {
-      elementos: [
-        {label: 'Elemento 1'},
-        {label: 'Elemento 2'},
-        {label: 'Elemento 3'}
-      ],
-      reports: [
-        {number:"1", kind: "Asalto", distict: "La victoria"},
-        {number:"2", kind: "Robo", distict: "San Miguel"},
-        {number:"3", kind: "Asalto", distict: "Breña"},
-      ]
-    };
-  },
-  methods: {
-    agregarElemento() {
-      const nuevoElemento = { label: `Elemento ${this.elementos.length + 1}` };
-      this.elementos.push(nuevoElemento);
-    },
-  }
-}
-
- </script>
-
 <template>
-  <div class="container">
-    <h1>Reports</h1>
-    <Card class="cardpe">
-      <template #title>
-        Reports List
-      </template>
-      <template #content>
-        <div class="flex flex-wrap gap-1 md:gap-4 xl:gap-8 ">
-          <!--<div class="flex-initial flex align-items-center justify-content-center">
-            <Button label="New Report" @click="agregarElemento" />
-          </div>-->
-          <router-link to="/user/create-report-form">
-            <Button label="New Report" />
-          </router-link>
-          <div class="flex-initial flex align-items-center justify-content-center">
-            <OrderList class="text" v-model="elementos" list-style-type="decimal">
-              <template #item="reports">
-                <div class="flex-1 flex flex-column gap-2">
-                  <span class="font-bold">{{ reports.item.number }}</span>
-                  <div class="flex align-items-center gap-2">
-                    <span>{{reports.item.kind }}</span>
-                  </div>
-                </div>
-              </template>
-            </OrderList>
-          </div>
-
-        </div>
-      </template>
-
-    </Card>
+  <div class="parent-container">
+    <div class="list-container">
+      <AuthorityReportListComponent />
+    </div>
+    <div class="header-container">
+      <router-link to="/user/create-report-form" class="btn btn-primary">New Report</router-link>
+    </div>
   </div>
 </template>
 
+<script>
+import AuthorityReportListComponent from "./authority-report-list.component.vue";
+export default {
+  name: "ReportListComponent",
+  components: {
+    AuthorityReportListComponent
+  },
+};
+</script>
+
 <style scoped>
-  .container {
-    padding: 20vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  .cardpe{
-    width:70vw;
-  }
-  .text{
-    width: 50vw;
-  }
+.parent-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
 
+/* Estilos para el contenedor del encabezado */
+.header-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+/* Estilos para el contenedor de la lista */
+.list-container {
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* Estilos para el botón */
+.btn {
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  font-size: 2rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-primary:hover {
+  color: #fff;
+  background-color: #0056b3;
+  border-color: #004085;
+}
+
+.btn-primary:focus, .btn-primary.focus {
+  color: #fff;
+  background-color: #0056b3;
+  border-color: #004085;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+}
 </style>
-
-
-
-
-
-

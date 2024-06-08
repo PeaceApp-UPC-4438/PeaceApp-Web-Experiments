@@ -1,60 +1,62 @@
-<script setup>
-import {ref, onMounted} from 'vue';
-const center = ref({lat: -12.051389309324716, lng: -77.03455571814595});
-const ubicacion = ref('');
-const coordenadas = ref(null);
-const error = ref(null);
+<script>
+import {obtenerCoordenadas} from './services/coordenatesApi.service.js';
+import {HeatmapLayer as Heatmap} from "vue3-google-map";
 
-async function buscarCoordenadas() {
-  const base_url = 'https://nominatim.openstreetmap.org/search';
-
-  const params = new URLSearchParams({
-    q: ubicacion.value,
-    format: 'json'
-  });
-
-  const url = `${base_url}?${params}`;
-
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error('No se pudo obtener la respuesta del servidor');
-    }
-
-    const data = await response.json();
-
-    if (data.length === 0) {
-      throw new Error('No se encontraron resultados para la ubicación proporcionada');
-    }
-
-    const { lat, lon } = data[0];
-    center.value = { lat: parseFloat(lat), lng: parseFloat(lon) }; // Aquí
-    error.value = null;
-  } catch (error) {
-    console.error('Error al obtener center:', error);
-    center.value = null;
-    error.value = 'Error al obtener center: ' + error.message;
-  }
-}
-
-const obtenerUbicacion = () => {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition((position) => {
-      const {latitude, longitude} = position.coords;
-      center.value = { lat: latitude, lng: longitude }; // Y aquí
-      // Actualiza el centro del mapa
-    }, (error) => {
-      console.error('Error al obtener la ubicación:', error);
-    });
-  } else {
-    console.error('La geolocalización no está disponible en este navegador.');
+export default {
+  name: 'UserMapPage',
+  components: {Heatmap},
+  data() {
+    return {
+      center: { lat: 0, lng: -180 },
+      ubicacionActual: null,
+      nuevaUbicacion: null,
+      path: null,
+      ubication: '',
+      error: null,
+      locations: [],
+    };
+  },
+  methods: {
+    async buscarCoordenadas() {
+      try {
+        this.nuevaUbicacion = await obtenerCoordenadas(this.ubication);
+        this.locations = [this.ubicacionActual, this.nuevaUbicacion];
+        this.path = {
+          path: this.locations,
+          geodesic: true,
+          strokeColor: '#FF0000',
+          strokeOpacity: 2.0,
+          strokeWeight: 3,
+        };
+        this.error = null;
+      } catch (error) {
+        console.error('Error al obtener coordenadas:', error);
+        this.error = 'Error al obtener coordenadas: ' + error.message;
+      }
+    },
+    obtenerUbicacion() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+              const { latitude, longitude } = position.coords;
+              this.ubicacionActual = { lat: latitude, lng: longitude };
+              this.center = this.ubicacionActual; // Centra el mapa en la ubicación actual
+            },
+            (error) => {
+              console.error('Error al obtener la ubicación:', error);
+              this.error = 'Error al obtener la ubicación: ' + error.message;
+            }
+        );
+      } else {
+        console.error('La geolocalización no está disponible en este navegador.');
+        this.error = 'La geolocalización no está disponible en este navegador.';
+      }
+    },
+  },
+  mounted() {
+    this.obtenerUbicacion();
   }
 };
-
-
-onMounted(() => {
-  obtenerUbicacion();
-});
 </script>
 
 <template>
@@ -64,30 +66,36 @@ onMounted(() => {
       <div class="inputDesino">
         <div class="subtitulo"><h2>Where do you want to go today?</h2></div>
         <div class="pv-inputgroup">
-          <pv-inputtext class="input" v-model="ubicacion" type="text" placeholder="	"/>
+          <pv-inputtext class="input" v-model="ubication" type="text" placeholder=""/>
           <button class="icon" @click="buscarCoordenadas"><i class="pi pi-search" style="color: black"></i></button>
-        </div> <!-- pv-inputgroup -->
-      </div> <!-- inputDestino -->
+        </div>
+      </div>
       <div class="map">
         <google-map
             api-key="AIzaSyBB4hK1VH2foUTaaahuKRwInGzBvZyeX4s"
             style="width: 100%; height: 500px"
             :center="center"
-            :zoom="15"
+            :zoom="11"
         >
-          <marker-map :options="{ position: center }"/>
+          <polyLine v-if="path" :options="path" />
+          <marker-cluster>
+            <marker-map
+                v-for="(location, i) in locations"
+                :key="i"
+                :options = "{position: location}"
+            />
+          </marker-cluster>
         </google-map>
-
-      </div> <!-- map -->
+      </div>
       <div>
-        <div v-if="center">
-          <p>Latitud: {{ center.lat }}</p>
-          <p>Longitud: {{ center.lng }}</p>
+        <div v-if="nuevaUbicacion">
+          <p>Nueva Latitud: {{nuevaUbicacion.lat}}  </p>
+          <p>Nueva Longitud: {{nuevaUbicacion.lng}}  </p>
         </div>
         <div v-if="error">{{ error }}</div>
       </div>
-    </div> <!-- search -->
-  </div> <!-- container -->
+    </div>
+  </div>
 </template>
 
 <style scoped>
@@ -166,4 +174,3 @@ h2 {
   }
 }
 </style>
-
