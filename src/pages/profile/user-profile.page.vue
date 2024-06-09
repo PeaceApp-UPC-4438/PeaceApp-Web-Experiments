@@ -34,7 +34,6 @@
 <style scoped>
 .padre {
   padding: 20vh 0 0 0;
-  margin: 0 auto;
 }
 button {
   background-color: #EEF221;
@@ -49,6 +48,9 @@ button {
   height: 45px;
   width: 30%;
 }
+button:hover {
+  background-color: #9EA016;
+}
 .container {
   border-radius: 24px;
   background-color: #6DC9FF;
@@ -60,7 +62,7 @@ button {
   margin: auto;
 }
 .img{
-  width: auto;
+  height: auto;
   border: 1px solid black;
   border-radius: 100%;
 }
@@ -86,7 +88,7 @@ button {
 }
 @media (max-width: 1000px) {
   .padre{
-    padding: 10vh 0 0 0;
+    padding: 12vh 0 0 0;
   }
   .left{
     padding: 0;
@@ -96,12 +98,11 @@ button {
     width: 90%;
   }
   .container{
-    width: 95vw;
+    width: 94vw;
     padding: 15px 0 0 0;
     display: inline-block;
   }
   .img{
-    height: 40vw;
     align-items: center;
     justify-items: center;
   }

@@ -6,7 +6,7 @@ import Profile from "../pages/profile/main-profile.page.vue";
 import MapCitizen from "../pages/maps/user-map.page.vue"
 import MapGovernment from "../pages/maps/authority-map.page.vue"
 import EditProfileView from '../pages/profile/user-edit-profile.page.vue';
-import editProfileAuthority from '../pages/profile/authority-edit-profile.view.vue';
+import editProfileAuthority from '../pages/profile/authority-edit-profile.page.vue';
 import ReportFormView from "../pages/reports/report-form.page.vue";
 import Notification from '../pages/notifications/notifications.page.vue'
 import Principal from '../pages/main/main.page.vue'

@@ -118,10 +118,13 @@ button:hover {
   height: fit-content;
 }
 
-.butInfo, .not{
+.butInfo{
   width: fit-content;
 }
-
+.opc{
+  display: flex;
+  justify-content: space-around;
+}
 .input-container {
   position: relative;
   margin: 20px auto;
@@ -187,7 +190,7 @@ button:hover {
   .input-container {
     width: 80%;
   }
-  .not{
+  .not,.opc{
     width: 100%;
   }
   .padre{
@@ -196,6 +199,10 @@ button:hover {
   .logo{
     width: 100%;
     margin: 0 auto;
+  }
+  .opc{
+    display: inline-block;
+    justify-content: normal;
   }
 }
 </style>

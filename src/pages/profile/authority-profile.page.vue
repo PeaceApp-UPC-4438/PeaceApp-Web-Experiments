@@ -82,6 +82,10 @@ button {
   padding: 3vh;
   flex: 1;
 }
+
+button:hover {
+  background-color: #9EA016;
+}
 .buttons {
   flex: 100%;
   padding: 0 0 3vh 0;

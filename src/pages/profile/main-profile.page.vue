@@ -27,6 +27,7 @@ button {
   font-size: 20px;
   height: 45px;
 }
+
 .container {
   margin: 0;
   display: flex;

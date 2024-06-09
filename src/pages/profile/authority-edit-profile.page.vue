@@ -21,12 +21,12 @@
                 <label for="description" class="label-black">Contact Number:</label>
                 <input type="text" id="names" name="names" required class="border-black" placeholder="Number">
               </div>
-              <div class="form-group">
-                <label for="description" class="label-black">Office Addres:</label>
-                <input type="text" id="names" name="names" required class="border-black" placeholder="Address">
-              </div>
             </div>
             <div class="column">
+              <div class="form-group">
+                <label for="description" class="label-black">Office Address:</label>
+                <input type="text" id="names" name="names" required class="border-black" placeholder="Address">
+              </div>
               <div class="form-group">
                 <label for="description" class="label-black">Description:</label>
                 <textarea id="description" name="description" required class="border-black" rows="5" placeholder="Description"></textarea>
@@ -44,19 +44,7 @@
 </template>
 <style scoped>
 .page-container {
-  background-color: #01A1FF;
-  align-items: center;
-  color: white;
-  padding: 4rem; /* Start with a moderate padding */
-  left: 0;
-  box-sizing: border-box;
-}
-
-.profile-image {
-  width: 25vw;
-  max-width: 500px; /* Prevents the image from becoming too large on big screens */
-  margin-top: 20px;
-  align-items: center;
+  padding: 15vh 0 0 0;
 }
 .form-flex {
   display: flex;
@@ -64,7 +52,6 @@
 }
 .column {
   width: 50%;
-
 }
 
 .label-black {
@@ -84,67 +71,36 @@ input, select, textarea {
 }
 #description {
   width: 100%; /* Full width by default */
-  height: 400px; /* Auto height to adjust based on content */
+  height: 150px; /* Auto height to adjust based on content */
   padding: 0.8em; /* Responsive padding */
   border: 1px solid black;
   font-size: clamp(12px, 1.2vw, 16px);
   transition: background-color 0.3s ease, border-color 0.3s ease;
-  resize: none; /* Allow vertical resizing */
+  resize: none;
 }
-@media (max-width: 1000px) {
-  .page-container{
-    padding: 0;
-    align-items: center;
-  }
-  .form-flex {
-    flex-direction: column;
-    width: 100%;
-  }
-  .profile-image {
-    width: 50vw; /* Scales with the width of its container */
-    height: auto; /* Maintains aspect ratio */
-    max-width: 500px; /* Prevents the image from becoming too large on big screens */
-    margin-top: 20px;
-    align-items: center;
-  }
-  .profile-bg {
-    flex-direction: column; /* Stack elements in the profile-bg container vertically on smaller screens */
-    align-items: center;
-  }
-  .form-container {
-    width: 100%; /* Ensure the form container spans the full width */
-  }
-  .column {
-    width: 100%;
-  }
-  input, select{
-    width: 100%;
-  }
-  textarea {
-    width: calc(80% - 100px); /* Reduce width by 20px to create some spacing */
-    max-width: 80%; /* Ensure inputs don't overflow container */
-  }
-  #description {
-    width: 100%; /* Ensure textarea doesn't overflow container */
-  }
+.profile-image{
+  height: auto;
+  border: 1px solid black;
+  border-radius: 100%;
+  max-width: 250px;
+  margin-top: 20px;
+  align-items: center;
 }
+
 .profile-bg {
+  border-radius: 24px;
   background-color: #6DC9FF;
   padding: 10px;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-
-  margin-left: auto; /* Center aligning the element by setting left margin to auto */
-  margin-right: 6%; /* Slightly less than half of the remaining space to push it a bit to the right */
-  margin-top: 100px;
 }
 
 .profile-info {
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Align items to the left */
-  margin-left: 20px;
+  align-items: center; /* Align items to the left */
+
 }
 /* Media Query for smaller screens */
 .form-group {
@@ -181,69 +137,47 @@ button {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  font-weight: bolder;
+  font-size: 20px;
 }
 button:hover {
   background-color: #9EA016;
 }
-.container-fluid {
-  padding-right: 0;
-  padding-left: 0;
-  margin-right:auto;
-  margin-left:auto;
-}
-
-/*@media screen and (max-width: 480px) {
-  .form-group {
-    margin-bottom: 15px; /* Reduce bottom margin for form groups
+@media (max-width: 1000px) {
+  .page-container{
+    padding: 10vh 0 0 0;
   }
-  .column {
-    margin-right: 0; /* Remove right margin from columns
-    margin-left: 0; /* Remove left margin from columns
+  .form-flex {
+    flex-direction: column;
+    width: 100%;
+    gap: 0;
   }
   .profile-bg {
-    width: 55%; /* Set width to 90% of its container
-
-    margin-top: 50px; /* Adjust top margin for profile background
-    padding: 5px; /* Reduce padding for profile background
-    margin-left: -15px; /* Center aligning the element by setting left margin to auto
+    flex-direction: column; /* Stack elements in the profile-bg container vertically on smaller screens */
+    align-items: center;
   }
-  .label-black {
-    font-size: 1rem; /* Decrease font size for labels
-    margin-left:-15px;
+  .form-container {
+    width: 100%;
+    padding: 10px;/* Ensure the form container spans the full width */
   }
-  input, select, textarea {
-    margin-left:-15px;
-    padding: 0.6em; /* Reduce padding for inputs and textarea
-    font-size: 14px; /* Decrease font size for inputs and textarea
+  .column {
+    width: 100%;
+    gap: 0;
   }
-  .profile-image {
-    width: 90%; /* Adjust width to 80% of its container
-    max-width: none; /* Remove the maximum width constraint
-    margin-top: 10px; /* Adjust margin-top for spacing
-  }
-  input,
-  select{
-    width: calc(100% - 70px); /* Reduce width by 20px to create some spacing
-    max-width: 80%; /* Ensure inputs don't overflow container
+  input, select{
+    width: 100%;
   }
   textarea {
-    width: calc(60% - 100px); /* Reduce width by 20px to create some spacing
-    max-width: 60%; /* Ensure inputs don't overflow container
+    width: calc(80% - 100px);
   }
   #description {
-    width: calc(100% - 70px); /* Reduce width by 20px to create some spacing
-    max-width: 100%; /* Ensure textarea doesn't overflow container
+    width: 100%; /* Ensure textarea doesn't overflow container */
   }
-  button {
-    padding: 10px 10px;
-    background-color: yellow;
-    color: black;
-    border: none;
-    margin-left:-10px;
-    border-radius: 5px;
-    cursor: pointer;
+  .button-container{
+    display: flex;
+    justify-content: center;
   }
-}*/
+}
 
 </style>
 
