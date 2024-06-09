@@ -19,36 +19,6 @@
       "location": "UPC Monterrico",
       "description": "A robbery at a convenience store.",
       "urlEvidence": "http://example.com/evidence2"
-    },
-    {
-      "type": "Asalto",
-      "date": "2024-05-30",
-      "time": "22:50",
-      "district": "Barranco",
-      "location": "Discoteca",
-      "description": "Arma de fuego",
-      "urlEvidence": "",
-      "id": 3
-    },
-    {
-      "type": "asalto",
-      "date": "2024-06-28",
-      "time": "23:26",
-      "district": "Pachacamac",
-      "location": "America",
-      "description": "Asesinato",
-      "urlEvidence": "",
-      "id": 4
-    },
-    {
-      "type": "Robo",
-      "date": "2024-06-20",
-      "time": "00:27",
-      "district": "Lince",
-      "location": "Cerro",
-      "description": "Rateros",
-      "urlEvidence": "",
-      "id": 5
     }
   ]
 }
