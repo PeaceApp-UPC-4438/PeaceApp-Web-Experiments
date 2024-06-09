@@ -35,7 +35,9 @@
           <p><strong>Evidence:</strong> <a :href="report.urlEvidence" target="_blank">View Evidence</a></p>
         </li>
       </ul>
-      <p v-else>No reports available.</p>
+      <ul v-else class="reports-grid">
+        <li class="report-item"><h2>No reports available.</h2></li>
+      </ul>
     </div>
   </div>
 </template>
@@ -171,6 +173,9 @@ h1 {
   background-color: #f9f9f9;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.report-item h2{
+  text-align: center;
 }
 
 .report-item:hover {
