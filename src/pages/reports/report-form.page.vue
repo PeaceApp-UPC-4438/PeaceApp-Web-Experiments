@@ -17,7 +17,7 @@ export default {
 
       setTimeout(() => {
         this.$router.push({ name: 'reportlist' });
-      }, 4000);
+      }, 3000);
     },
     async new(){
       try {
