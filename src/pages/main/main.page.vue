@@ -44,7 +44,7 @@ export default {
           <Button>Log in</Button>
         </router-link>
         <h4>Don't have an account? <a href="#" @click="visible=true">Sign up</a></h4>
-        <h4>Forgot your password? <a href="/password-recover">Click here</a></h4>
+        <h4>Forgot your password? <router-link to="/password-recover">Click here</router-link></h4>
       </div>
     </div>
   </div>
