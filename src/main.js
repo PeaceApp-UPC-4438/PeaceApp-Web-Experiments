@@ -19,10 +19,11 @@ import InputText from "primevue/inputtext";
 import InputGroup from "primevue/inputgroup";
 
 import { GoogleMap, Marker, HeatmapLayer, Polyline, MarkerCluster} from "vue3-google-map";
-
+import i18n from './i18n.js';
 
 createApp(App)
     .use(router)
+    .use(i18n)
     .use(PrimeVue, { ripple: true })
     .component('Dialog', Dialog)
     .component('pv-toolbar', Toolbar)
