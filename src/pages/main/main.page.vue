@@ -26,7 +26,7 @@ export default {
         <img class="logo" src="/src/assets/PeaceApp.png" alt="logo" />
         <h2 class="info">{{$t('main')}}</h2>
         <button class="butInfo" @click="redirectLanding">More Information</button>
-      </div>
+      </div><!--<button @click="$t($i18n.locale='en')">-->
       <div class="box2">
         <h2>{{$t('welcome')}}</h2>
         <h3>Please, log in to start</h3>
