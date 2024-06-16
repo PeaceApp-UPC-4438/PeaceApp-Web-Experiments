@@ -24,11 +24,11 @@ export default {
     <div class="container">
       <div class="box1">
         <img class="logo" src="/src/assets/PeaceApp.png" alt="logo" />
-        <h2 class="info">For more info, check out our Landing Page and discover what we offer</h2>
+        <h2 class="info">{{$t('main')}}</h2>
         <button class="butInfo" @click="redirectLanding">More Information</button>
       </div>
       <div class="box2">
-        <h2>Welcome to Peace App</h2>
+        <h2>{{$t('welcome')}}</h2>
         <h3>Please, log in to start</h3>
         <div class="input-container">
           <input type="text" id="input" required="">
