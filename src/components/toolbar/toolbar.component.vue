@@ -1,5 +1,12 @@
-<script setup>
-// You can import other components or utilities here if needed.
+<script>
+export default {
+  methods: {
+    changeLanguage(event) {
+      const selectedLanguage = event.target.value;
+      this.$i18n.locale = selectedLanguage;
+    },
+  },
+};
 </script>
 
 <template>
@@ -8,6 +15,10 @@
       <li><a href="/"><img src="../../assets/PeaceApp.png" alt="PeaceApp" /></a></li> <!-- Left-aligned icon -->
     </ul>
     <ul class="right-icons">
+      <select id="language-select" @change="changeLanguage($event)">
+        <option value="en">🇺🇸 English</option>
+        <option value="es">🇪🇸 Español</option>
+      </select>
       <li><router-link to="/user/map"><img src="../../assets/Map.png" alt="Map" /></router-link></li>
       <li><router-link to="/user/report"><img src="../../assets/Report.png" alt="Report" /></router-link></li>
       <li><router-link to="/notifications"><img src="../../assets/Notification.png" alt="Notification" /></router-link></li>
