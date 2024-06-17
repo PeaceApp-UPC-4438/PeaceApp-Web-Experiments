@@ -1,5 +1,13 @@
 <script>
 export default {
+  data() {
+    return {
+      locales: [
+        { code: 'en', name: 'English', flag: 'us' },
+        { code: 'es', name: 'Español', flag: 'es' },
+      ]
+    }
+  },
   methods: {
     changeLanguage(event) {
       const selectedLanguage = event.target.value;
@@ -16,9 +24,10 @@ export default {
       <li><a href="/"><img src="../../assets/PeaceApp.png" alt="PeaceApp" /></a></li> <!-- Left-aligned icon -->
     </ul>
     <ul class="right-icons">
-      <select class="language-select" @change="changeLanguage($event)">
-        <option value="en" :selected="$i18n.locale === 'en'">󠁧󠁢󠁥󠁮󠁧󠁿🇽🇪 English</option>
-        <option value="es" :selected="$i18n.locale === 'es'">🇪🇸 Español</option>
+      <select v-model="$i18n.locale" @change="changeLanguage($event)" class="locale-select">
+        <option v-for="locale in locales" :key="locale.code" :value="locale.code" :selected="$i18n.locale === locale.code">
+          <flag :iso="locale.flag" v-bind:squared=false class="flag-icon" /> {{ locale.name }}
+        </option>
       </select>
       <li><router-link to="/user/map"><img src="../../assets/Map.png" alt="Map" /></router-link></li>
       <li><router-link to="/user/report"><img src="../../assets/Report.png" alt="Report" /></router-link></li>
@@ -28,6 +37,24 @@ export default {
   </nav>
 </template>
 <style scoped>
+.locale-select {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+}
+
+.locale-select {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 200px;
+}
+
+.flag-icon {
+  margin-right: 8px;
+}
 .toolbar {
   background-color: #1878F3;
   color: white;
@@ -101,4 +128,3 @@ export default {
 }
 
 </style>
-

@@ -9,13 +9,11 @@ import Panel from "primevue/panel";
 import Button from "primevue/button";
 import Card from "primevue/card";
 import Dialog from 'primevue/dialog';
-import 'primevue/resources/themes/aura-light-green/theme.css';
-
+import Select from 'primevue/select';
 import 'primeicons/primeicons.css'
 
 import Toolbar from "primevue/toolbar";
 import InputText from "primevue/inputtext";
-
 import InputGroup from "primevue/inputgroup";
 
 import { GoogleMap, Marker, HeatmapLayer, Polyline, MarkerCluster} from "vue3-google-map";
@@ -25,6 +23,7 @@ createApp(App)
     .use(router)
     .use(i18n)
     .use(PrimeVue, { ripple: true })
+    .component('Select', Select)
     .component('Dialog', Dialog)
     .component('pv-toolbar', Toolbar)
     .component('pv-button', Button)
