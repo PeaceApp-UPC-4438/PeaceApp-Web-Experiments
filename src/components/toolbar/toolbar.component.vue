@@ -3,8 +3,8 @@ export default {
   data() {
     return {
       locales: [
-        { code: 'en', name: 'English', flag: 'us' },
-        { code: 'es', name: 'Español', flag: 'es' },
+        { code: 'en', name: '🇺🇸 English', flag: 'us' },
+        { code: 'es', name: '🇪🇸 Español', flag: 'es' },
       ]
     }
   },
