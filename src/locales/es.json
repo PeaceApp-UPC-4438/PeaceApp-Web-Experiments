@@ -1,4 +1,13 @@
 {
   "main": "Para más información, visita nuestra página y descubre nuestra oferta",
-  "welcome": "Bienvenido a PeaceApp"
+  "welcome": "Bienvenido a PeaceApp",
+  "buttonInfo": "Más información",
+  "msg1.Main": "Por favor, inicie sesión para comenzar",
+  "email": "Correo",
+  "password": "Contraseña",
+  "login": "Iniciar Sesión",
+  "msg2.Main": "¿No tiene una cuenta? ",
+  "signUp": "Registrese",
+  "msg3.Main": "¿Olvido su contraseña ",
+  "clickHere": "Click aquí"
 }

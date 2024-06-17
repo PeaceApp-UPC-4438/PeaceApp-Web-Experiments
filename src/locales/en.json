@@ -1,4 +1,13 @@
 {
   "main": "For more info, check out our Landing Page and discover what we offer",
-  "welcome": "Welcome to PeaceApp"
+  "welcome": "Welcome to PeaceApp",
+  "buttonInfo": "More information",
+  "msg1.Main": "Please, log in to start",
+  "email": "E-mail",
+  "password": "Password",
+  "login": "Log in",
+  "msg2.Main": "Don't have an account? ",
+  "signUp": "Sign up",
+  "msg3.Main": "Forgot your password? ",
+  "clickHere": "Click here"
 }

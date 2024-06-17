@@ -25,26 +25,26 @@ export default {
       <div class="box1">
         <img class="logo" src="/src/assets/PeaceApp.png" alt="logo" />
         <h2 class="info">{{$t('main')}}</h2>
-        <button class="butInfo" @click="redirectLanding">More Information</button>
+        <button class="butInfo" @click="redirectLanding">{{ $t('buttonInfo') }}</button>
       </div>
       <div class="box2">
         <h2>{{$t('welcome')}}</h2>
-        <h3>Please, log in to start</h3>
+        <h3>{{$t('msg1.Main')}}</h3>
         <div class="input-container">
           <input type="text" id="input" required="">
-          <label for="input" class="label">E-mail</label>
+          <label for="input" class="label">{{$t('email')}}</label>
           <div class="underline"></div>
         </div>
         <div class="input-container">
           <input type="password" id="input" required="">
-          <label for="input" class="label">Password</label>
+          <label for="input" class="label">{{ $t('password') }}</label>
           <div class="underline"></div>
         </div>
         <router-link to="/profile">
-          <Button>Log in</Button>
+          <Button>{{ $t('login') }}</Button>
         </router-link>
-        <h4>Don't have an account? <a href="#" @click="visible=true">Sign up</a></h4>
-        <h4>Forgot your password? <router-link to="/password-recover">Click here</router-link></h4>
+        <h4>{{$t('msg2.Main')}}<a href="#" @click="visible=true">{{$t('signUp')}}</a></h4>
+        <h4>{{ $t('msg3.Main')}}<router-link to="/password-recover">{{ $t('clickHere') }}</router-link></h4>
       </div>
     </div>
   </div>
