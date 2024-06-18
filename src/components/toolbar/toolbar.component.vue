@@ -29,6 +29,7 @@ export default {
           <flag :iso="locale.flag" v-bind:squared=false class="flag-icon" /> {{ locale.name }}
         </option>
       </select>
+      <li><img src="../../assets/Language.png" alt="Language"></li>
       <li><router-link to="/user/map"><img src="../../assets/Map.png" alt="Map" /></router-link></li>
       <li><router-link to="/user/report"><img src="../../assets/Report.png" alt="Report" /></router-link></li>
       <li><router-link to="/notifications"><img src="../../assets/Notification.png" alt="Notification" /></router-link></li>
@@ -37,21 +38,6 @@ export default {
   </nav>
 </template>
 <style scoped>
-.locale-select {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 20px;
-}
-
-.locale-select {
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  width: 200px;
-}
-
 .flag-icon {
   margin-right: 8px;
 }
@@ -126,5 +112,10 @@ export default {
   }
 
 }
-
+.locale-select {
+  padding: 0.2em 0 0.2em ;
+  font-size: 1.5em;
+  border-radius: 5px;
+  width: 150px;
+}
 </style>
