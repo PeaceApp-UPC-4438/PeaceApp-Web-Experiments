@@ -66,6 +66,9 @@ export default {
 </template>
 
 <style scoped>
+.card{
+  padding: 0;
+}
 .padre{
   padding: 20vh 10vw 0 10vw;
 }
@@ -184,8 +187,9 @@ button:hover {
     width: 100%;
   }
   .box1, .box2 {
-    width: 95%;
+    width: 100%;
     padding: 5px;
+    margin: 0;
   }
   .input-container {
     width: 80%;
@@ -203,6 +207,9 @@ button:hover {
   .opc{
     display: inline-block;
     justify-content: normal;
+  }
+  button{
+    width: fit-content;
   }
 }
 </style>
