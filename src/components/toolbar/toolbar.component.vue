@@ -1,21 +1,4 @@
 <script>
-export default {
-  data() {
-    return {
-      locales: [
-        { code: 'en', name: '🇺🇸 English', flag: 'us' },
-        { code: 'es', name: '🇪🇸 Español', flag: 'es' },
-      ]
-    }
-  },
-  methods: {
-    changeLanguage(event) {
-      const selectedLanguage = event.target.value;
-      this.$i18n.locale = selectedLanguage;
-      localStorage.setItem('language', selectedLanguage);
-    },
-  },
-};
 </script>
 
 <template>
@@ -24,12 +7,6 @@ export default {
       <li><a href="/"><img src="../../assets/PeaceApp.png" alt="PeaceApp" /></a></li> <!-- Left-aligned icon -->
     </ul>
     <ul class="right-icons">
-      <select v-model="$i18n.locale" @change="changeLanguage($event)" class="locale-select">
-        <option v-for="locale in locales" :key="locale.code" :value="locale.code" :selected="$i18n.locale === locale.code">
-          <flag :iso="locale.flag" v-bind:squared=false class="flag-icon" /> {{ locale.name }}
-        </option>
-      </select>
-      <li><img src="../../assets/Language.png" alt="Language"></li>
       <li><router-link to="/user/map"><img src="../../assets/Map.png" alt="Map" /></router-link></li>
       <li><router-link to="/user/report"><img src="../../assets/Report.png" alt="Report" /></router-link></li>
       <li><router-link to="/notifications"><img src="../../assets/Notification.png" alt="Notification" /></router-link></li>
@@ -38,9 +15,6 @@ export default {
   </nav>
 </template>
 <style scoped>
-.flag-icon {
-  margin-right: 8px;
-}
 .toolbar {
   background-color: #1878F3;
   color: white;
@@ -111,11 +85,5 @@ export default {
     margin-left: 0;  /* Reduced initial left margin */
   }
 
-}
-.locale-select {
-  padding: 0.2em 0 0.2em ;
-  font-size: 1.5em;
-  border-radius: 5px;
-  width: 150px;
 }
 </style>
