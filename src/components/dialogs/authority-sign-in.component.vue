@@ -14,67 +14,66 @@ export default {
 
 <template>
   <form class="form">
-    <p class="message">Por favor, llene los datos indicados para crear su cuenta</p>
+    <p class="message">{{ $t('authorityForm.message') }}</p>
     <div class="flex">
       <label>
         <input class="input" type="text" placeholder="" required="">
-        <span>Nombre de la Municipalidad</span>
+        <span>{{ $t('authorityForm.municipality_name') }}</span>
       </label>
       <label>
         <input class="input" type="text" placeholder="" required="">
-        <span>Cargo del Representante</span>
+        <span>{{ $t('authorityForm.representative_position') }}</span>
       </label>
     </div>
     <div class="flex">
       <label>
         <input class="input" type="email" placeholder="" required="">
-        <span>Email</span>
+        <span>{{ $t('authorityForm.email') }}</span>
       </label>
       <label>
         <input class="input" type="text" placeholder="" required="">
-        <span>Identificación Fiscal</span>
+        <span>{{ $t('authorityForm.fiscal_id') }}</span>
       </label>
     </div>
     <div class="flex">
       <label>
         <input class="input" type="text" placeholder="" required="">
-        <span>Registro Gubernamental</span>
+        <span>{{ $t('authorityForm.governmental_registration') }}</span>
       </label>
       <label>
         <input class="input" type="number" placeholder="" required="">
-        <span>Número de Contacto</span>
+        <span>{{ $t('authorityForm.contact_number') }}</span>
       </label>
     </div>
     <div class="flex">
       <label>
         <input class="input" type="text" placeholder="" required="">
-        <span>Dirección de Oficina</span>
+        <span>{{ $t('authorityForm.office_address') }}</span>
       </label>
       <label>
         <input class="input" type="text" placeholder="" required="">
-        <span>Nombre del Representante</span>
+        <span>{{ $t('authorityForm.representative_name') }}</span>
       </label>
     </div>
     <div class="flex">
       <label>
         <input class="input" type="password" placeholder="" required="">
-        <span>Contraseña</span>
+        <span>{{ $t('authorityForm.password') }}</span>
       </label>
       <label>
         <input class="input" type="password" placeholder="" required="">
-        <span>Confirmar Contraseña</span>
+        <span>{{ $t('authorityForm.confirm_password') }}</span>
       </label>
     </div>
-
 
     <label class="material-checkbox">
       <input type="checkbox" required>
       <span class="checkmark"></span>
-      Aceptar Términos de Servicio y Políticas de Seguridad
+      {{ $t('authorityForm.terms_and_policies') }}
     </label>
-    <button class="submit" @click="visible = true">Siguiente</button>
+    <button class="submit" @click="visible = true">{{ $t('authorityForm.next') }}</button>
   </form>
-  <Dialog v-model:visible="visible" modal header="Suscripción Gubernamental:" :style="{ width: '65vw' }" :breakpoints="{ '1199px': '85vw', '575px': '90vw' }">
+  <Dialog v-model:visible="visible" modal :header="$t('authorityForm.subscription_header')" :style="{ width: '65vw' }" :breakpoints="{ '1199px': '85vw', '575px': '90vw' }">
     <authority-verification/>
   </Dialog>
 </template>

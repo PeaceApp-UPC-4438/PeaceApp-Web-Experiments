@@ -4,7 +4,7 @@
       <AuthorityReportListComponent />
     </div>
     <div class="header-container">
-      <router-link to="/user/create-report-form" class="btn btn-primary">New Report</router-link>
+      <router-link to="/user/create-report-form" class="btn btn-primary">{{ $t('reports.button') }}</router-link>
     </div>
   </div>
 </template>

@@ -75,7 +75,7 @@
     height: auto;
   }
   .right-icons img {
-    height: 3vh; /* Smallest icon size for mobile devices */
+    height: 40px; /* Smallest icon size for mobile devices */
   }
   .toolbar .right-icons {
     margin-right: 0;  /* Reduced initial right margin for better screen usage */

@@ -26,7 +26,7 @@ const heatmapData = [
 <template>
   <div class="container">
     <div class="heat-map">
-      <h1 class="titulo">Mapa de Calor del Distrito de Lima</h1>
+      <h1 class="titulo">{{ $t('map.title') }}</h1>
       <google-map class="map"
                   api-key="AIzaSyBB4hK1VH2foUTaaahuKRwInGzBvZyeX4s"
                   :libraries="['visualization']"

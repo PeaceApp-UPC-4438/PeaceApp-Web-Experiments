@@ -62,9 +62,9 @@ export default {
 <template>
   <div class="container">
     <div class="search">
-      <h1 class="titulo">Find Route</h1>
+      <h1 class="titulo">{{$t('map.find')}}</h1>
       <div class="inputDesino">
-        <div class="subtitulo"><h2>Where do you want to go today?</h2></div>
+        <div class="subtitulo"><h2>{{$t('map.question')}}</h2></div>
         <div class="pv-inputgroup">
           <pv-inputtext class="input" v-model="ubication" type="text" placeholder=""/>
           <button class="icon" @click="buscarCoordenadas"><i class="pi pi-search" style="color: black"></i></button>
@@ -89,8 +89,8 @@ export default {
       </div>
       <div>
         <div v-if="nuevaUbicacion">
-          <p>Nueva Latitud: {{nuevaUbicacion.lat}}  </p>
-          <p>Nueva Longitud: {{nuevaUbicacion.lng}}  </p>
+          <p>{{ $t('map.latitude') }} {{nuevaUbicacion.lat}}  </p>
+          <p>{{ $t('map.longitude') }} {{nuevaUbicacion.lng}}  </p>
         </div>
         <div v-if="error">{{ error }}</div>
       </div>

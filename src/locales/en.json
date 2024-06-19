@@ -1,13 +1,76 @@
 {
-  "main": "For more info, check out our Landing Page and discover what we offer",
-  "welcome": "Welcome to PeaceApp",
-  "buttonInfo": "More information",
-  "msg1.Main": "Please, log in to start",
-  "email": "E-mail",
-  "password": "Password",
-  "login": "Log in",
-  "msg2.Main": "Don't have an account? ",
-  "signUp": "Sign up",
-  "msg3.Main": "Forgot your password? ",
-  "clickHere": "Click here"
+  "main": {
+    "title": "For more information, visit our page and discover our offer",
+    "welcome": "Welcome to PeaceApp",
+    "buttonInfo": "More information",
+    "message1": "Please, log in to start",
+    "email": "E-mail",
+    "password": "Password",
+    "login": "Log in",
+    "message2": "Don't have an account? ",
+    "signUp": "Sign up",
+    "message3": "Forgot your password? ",
+    "clickHere": "Click here",
+    "select": "Select your role:",
+    "user": "User",
+    "authority": "Authority"
+  },
+  "userForm": {
+    "message": "Please fill in the required details to create your account",
+    "firstname": "Firstname",
+    "lastname": "Lastname",
+    "password": "Password",
+    "confirm_password": "Confirm Password",
+    "email": "Email",
+    "terms": "Accept Terms of Service and Security Policies",
+    "submit": "Submit"
+  },
+  "authorityForm": {
+    "message": "Please fill in the indicated information to create your account",
+    "municipality_name": "Municipality Name",
+    "representative_position": "Representative's Position",
+    "email": "Email",
+    "fiscal_id": "Fiscal Identification",
+    "governmental_registration": "Governmental Registration",
+    "contact_number": "Contact Number",
+    "office_address": "Office Address",
+    "representative_name": "Representative's Name",
+    "password": "Password",
+    "confirm_password": "Confirm Password",
+    "terms_and_policies": "Accept Terms of Service and Security Policies",
+    "next": "Next",
+    "subscription_header": "Governmental Subscription:"
+  },
+  "payment": {
+    "considerations_heading": "Considerations:",
+    "considerations_content": "Your access is on a monthly basis and will automatically renew every 30 days from activation. If you decide not to continue with the service, you have the option to cancel it at any time from your profile. By doing so, please note that the privileges and subscription will be deactivated once the current billing cycle ends.",
+    "separator": "or pay using credit card",
+    "card_holder_name": "Card holder full name",
+    "card_number": "Card Number",
+    "expiry_cvv": "Expiry Date / CVV",
+    "expiry_date": "Expiry Date",
+    "cvv": "CVV",
+    "checkout": "Checkout"
+  },
+  "reports": {
+    "title": "Report list",
+    "all": "All",
+    "type_label": "Type:",
+    "date_label": "Date:",
+    "district_label": "District:",
+    "location_label": "Location:",
+    "description_label": "Description:",
+    "evidence_label": "Evidence:",
+    "clear_filters": "Clear Filters",
+    "no_reports": "No reports available.",
+    "view_evidence": "View Evidence",
+    "button": "New Report"
+  },
+  "map": {
+    "title": "District's Heat Map",
+    "find": "Find Route",
+    "question": "Where do you want to go today?",
+    "latitude": "New Latitude:",
+    "longitude": "New Longitude:"
+  }
 }

@@ -1,42 +1,44 @@
 <template>
   <div class="container">
-    <h1>Report List</h1>
+    <h1>
+      {{$t("reports.title")}}
+    </h1>
     <div class="filters">
       <div class="filter-option">
-        <label for="filter-type">Type:</label>
+        <label for="filter-type">{{$t("reports.type_label")}}</label>
         <select v-model="filterType" id="filter-type">
-          <option value="">All</option>
+          <option value="">{{ $t('reports.all') }}</option>
           <option v-for="type in uniqueTypes" :key="type" :value="type">{{ type }}</option>
         </select>
       </div>
       <div class="filter-option">
-        <label for="filter-date">Date:</label>
+        <label for="filter-date">{{$t('reports.date_label')}}</label>
         <input type="date" v-model="filterDate" id="filter-date">
       </div>
       <div class="filter-option">
-        <label for="filter-district">District:</label>
+        <label for="filter-district">{{$t('reports.district_label')}}</label>
         <select v-model="filterDistrict" id="filter-district">
-          <option value="">All</option>
+          <option value="">{{ $t('reports.all') }}</option>
           <option v-for="district in uniqueDistricts" :key="district" :value="district">{{ district }}</option>
         </select>
       </div>
       <div class="filter-option">
-        <button @click="clearFilters">Clear Filters</button>
+        <button @click="clearFilters">{{$t('reports.clear_filters')}}</button>
       </div>
     </div>
     <div class="reports-container">
       <ul v-if="filteredReports.length" class="reports-grid">
         <li v-for="report in filteredReports" :key="report.id" class="report-item">
           <h2>{{ report.type }}</h2>
-          <p><strong>Date:</strong> {{ report.date }} <strong>Time:</strong> {{ report.time }}</p>
-          <p><strong>District:</strong> {{ report.district }}</p>
-          <p><strong>Location:</strong> {{ report.location }}</p>
-          <p><strong>Description:</strong> {{ report.description }}</p>
-          <p><strong>Evidence:</strong> <a :href="report.urlEvidence" target="_blank">View Evidence</a></p>
+          <p><strong>{{ $t('reports.date_label') }}</strong> {{ report.date }} <strong>Time:</strong> {{ report.time }}</p>
+          <p><strong>{{$t('reports.district_label')}}</strong> {{ report.district }}</p>
+          <p><strong>{{$t('reports.location_label')}}</strong> {{ report.location }}</p>
+          <p><strong>{{$t('reports.description_label')}}</strong> {{ report.description }}</p>
+          <p><strong>{{$t('reports.evidence_label')}}</strong> <a :href="report.urlEvidence" target="_blank">{{ $t('reports.view_evidence') }}</a></p>
         </li>
       </ul>
       <ul v-else class="reports-grid">
-        <li class="report-item"><h2>No reports available.</h2></li>
+        <li class="report-item"><h2>{{$t('reports.no_reports')}}</h2></li>
       </ul>
     </div>
   </div>

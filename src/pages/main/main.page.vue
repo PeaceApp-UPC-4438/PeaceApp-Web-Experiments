@@ -24,42 +24,42 @@ export default {
     <div class="container">
       <div class="box1">
         <img class="logo" src="/src/assets/PeaceApp.png" alt="logo" />
-        <h2 class="info">{{$t('main')}}</h2>
-        <button class="butInfo" @click="redirectLanding">{{ $t('buttonInfo') }}</button>
+        <h2 class="info">{{$t('main.title')}}</h2>
+        <button class="butInfo" @click="redirectLanding">{{ $t('main.buttonInfo') }}</button>
       </div>
       <div class="box2">
-        <h2>{{$t('welcome')}}</h2>
-        <h3>{{$t('msg1.Main')}}</h3>
+        <h2>{{$t('main.welcome')}}</h2>
+        <h3>{{$t('main.message1')}}</h3>
         <div class="input-container">
           <input type="text" id="input" required="">
-          <label for="input" class="label">{{$t('email')}}</label>
+          <label for="input" class="label">{{$t('main.email')}}</label>
           <div class="underline"></div>
         </div>
         <div class="input-container">
           <input type="password" id="input" required="">
-          <label for="input" class="label">{{ $t('password') }}</label>
+          <label for="input" class="label">{{ $t('main.password') }}</label>
           <div class="underline"></div>
         </div>
         <router-link to="/profile">
-          <Button>{{ $t('login') }}</Button>
+          <Button>{{ $t('main.login') }}</Button>
         </router-link>
-        <h4>{{$t('msg2.Main')}}<a href="#" @click="visible=true">{{$t('signUp')}}</a></h4>
-        <h4>{{ $t('msg3.Main')}}<router-link to="/password-recover">{{ $t('clickHere') }}</router-link></h4>
+        <h4>{{$t('main.message2')}}<a href="#" @click="visible=true">{{$t('main.signUp')}}</a></h4>
+        <h4>{{ $t('main.message3')}}<router-link to="/password-recover">{{ $t('main.clickHere') }}</router-link></h4>
       </div>
     </div>
   </div>
 
   <div class="card flex justify-content-center">
-    <Dialog v-model:visible="visible" modal header="Select type:" :style="{ width: '50vw' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
+    <Dialog v-model:visible="visible" modal :header="$t('main.select')" :style="{ width: '50vw' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
       <div class="opc">
-        <button class="not" @click="signUser=true">User</button>
-        <button class="not" @click="signAuthority=true">Authority</button>
+        <button class="not" @click="signUser=true">{{$t('main.user')}}</button>
+        <button class="not" @click="signAuthority=true">{{$t('main.authority')}}</button>
       </div>
     </Dialog>
-    <Dialog v-model:visible="signUser" modal header="Usuario:" :style="{ width: '50vw' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
+    <Dialog v-model:visible="signUser" modal :header="$t('main.user')" :style="{ width: '50vw' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
       <user-sign/>
     </Dialog>
-    <Dialog v-model:visible="signAuthority" modal header="Authority:" :style="{ width: '50vw' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
+    <Dialog v-model:visible="signAuthority" modal :header="$t('main.authority')" :style="{ width: '50vw' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
       <authority-sign/>
     </Dialog>
   </div>

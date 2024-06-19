@@ -3,49 +3,49 @@
 </script>
 
 <template>
-  <form class="form">
-    <p class="message">Por favor, llene los datos indicados para crear su cuenta</p>
-    <div class="flex">
-      <label>
-        <input class="input" type="text" placeholder="" required="">
-        <span>Firstname</span>
+  <div class="container">
+    <form class="form">
+      <p class="message">{{ $t('userForm.message') }}</p>
+      <div class="flex">
+        <label>
+          <input class="input" type="text" placeholder="" required="">
+          <span>{{ $t('userForm.firstname') }}</span>
+        </label>
+        <label>
+          <input class="input" type="password" placeholder="" required="">
+          <span>{{ $t('userForm.password') }}</span>
+        </label>
+      </div>
+      <div class="flex">
+        <label>
+          <input class="input" type="text" placeholder="" required="">
+          <span>{{ $t('userForm.lastname') }}</span>
+        </label>
+        <label>
+          <input class="input" type="password" placeholder="" required="">
+          <span>{{ $t('userForm.confirm_password') }}</span>
+        </label>
+      </div>
+      <div class="flex">
+        <label>
+          <input class="input" type="email" placeholder="" required="">
+          <span>{{ $t('userForm.email') }}</span>
+        </label>
+        <label>
+          <input class="input" type="text" placeholder="" required="">
+          <span>{{ $t('userForm.lastname') }}</span>
+        </label>
+      </div>
+      <label class="material-checkbox">
+        <input type="checkbox" required>
+        <span class="checkmark"></span>
+        {{ $t('userForm.terms') }}
       </label>
-
-      <label>
-        <input class="input" type="password" placeholder="" required="">
-        <span>Password</span>
-      </label>
-    </div>
-    <div class="flex">
-      <label>
-        <input class="input" type="text" placeholder="" required="">
-        <span>Lastname</span>
-      </label>
-      <label>
-        <input class="input" type="password" placeholder="" required="">
-        <span>Confirm Password</span>
-      </label>
-    </div>
-    <div class="flex">
-      <label>
-        <input class="input" type="email" placeholder="" required="">
-        <span>Email</span>
-      </label>
-
-      <label>
-        <input class="input" type="text" placeholder="" required="">
-        <span>Lastname</span>
-      </label>
-    </div>
-    <label class="material-checkbox">
-      <input type="checkbox" required>
-      <span class="checkmark"></span>
-      Aceptar Términos de Servicio y Políticas de Seguridad
-    </label>
-    <router-link to="/profile/user">
-      <button class="submit">Submit</button>
-    </router-link>
-  </form>
+      <router-link to="/profile/user">
+        <button class="submit">{{ $t('userForm.submit') }}</button>
+      </router-link>
+    </form>
+  </div>
 </template>
 
 <style scoped>
