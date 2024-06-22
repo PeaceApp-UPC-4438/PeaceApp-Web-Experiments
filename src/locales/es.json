@@ -13,7 +13,12 @@
     "clickHere": "Click aquí",
     "select": "Seleccione su rol:",
     "user": "Usuario",
-    "authority": "Autoridad"
+    "authority": "Autoridad",
+    "recover": {
+      "back": "Regresar",
+      "message": "Si usted ha olvidado su contraseña, por favor ingrese su correo registrado. Al momento de confirmar su cuenta, le enviaremos un enlace para que pueda reestablecer su contraseña.",
+      "know": "¿Conoce su contraseña?"
+    }
   },
   "userForm": {
     "message": "Por favor, llene los datos indicados para crear su cuenta",
@@ -66,11 +71,91 @@
     "view_evidence": "Ver Evidencia",
     "button": "Nuevo Reporte"
   },
+  "reportForm": {
+    "title": "Envío de Reporte",
+    "subtitle": "Por favor complete los siguientes campos para ayudarnos a registrar el incidente con precisión.",
+    "type": "Tipo de Reporte:",
+    "dateTime": "Fecha y Hora: ",
+    "district": "Distrito: ",
+    "location": "Ubicación: ",
+    "description": "Descripción: ",
+    "evidence": "Evidencia: ",
+    "upload": "Subir Archivo",
+    "send": "Enviar",
+    "placeholders": {
+      "type": "Tipo",
+      "location": "Ubicación",
+      "description": "Descripción"
+    }
+  },
   "map": {
     "title": "Mapa de calor del distrito",
     "find": "Hallar Ruta",
     "question": "¿A donde desea ir?",
     "latitude": "Nueva Latitud:",
     "longitude": "Nueva Longitud:"
+  },
+  "authorityEdit": {
+    "edit_profile": "Editar Perfil",
+    "municipality_name": "Nombre de la Municipalidad:",
+    "email": "Correo Electrónico:",
+    "contact_number": "Número de Contacto:",
+    "office_address": "Dirección de Oficina:",
+    "description": "Descripción:",
+    "confirm_changes": "Confirmar Cambios",
+    "placeholder": {
+      "municipality_name": "Nombres",
+      "email": "Correo Electrónico",
+      "contact_number": "Número",
+      "office_address": "Dirección",
+      "description": "Descripción"
+    }
+  },
+  "userEdit": {
+    "edit_profile": "Editar Perfil",
+    "first_names": "Nombres:",
+    "last_names": "Apellidos:",
+    "district": "Distrito:",
+    "email": "Correo Electrónico:",
+    "route_type": "Tipo de Ruta:",
+    "alert_frequency": "Frecuencia de Alertas:",
+    "location_optional": "Ubicación (Opcional):",
+    "description": "Descripción:",
+    "confirm_changes": "Confirmar Cambios",
+    "placeholders": {
+      "first_names": "Nombres",
+      "last_names": "Apellidos",
+      "district": "Distrito",
+      "email": "Correo Electrónico",
+      "location": "Ubicación",
+      "description": "Descripción"
+    },
+    "route_type_options": {
+      "safe": "Segura",
+      "fast": "Rápida"
+    },
+    "alert_frequency_options": {
+      "high": "Alta",
+      "medium": "Media",
+      "low": "Baja"
+    }
+  },
+  "profile": {
+    "user": {
+      "full_name": "Nombre Completo: ",
+      "email": "Correo Electrónico: ",
+      "district": "Distrito: ",
+      "route_type": "Tipo de Ruta: ",
+      "alert_frequency": "Frecuencia de Alertas: ",
+      "location": "Ubicación: ",
+      "description": "Descripción: "
+    },
+    "authority": {
+      "municipality_name": "Nombre de la Municipalidad: ",
+      "email": "Correo Electrónico: ",
+      "contact_number": "Número de Contacto: ",
+      "office_address": "Dirección de la Oficina: ",
+      "description": "Descripción: "
+    }
   }
 }
