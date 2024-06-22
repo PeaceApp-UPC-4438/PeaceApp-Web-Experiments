@@ -2,55 +2,96 @@
   <div class="page-container">
     <div class="profile-bg">
       <div class="profile-info">
-        <h1>Edit Profile</h1>
+        <h1>{{ $t('userEdit.edit_profile') }}</h1>
         <img src="../../assets/Citizen.png" alt="Citizen" class="profile-image">
       </div>
       <div class="form-container">
         <form class="form-flex">
           <div class="column">
             <div class="form-group">
-              <label for="names" class="label-black">First Names:</label>
-              <input type="text" id="names" name="names" required class="border-black" placeholder="First names">
+              <label for="names" class="label-black">{{ $t('userEdit.first_names') }}</label>
+              <input
+                  type="text"
+                  id="names"
+                  name="names"
+                  required
+                  class="border-black"
+                  :placeholder="$t('userEdit.placeholders.first_names')"
+              >
             </div>
             <div class="form-group">
-              <label for="last-names" class="label-black">Last Names:</label>
-              <input type="text" id="last-names" name="last-names" required class="border-black" placeholder="Last names">
+              <label for="last-names" class="label-black">{{ $t('userEdit.last_names') }}</label>
+              <input
+                  type="text"
+                  id="last-names"
+                  name="last-names"
+                  required
+                  class="border-black"
+                  :placeholder="$t('userEdit.placeholders.last_names')"
+              >
             </div>
             <div class="form-group">
-              <label for="district" class="label-black">District:</label>
-              <input type="text" id="district" name="district" required class="border-black" placeholder="District">
+              <label for="district" class="label-black">{{ $t('userEdit.district') }}</label>
+              <input
+                  type="text"
+                  id="district"
+                  name="district"
+                  required
+                  class="border-black"
+                  :placeholder="$t('userEdit.placeholders.district')"
+              >
             </div>
             <div class="form-group">
-              <label for="emails" class="label-black">Email:</label>
-              <input type="email" id="emails" name="emails" required class="border-black" placeholder="Email">
+              <label for="emails" class="label-black">{{ $t('userEdit.email') }}</label>
+              <input
+                  type="email"
+                  id="emails"
+                  name="emails"
+                  required
+                  class="border-black"
+                  :placeholder="$t('userEdit.placeholders.email')"
+              >
             </div>
             <div class="form-group">
-              <label for="route-type" class="label-black">Route Type:</label>
+              <label for="route-type" class="label-black">{{ $t('userEdit.route_type') }}</label>
               <select id="route-type" name="route-type" required class="border-black">
-                <option value="safe">Safe</option>
-                <option value="fast">Fast</option>
+                <option value="safe">{{ $t('userEdit.route_type_options.safe') }}</option>
+                <option value="fast">{{ $t('userEdit.route_type_options.fast') }}</option>
               </select>
             </div>
           </div>
           <div class="column">
             <div class="form-group">
-              <label for="notification" class="label-black">Alert Frequency:</label>
+              <label for="notification" class="label-black">{{ $t('userEdit.alert_frequency') }}</label>
               <select id="notification" name="notification" required class="border-black">
-                <option value="high">High</option>
-                <option value="medium">Medium</option>
-                <option value="low">Low</option>
+                <option value="high">{{ $t('userEdit.alert_frequency_options.high') }}</option>
+                <option value="medium">{{ $t('userEdit.alert_frequency_options.medium') }}</option>
+                <option value="low">{{ $t('userEdit.alert_frequency_options.low') }}</option>
               </select>
             </div>
             <div class="form-group">
-              <label for="location" class="label-black">Location (Optional):</label>
-              <input type="text" id="location" name="location" class="border-black" placeholder="Location">
+              <label for="location" class="label-black">{{ $t('userEdit.location_optional') }}</label>
+              <input
+                  type="text"
+                  id="location"
+                  name="location"
+                  class="border-black"
+                  :placeholder="$t('userEdit.placeholders.location')"
+              >
             </div>
             <div class="form-group">
-              <label for="description" class="label-black">Description:</label>
-              <textarea id="description" name="description" required class="border-black" rows="5" placeholder="Description"></textarea>
+              <label for="description" class="label-black">{{ $t('userEdit.description') }}</label>
+              <textarea
+                  id="description"
+                  name="description"
+                  required
+                  class="border-black"
+                  rows="5"
+                  :placeholder="$t('userEdit.placeholders.description')"
+              ></textarea>
             </div>
             <div class="button-container">
-              <button type="submit">Confirm Changes</button>
+              <button type="submit">{{ $t('userEdit.confirm_changes') }}</button>
             </div>
           </div>
         </form>

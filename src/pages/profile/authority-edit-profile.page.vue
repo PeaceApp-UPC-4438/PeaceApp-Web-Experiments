@@ -3,40 +3,39 @@
     <div class="page-container">
       <div class="profile-bg">
         <div class="profile-info">
-          <h1>Edit Profile</h1>
+          <h1>{{ $t('authorityEdit.edit_profile') }}</h1>
           <img src="../../assets/municipalidad.png" alt="Municipalidad" class="profile-image">
         </div>
         <div class="form-container">
           <form class="form-flex">
             <div class="column">
               <div class="form-group">
-                <label for="names" class="label-black">Name of the Municipality:</label>
-                <input type="text" id="names" name="names" required class="border-black" placeholder="First names">
+                <label for="names" class="label-black">{{ $t('authorityEdit.municipality_name') }}</label>
+                <input type="text" id="names" name="names" required class="border-black" :placeholder="$t('authorityEdit.placeholder.municipality_name')">
               </div>
               <div class="form-group">
-                <label for="emails" class="label-black">Email:</label>
-                <input type="email" id="emails" name="emails" required class="border-black" placeholder="Email">
+                <label for="emails" class="label-black">{{ $t('authorityEdit.email') }}</label>
+                <input type="email" id="emails" name="emails" required class="border-black" :placeholder="$t('authorityEdit.placeholder.email')">
               </div>
               <div class="form-group">
-                <label for="description" class="label-black">Contact Number:</label>
-                <input type="text" id="names" name="names" required class="border-black" placeholder="Number">
+                <label for="description" class="label-black">{{ $t('authorityEdit.contact_number') }}</label>
+                <input type="text" id="names" name="names" required class="border-black" :placeholder="$t('authorityEdit.placeholder.contact_number')">
               </div>
             </div>
             <div class="column">
               <div class="form-group">
-                <label for="description" class="label-black">Office Address:</label>
-                <input type="text" id="names" name="names" required class="border-black" placeholder="Address">
+                <label for="description" class="label-black">{{ $t('authorityEdit.office_address') }}</label>
+                <input type="text" id="names" name="names" required class="border-black" :placeholder="$t('authorityEdit.placeholder.office_address')">
               </div>
               <div class="form-group">
-                <label for="description" class="label-black">Description:</label>
-                <textarea id="description" name="description" required class="border-black" rows="5" placeholder="Description"></textarea>
+                <label for="description" class="label-black">{{ $t('authorityEdit.description') }}</label>
+                <textarea id="description" name="description" required class="border-black" rows="5" :placeholder="$t('authorityEdit.placeholder.description')"></textarea>
               </div>
               <div class="button-container">
-                <button type="submit">Confirm Changes</button>
+                <button type="submit">{{ $t('authorityEdit.confirm_changes') }}</button>
               </div>
             </div>
           </form>
-
         </div>
       </div>
     </div>

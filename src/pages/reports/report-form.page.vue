@@ -40,15 +40,15 @@ export default {
   <div class="container-fluid">
     <div class="page-container">
       <div class="form-container">
-        <h1>Report Sending</h1>
-        <p>Please complete the following fields to help us accurately record the incident.</p>
+        <h1>{{$t('reportForm.title')}}</h1>
+        <p>{{ $t('reportForm.subtitle') }}</p>
         <form @submit.prevent="createReport" class="form-flex">
           <div class="column">
             <div class="form-group">
-              <label for="report-type" class="label-black">Type of Report:</label>
-              <input v-model="report.type" id="type" type="text" name="type" placeholder="Type" required class="border-black" >
+              <label for="report-type" class="label-black">{{$t('reportForm.type')}}</label>
+              <input v-model="report.type" id="type" type="text" name="type" :placeholder="$t('reportForm.placeholders.type')" required class="border-black" >
             </div>
-            <label for="date" class="label-black">Date and Time:</label>
+            <label for="date" class="label-black">{{ $t('reportForm.dateTime') }}</label>
             <div class="date-time-container">
               <input v-model="report.date" id="date" type="date" name="date" required class="border-black">
               <input v-model="report.time" id="time" type="time" name="time" required class="border-black">
@@ -56,7 +56,7 @@ export default {
             <div class="form-group">
               <div class="row">
                 <div class="column-half">
-                  <label for="district" class="label-black">District:</label>
+                  <label for="district" class="label-black">{{ $t('reportForm.district') }}</label>
                   <select v-model="report.district" id="district" name="district" required class="border-black">
                     <option value="Ancon">Ancón</option>
                     <option value="Ate">Ate</option>
@@ -104,19 +104,19 @@ export default {
                   </select>
                 </div>
                 <div class="column-half">
-                  <label for="location" class="label-black">Location:</label>
-                  <input v-model="report.location" id="location" type="text" placeholder="Location" name="location" required class="border-black" >
+                  <label for="location" class="label-black">{{ $t('reportForm.location') }}</label>
+                  <input v-model="report.location" id="location" type="text" :placeholder="$t('reportForm.placeholders.location')" name="location" required class="border-black" >
                 </div>
               </div>
             </div>
             <div class="form-group">
-              <label for="description" class="label-black">Description:</label>
-              <textarea v-model="report.description" id="description" placeholder="Description" name="description" required class="border-black" rows="5" ></textarea>
+              <label for="description" class="label-black">{{ $t('reportForm.description') }}</label>
+              <textarea v-model="report.description" id="description" :placeholder="$t('reportForm.placeholders.description')" name="description" required class="border-black" rows="5" ></textarea>
             </div>
             <div class="form-group">
               <div class="evidence-container">
-                <label for="evidence" class="label-black">Evidence:</label>
-                <label for="file-upload" class="upload-button">Upload File</label>
+                <label for="evidence" class="label-black">{{$t('reportForm.evidence')}}</label>
+                <label for="file-upload" class="upload-button">{{ $t('reportForm.upload') }}</label>
                 <input type="file" id="file-upload" name="file-upload" class="file-input" style="display: none;">
               </div>
             </div>
@@ -124,7 +124,7 @@ export default {
           <div class="column">
             <img src="../../assets/Map-Placeholder.png" alt="Map" class="map-image">
             <div class="button-container">
-              <button type="submit">Send</button>
+              <button type="submit">{{ $t('reportForm.send') }}</button>
             </div>
           </div>
         </form>

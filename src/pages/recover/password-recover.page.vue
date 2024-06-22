@@ -14,23 +14,22 @@ export default {
     <div class="container">
       <div class="box1">
         <img class="logo" src="/src/assets/PeaceApp.png" alt="logo" />
-        <h2 class="info">For more info, check out our Landing Page and discover what we offer</h2>
-        <button class="butInfo" @click="redirectLanding">More Information</button>
+        <h2 class="info">{{ $t('main.title') }}</h2>
+        <button class="butInfo" @click="redirectLanding">{{$t('main.buttonInfo')}}</button>
       </div>
       <div class="box2">
-        <h3>Si usted ha olvidado su contraseña, por favor ingrese su correo registrado. Al momento de confirmar su cuenta,
-          le enviaremos un enlace para que pueda reestablecer su contraseña.</h3>
+        <h3>{{$t('main.recover.message')}}</h3>
         <div class="input-container">
           <input type="text" id="input" required="">
-          <label for="input" class="label">E-mail</label>
+          <label for="input" class="label">{{$t('main.email')}}</label>
           <div class="underline"></div>
         </div>
         <div class="bts">
           <router-link to="/recover">
-            <Button>Ingresar</Button>
+            <Button>{{ $t('main.login') }}</Button>
           </router-link>
           <router-link to="/">
-            <Button>Conozco mi contraseña</Button>
+            <Button>{{ $t('main.recover.know') }}</Button>
           </router-link>
         </div>
       </div>

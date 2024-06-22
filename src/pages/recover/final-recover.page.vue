@@ -14,13 +14,13 @@ export default {
     <div class="container">
       <div class="box1">
         <img class="logo" src="/src/assets/PeaceApp.png" alt="logo" />
-        <h2 class="info">For more info, check out our Landing Page and discover what we offer</h2>
-        <button class="butInfo" @click="redirectLanding">More Information</button>
+        <h2 class="info">{{ $t('main.title') }}</h2>
+        <button class="butInfo" @click="redirectLanding">{{$t('main.buttonInfo')}}</button>
       </div>
       <div class="box2">
-        <h3>Please, log in to start</h3>
+        <h3>{{ $t('main.message1') }}</h3>
         <router-link to="/">
-          <Button>Volver</Button>
+          <Button>{{ $t('main.recover.back') }}</Button>
         </router-link>
       </div>
     </div>

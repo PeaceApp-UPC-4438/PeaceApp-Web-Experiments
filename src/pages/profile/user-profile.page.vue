@@ -9,13 +9,13 @@
         <img src="../../assets/Anatoly.png" alt="Usuario" class="img" />
       </div>
       <div class="right">
-        <p>Full name: Anatoly Andrey Noriega Suschenko</p>
-        <p>E-mail: lorersz@gmail.com</p>
-        <p>District: Breña</p>
-        <p>Route Type: Safe</p>
-        <p>Alert Frequency: High</p>
-        <p>Location: NA</p>
-        <p>Description: Enthusiastic advocate of community safety and active user of the platform. I dedicate myself
+        <p>{{ $t('profile.user.full_name') }} Anatoly Andrey Noriega Suschenko</p>
+        <p>{{ $t('profile.user.email')}} lorersz@gmail.com</p>
+        <p>{{ $t('profile.user.district') }} Breña</p>
+        <p>{{$t('profile.user.route_type')}} Safe</p>
+        <p>{{$t('profile.user.alert_frequency')}} High</p>
+        <p>{{ $t('profile.user.location') }} NA</p>
+        <p>{{ $t('profile.user.description') }} Enthusiastic advocate of community safety and active user of the platform. I dedicate myself
           to share crucial information and stay on top of updates to ensure transfers safe for me and others.</p>
       </div>
       <div class="buttons">

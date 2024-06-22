@@ -10,14 +10,14 @@
       </div>
 
       <div class="right">
-        <p>Name of the Municipality: Municipalidad Distrital de La Victoria</p>
-        <p>Email: info@munilavictoria.gob.pe</p>
-        <p>Contact Number: (01) 510-2070</p>
-        <p>Office Address: 500 Iquitos Ave, La victoria 18018</p>
-        <p>Description: This profile facilitates the interaction between the Municipality of La Victoria and citizens,
-          allowing local authorities to monitor and respond to security incidents. Find here
-          official updates, security alerts and a direct link to report emergencies, all in focus
-          to improve safety and life quality in the district.</p>
+        <p>{{ $t('profile.authority.municipality_name') }} Municipalidad Distrital de La Victoria</p>
+        <p>{{$t('profile.authority.email')}} info@munilavictoria.gob.pe</p>
+        <p>{{ $t('profile.authority.contact_number') }} (01) 510-2070</p>
+        <p>{{ $t('profile.authority.office_address') }} Av. Iquitos 500, La victoria 18018</p>
+        <p>{{ $t('profile.authority.description') }}This profile facilitates the interaction between
+          the Municipality of La Victoria and citizens, allowing local authorities to monitor and respond
+          to security incidents. Find here official updates, security alerts and a direct link to report
+          emergencies, all in focus to improve safety and life quality in the district.</p>
 
       </div>
       <div class="buttons">
