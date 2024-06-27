@@ -24,9 +24,12 @@
     "message": "Por favor, llene los datos indicados para crear su cuenta",
     "firstname": "Nombre",
     "lastname": "Apellido",
+    "email": "Correo electrónico",
+    "address": "Dirección",
+    "district": "Distrito",
+    "city": "Ciudad",
     "password": "Contraseña",
     "confirm_password": "Confirmar Contraseña",
-    "email": "Correo electrónico",
     "terms": "Aceptar Términos de Servicio y Políticas de Seguridad",
     "submit": "Enviar"
   },

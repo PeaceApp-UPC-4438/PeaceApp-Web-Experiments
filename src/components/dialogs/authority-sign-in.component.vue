@@ -91,7 +91,7 @@ export default {
     <p class="message">{{ $t('authorityForm.message') }}</p>
     <div class="flex">
       <label>
-        <input class="input" type="email" placeholder="" required="" v-model="formData.email">
+        <input class="input" type="email" placeholder="Email" required="" v-model="formData.email">
         <span>{{ $t('authorityForm.email') }}</span>
       </label>
     </div>

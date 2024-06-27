@@ -24,9 +24,12 @@
     "message": "Please fill in the required details to create your account",
     "firstname": "Firstname",
     "lastname": "Lastname",
+    "email": "Email",
+    "address": "Address",
+    "district": "District",
+    "city": "City",
     "password": "Password",
     "confirm_password": "Confirm Password",
-    "email": "Email",
     "terms": "Accept Terms of Service and Security Policies",
     "submit": "Submit"
   },

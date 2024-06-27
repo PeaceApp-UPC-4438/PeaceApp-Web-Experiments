@@ -69,20 +69,13 @@ export default {
         <h2>{{$t('main.welcome')}}</h2>
         <h3>{{$t('main.message1')}}</h3>
         <div class="input-container">
-          <input type="email" id="input" required="" v-model="userData.email">
-          <label for="input" class="label">{{ $t('main.email') }}</label>
-          <div class="underline"></div>
+          <input :placeholder="$t('main.email')" class="input-style" type="email" id="input" required="" v-model="userData.email">
+          <input :placeholder="$t('main.password')" class="input-style" type="password" id="input" required="" v-model="userData.password">
         </div>
-        <div class="input-container">
-          <input type="password" id="input" required="" v-model="userData.password">
-          <label for="input" class="label">{{ $t('main.password') }}</label>
-          <div class="underline"></div>
-        </div>
-
         <button type="submit">{{ $t('main.login') }}</button>
         <p v-if="error" class="error">{{ error }}</p>
 
-        <h4>{{$t('main.message2')}}<a href="#" @click="visible=true">{{$t('main.signUp')}}</a></h4>
+        <h4>{{ $t('main.message2')}}<a href="#" @click="visible=true">{{$t('main.signUp')}}</a></h4>
         <h4>{{ $t('main.message3')}}<router-link to="/password-recover">{{ $t('main.clickHere') }}</router-link></h4>
       </form>
     </div>
@@ -105,6 +98,9 @@ export default {
 </template>
 
 <style scoped>
+.input-container{
+  display: inline-block;
+}
 .card{
   padding: 0;
 }

@@ -82,66 +82,38 @@ export default {
 </script>
 
 <template>
-  <div class="container">
-    <form class="form" @submit.prevent="submit()">
-      <p class="message">{{ $t('userForm.message') }}</p>
-      <div class="flex">
-        <label>
-          <input class="input" type="text" placeholder="" required="" v-model="formData.firstname">
-          <span>{{ $t('userForm.firstname') }}</span>
-        </label>
-        <label>
-          <input class="input" type="text" placeholder="" required="" v-model="formData.lastname">
-          <span>{{ $t('userForm.lastname') }}</span>
-        </label>
-
-      </div>
-      <div class="flex">
-        <label>
-          <input class="input" type="password" placeholder="" required="">
-          <span>{{ $t('userForm.password') }}</span>
-        </label>
-        <label>
-          <input class="input" type="password" placeholder="" required="" v-model="formData.password">
-          <span>{{ $t('userForm.confirm_password') }}</span>
-        </label>
-      </div>
-      <div class="flex">
-        <label>
-          <input class="input" type="text" placeholder="" required="" v-model="formData.address">
-          <span>Address</span>
-        </label>
-        <label>
-          <input class="input" type="text" placeholder="" required="" v-model="formData.district">
-          <span>District</span>
-        </label>
-      </div>
-      <div class="flex">
-        <label>
-          <input class="input" type="email" placeholder="" required="" v-model="formData.email">
-          <span>{{ $t('userForm.email') }}</span>
-        </label>
-        <label>
-          <input class="input" type="text" placeholder="" required="" v-model="formData.city">
-          <span>City</span>
-        </label>
-      </div>
-      <label class="material-checkbox">
-        <input type="checkbox" required>
-        <span class="checkmark"></span>
-        {{ $t('userForm.terms') }}
-      </label>
-        <button type="submit" >{{ $t('userForm.submit') }}</button>
-      <p v-if="error" class="error">{{ error }}</p>
-    </form>
-  </div>
+  <form class="form" @submit.prevent="submit()">
+    <p class="message">{{ $t('userForm.message') }}</p>
+    <div class="flex">
+      <input :placeholder="$t('userForm.firstname')" class="input-style" type="text" id="input" required="" v-model="formData.firstname">
+      <input :placeholder="$t('userForm.lastname')" class="input-style" type="text" id="input" required="" v-model="formData.lastname">
+    </div>
+    <div class="flex">
+      <input :placeholder="$t('userForm.email')" class="input-style" type="email" id="input" required="" v-model="formData.email">
+      <input :placeholder="$t('userForm.address')" class="input-style" type="text" id="input" required="" v-model="formData.address">
+    </div>
+    <div class="flex">
+      <input :placeholder="$t('userForm.district')" class="input-style" type="text" id="input" required="" v-model="formData.district">
+      <input :placeholder="$t('userForm.city')" class="input-style" type="text" id="input" required="" v-model="formData.city">
+    </div>
+    <div class="flex">
+      <input :placeholder="$t('userForm.password')" class="input-style" type="password" id="input" required="">
+      <input :placeholder="$t('userForm.confirm_password')" class="input-style" type="password" id="input" required="" v-model="formData.password">
+    </div>
+    <label class="material-checkbox">
+      <input type="checkbox" required>
+      <span class="checkmark"></span>
+      {{ $t('userForm.terms') }}
+    </label>
+    <button type="submit" >{{ $t('userForm.submit') }}</button>
+    <p v-if="error" class="error">{{ error }}</p>
+  </form>
 </template>
 
 <style scoped>
 .form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
   max-width: 500px;
   margin: 0 auto;
   padding: 20px;
@@ -151,53 +123,13 @@ export default {
   justify-content: center;
 }
 
-
 .message {
   color: rgba(88, 87, 87, 0.822);
   font-size: 14px;
 }
 
-
 .flex {
   display: flex;
-  gap: 15px;
-}
-
-.form label {
-  position: relative;
-}
-
-.form label .input {
-  width: 210px;
-  padding: 10px 10px 20px 10px;
-  outline: 0;
-  border: 1px solid rgba(105, 105, 105, 0.397);
-  border-radius: 10px;
-}
-
-.form label .input + span {
-  position: absolute;
-  left: 10px;
-  top: 15px;
-  color: grey;
-  font-size: 0.9em;
-  cursor: text;
-  transition: 0.3s ease;
-}
-
-.form label .input:placeholder-shown + span {
-  top: 15px;
-  font-size: 0.9em;
-}
-
-.form label .input:focus + span,.form label .input:valid + span {
-  top: 0;
-  font-size: 0.7em;
-  font-weight: 600;
-}
-
-.form label .input:valid + span {
-  color: green;
 }
 
 button {
@@ -281,6 +213,17 @@ button {
   to {
     transform: scale(1.8);
     opacity: 0;
+  }
+}
+@media (max-width: 768px) {
+  .form {
+    padding: 0;
+  }
+  .flex {
+    flex-direction: column;
+  }
+  .input-style {
+    width: 100%;
   }
 }
 </style>
