@@ -85,47 +85,22 @@ export default {
 
 </script>
 
-
 <template>
   <form class="form" @submit.prevent="submit()">
     <p class="message">{{ $t('authorityForm.message') }}</p>
     <div class="flex">
-      <label>
-        <input class="input" type="email" placeholder="Email" required="" v-model="formData.email">
-        <span>{{ $t('authorityForm.email') }}</span>
-      </label>
+      <input :placeholder="$t('authorityForm.municipality_name')" class="input-style" type="text" id="input" required="" v-model="formData.name">
+      <input :placeholder="$t('authorityForm.email')" class="input-style" type="email" id="input" required="" v-model="formData.email">
     </div>
     <div class="flex">
-      <label>
-        <input class="input" type="text" placeholder="" required="" v-model="formData.name">
-        <span>Authority Name</span>
-      </label>
-      <label>
-        <input class="input" type="text" placeholder="" required="" v-model="formData.address">
-        <span>Address</span>
-      </label>
+      <input :placeholder="$t('authorityForm.password')" class="input-style" type="password" id="input" required="">
+      <input :placeholder="$t('authorityForm.confirm_password')" class="input-style" type="password" id="input" required="" v-model="formData.password">
     </div>
     <div class="flex">
-      <label>
-        <input class="input" type="text" placeholder="" required="" v-model="formData.contact_number">
-        <span>{{ $t('authorityForm.contact_number') }}</span>
-      </label>
-      <label>
-        <input class="input" type="text" placeholder="" required="" v-model="formData.description">
-        <span>Description</span>
-      </label>
+      <input :placeholder="$t('authorityForm.address')" class="input-style" type="text" id="input" required="" v-model="formData.address">
+      <input :placeholder="$t('authorityForm.contact_number')" class="input-style" type="text" id="input" required="" v-model="formData.contact_number">
     </div>
-    <div class="flex">
-      <label>
-        <input class="input" type="password" placeholder="" required="" >
-        <span>{{ $t('authorityForm.password') }}</span>
-      </label>
-      <label>
-        <input class="input" type="password" placeholder="" required="" v-model="formData.password">
-        <span>{{ $t('authorityForm.confirm_password') }}</span>
-      </label>
-    </div>
-
+    <textarea :placeholder="$t('authorityForm.description')" class="input-style description" rows="5" cols="30" required="" v-model="formData.description"/>
     <label class="material-checkbox">
       <input type="checkbox" required>
       <span class="checkmark"></span>
@@ -142,7 +117,7 @@ export default {
 .form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  max-width: 500px;
   margin: 0 auto;
   padding: 20px;
   border-radius: 20px;
@@ -150,54 +125,23 @@ export default {
   align-items: center;
   justify-content: center;
 }
-
+.description {
+  width: 100%;
+  height: 100px;
+}
 
 .message {
   color: rgba(88, 87, 87, 0.822);
   font-size: 14px;
 }
-
-
 .flex {
   display: flex;
-  gap: 15px;
-}
+  width: 100%;
+  gap: 20px;
 
-.form label {
-  position: relative;
 }
-
-.form label .input {
-  width: 210px;
-  padding: 10px 10px 20px 10px;
-  outline: 0;
-  border: 1px solid rgba(105, 105, 105, 0.397);
-  border-radius: 10px;
-}
-
-.form label .input + span {
-  position: absolute;
-  left: 10px;
-  top: 15px;
-  color: grey;
-  font-size: 0.9em;
-  cursor: text;
-  transition: 0.3s ease;
-}
-
-.form label .input:placeholder-shown + span {
-  top: 15px;
-  font-size: 0.9em;
-}
-
-.form label .input:focus + span,.form label .input:valid + span {
-  top: 0;
-  font-size: 0.7em;
-  font-weight: 600;
-}
-
-.form label .input:valid + span {
-  color: green;
+.input-style{
+  margin: 10px 0;
 }
 
 button {
@@ -281,6 +225,17 @@ button {
   to {
     transform: scale(1.8);
     opacity: 0;
+  }
+}
+@media (max-width: 768px) {
+  .form {
+    padding: 0;
+  }
+  .flex {
+    flex-direction: column;
+  }
+  .input-style {
+    width: 100%;
   }
 }
 </style>
