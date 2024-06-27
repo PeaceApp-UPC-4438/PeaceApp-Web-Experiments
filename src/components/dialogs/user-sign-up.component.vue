@@ -57,9 +57,11 @@ export default {
         this.userData.password = this.formData.password;
         const userResponse = await this.userService.createUser(this.userData);
         console.log("User successfully created: ", userResponse);
-
         const citizenResponse = await this.citizenService.createCitizen(this.formData);
         console.log("Citizen successfully created: ", citizenResponse);
+        setTimeout(() => {
+          this.$router.push({ path:'/profile'});
+        }, 3000);
       } catch (error) {
         console.log("Error creating user: ", error);
       }

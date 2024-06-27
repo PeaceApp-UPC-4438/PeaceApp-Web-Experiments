@@ -47,6 +47,24 @@
       "password": "123",
       "role": "authority",
       "id": 8
+    },
+    {
+      "email": "asdf@gmail.com",
+      "password": "sdf",
+      "role": "authority",
+      "id": 9
+    },
+    {
+      "email": "sdf@hotmail.com",
+      "password": "sdf",
+      "role": "authority",
+      "id": 10
+    },
+    {
+      "email": "sdf@gmail.com",
+      "password": "sdf",
+      "role": "authority",
+      "id": 11
     }
   ],
   "citizens": [
@@ -135,6 +153,36 @@
       "description": "Municipalidad de Lince descrip",
       "profileImage": "https://picsum.photos/200/300",
       "id": 4
+    },
+    {
+      "name": "sdf",
+      "email": "asdf@gmail.com",
+      "password": "sdf",
+      "contact_number": "sdf",
+      "address": "sf",
+      "description": "sdfasdf",
+      "profileImage": "https://picsum.photos/200/300",
+      "id": 5
+    },
+    {
+      "name": "sdf",
+      "email": "sdf@hotmail.com",
+      "password": "sdf",
+      "contact_number": "sdf",
+      "address": "sdf",
+      "description": "dfsdf",
+      "profileImage": "https://picsum.photos/200/300",
+      "id": 6
+    },
+    {
+      "name": "sdf",
+      "email": "sdf@gmail.com",
+      "password": "sdf",
+      "contact_number": "sdf",
+      "address": "sdf",
+      "description": "sfs",
+      "profileImage": "https://picsum.photos/200/300",
+      "id": 7
     }
   ],
   "reports": [

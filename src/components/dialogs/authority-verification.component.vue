@@ -2,8 +2,7 @@
 export default {
   methods: {
     redirect() {
-      const Link = '/profile/authority';
-      window.location.href = Link;
+      window.location.href = '/profile';
     }
   }
 }
@@ -97,14 +96,13 @@ export default {
 .right{
   text-align: justify;
   width: 50%;
+  min-width: 400px;
 }
 .modal {
-  width: fit-content;
   height: fit-content;
-  background: #FFFFFF;
-  box-shadow: 0px 187px 75px rgba(0, 0, 0, 0.01), 0px 105px 63px rgba(0, 0, 0, 0.05), 0px 47px 47px rgba(0, 0, 0, 0.09), 0px 12px 26px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
   border-radius: 26px;
-  max-width: 450px;
+  min-width: 400px;
+  box-shadow: 0 187px 75px rgba(0, 0, 0, 0.01), 0 105px 63px rgba(0, 0, 0, 0.05), 0px 47px 47px rgba(0, 0, 0, 0.09), 0px 12px 26px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
 }
 
 .form {
@@ -248,7 +246,7 @@ export default {
   .container {
     flex-wrap: wrap; /* Stacks the boxes vertically on smaller screens */
   }
-  .right{
+  .right, .modal{
     width: 100%;
   }
 }

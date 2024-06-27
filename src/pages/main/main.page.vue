@@ -1,6 +1,6 @@
 <script>
-import userSign from '../../components/dialogs/user-sign-in.component.vue';
-import authoritySign from '../../components/dialogs/authority-sign-in.component.vue';
+import userSign from '../../components/dialogs/user-sign-up.component.vue';
+import authoritySign from '../../components/dialogs/authority-sign-up.component.vue';
 import { UserApiService } from "../../services/userapi.service.js";
 
 export default {

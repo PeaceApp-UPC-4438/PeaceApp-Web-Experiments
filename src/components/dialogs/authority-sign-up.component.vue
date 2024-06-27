@@ -64,6 +64,7 @@ export default {
 
           const authorityResponse = await this.authorityService.createAuthority(this.formData);
           console.log("Authority successfully created: ", authorityResponse);
+          this.visible = true;
         } catch (error) {
           console.log("Error creating authority: ", error);
         }
@@ -106,7 +107,7 @@ export default {
       <span class="checkmark"></span>
       {{ $t('authorityForm.terms_and_policies') }}
     </label>
-    <button class="submit" @click="visible = true">{{ $t('authorityForm.next') }}</button>
+    <button class="submit">{{ $t('authorityForm.next') }}</button>
   </form>
   <Dialog v-model:visible="visible" modal :header="$t('authorityForm.subscription_header')" :style="{ width: '65vw' }" :breakpoints="{ '1199px': '85vw', '575px': '90vw' }">
     <AuthorityVerification/>
