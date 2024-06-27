@@ -1,4 +1,7 @@
 <template>
+  <header>
+    <AuthorityToolbar/>
+  </header>
   <div class="padre">
     <div class="container">
       <div class="left">
@@ -17,9 +20,7 @@
         <router-link to="/authority/edit-profile">
           <button>Edit Profile</button>
         </router-link>
-        <router-link to="/">
-          <button>Log Out</button>
-        </router-link>
+        <button @click="logout">Log Out</button>
         <button>Delete Account</button>
       </div>
     </div>
@@ -27,9 +28,19 @@
 </template>
 
 <script>
+import AuthorityToolbar from "../../toolbar/toolbarAuthority.component.vue";
 export default {
+  components: {
+    AuthorityToolbar
+  },
   props: {
     authority: Object
+  },
+  methods: {
+    logout() {
+      localStorage.clear();
+      this.$router.push('/login');
+    }
   }
 };
 </script>

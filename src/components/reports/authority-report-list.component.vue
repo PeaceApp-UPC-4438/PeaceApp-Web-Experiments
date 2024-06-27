@@ -1,4 +1,12 @@
 <template>
+  <header>
+    <div v-if="role === 'citizen'">
+      <CitizenToolbar/>
+    </div>
+    <div v-else-if="role === 'authority'">
+      <AuthorityToolbar/>
+    </div>
+  </header>
   <div class="container">
     <h1>
       {{$t("reports.title")}}
@@ -34,6 +42,7 @@
           <p><strong>{{$t('reports.district_label')}}</strong> {{ report.district }}</p>
           <p><strong>{{$t('reports.location_label')}}</strong> {{ report.location }}</p>
           <p><strong>{{$t('reports.description_label')}}</strong> {{ report.description }}</p>
+          <p><strong>Reported by User:</strong> {{ report.user?.firstname + ' ' + report.user?.lastname}}</p>
           <p><strong>{{$t('reports.evidence_label')}}</strong> <a :href="report.urlEvidence" target="_blank">{{ $t('reports.view_evidence') }}</a></p>
         </li>
       </ul>
@@ -46,16 +55,23 @@
 
 <script>
 import { ReportApiService } from "../../services/reportapi.service.js";
-
+import AuthorityToolbar from "../toolbar/toolbarAuthority.component.vue";
+import CitizenToolbar from "../toolbar/toolbarCitizen.component.vue";
+import ToolbarCitizen from "../../app.vue";
 export default {
   name: "ReportsList",
+  components: {
+    CitizenToolbar,
+    AuthorityToolbar
+  },
   data() {
     return {
       reports: [],
       api: new ReportApiService(),
       filterType: "",
       filterDate: "",
-      filterDistrict: ""
+      filterDistrict: "",
+      role: ""
     };
   },
   async created() {
@@ -65,6 +81,7 @@ export default {
     } catch (error) {
       console.error("Error fetching reports:", error);
     }
+    await this.getRole();
   },
   computed: {
     uniqueTypes() {
@@ -92,6 +109,9 @@ export default {
       this.filterType = "";
       this.filterDate = "";
       this.filterDistrict = "";
+    },
+    async getRole() {
+      this.role = localStorage.getItem('userRole');
     }
   },
 };

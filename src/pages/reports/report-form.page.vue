@@ -5,10 +5,20 @@ export default {
   name: "report-component",
   data() {
     return {
-      report: new Report(),
+      reportData: {
+        type: "",
+        date: "",
+        time: "",
+        district: "",
+        location: "",
+        description: "",
+        evidence: "",
+        user: {}
+      },
       api: new ReportApiService(),
       successMessage: "",
       showSuccessMessage: false,
+      citizen: {}
     };
   },
   methods: {
@@ -20,14 +30,16 @@ export default {
       }, 3000);
     },
     async new(){
+      this.citizen = JSON.parse(localStorage.getItem('citizen'));
+      this.reportData.user = this.citizen;
       try {
-        await this.api.create(this.report);
+        await this.api.create(this.reportData);
         this.successMessage = "Report created successfully"; // Set success message
         this.showSuccessMessage = true; // Show the popup
         setTimeout(() => {
           this.showSuccessMessage = false; // Hide the popup after 5 seconds
         }, 5000);
-        console.log("New report added:", this.report);
+        console.log("New report added:", this.reportData);
       } catch (error) {
         console.error("Error creating report:", error);
       }
@@ -46,18 +58,18 @@ export default {
           <div class="column">
             <div class="form-group">
               <label for="report-type" class="label-black">{{$t('reportForm.type')}}</label>
-              <input v-model="report.type" id="type" type="text" name="type" :placeholder="$t('reportForm.placeholders.type')" required class="border-black" >
+              <input v-model="reportData.type" id="type" type="text" name="type" :placeholder="$t('reportForm.placeholders.type')" required class="border-black" >
             </div>
             <label for="date" class="label-black">{{ $t('reportForm.dateTime') }}</label>
             <div class="date-time-container">
-              <input v-model="report.date" id="date" type="date" name="date" required class="border-black">
-              <input v-model="report.time" id="time" type="time" name="time" required class="border-black">
+              <input v-model="reportData.date" id="date" type="date" name="date" required class="border-black">
+              <input v-model="reportData.time" id="time" type="time" name="time" required class="border-black">
             </div>
             <div class="form-group">
               <div class="row">
                 <div class="column-half">
                   <label for="district" class="label-black">{{ $t('reportForm.district') }}</label>
-                  <select v-model="report.district" id="district" name="district" required class="border-black">
+                  <select v-model="reportData.district" id="district" name="district" required class="border-black">
                     <option value="Ancon">Ancón</option>
                     <option value="Ate">Ate</option>
                     <option value="Barranco">Barranco</option>
@@ -105,13 +117,13 @@ export default {
                 </div>
                 <div class="column-half">
                   <label for="location" class="label-black">{{ $t('reportForm.location') }}</label>
-                  <input v-model="report.location" id="location" type="text" :placeholder="$t('reportForm.placeholders.location')" name="location" required class="border-black" >
+                  <input v-model="reportData.location" id="location" type="text" :placeholder="$t('reportForm.placeholders.location')" name="location" required class="border-black" >
                 </div>
               </div>
             </div>
             <div class="form-group">
               <label for="description" class="label-black">{{ $t('reportForm.description') }}</label>
-              <textarea v-model="report.description" id="description" :placeholder="$t('reportForm.placeholders.description')" name="description" required class="border-black" rows="5" ></textarea>
+              <textarea v-model="reportData.description" id="description" :placeholder="$t('reportForm.placeholders.description')" name="description" required class="border-black" rows="5" ></textarea>
             </div>
             <div class="form-group">
               <div class="evidence-container">

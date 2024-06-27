@@ -16,11 +16,6 @@ export default {
     }
   },
   methods: {
-    getUserRole() {
-      // Obtener el email y rol del usuario desde localStorage
-      this.userRole = localStorage.getItem('userRole');
-      console.log(this.userRole);
-    },
     changeLanguage(event) {
       const selectedLanguage = event.target.value;
       this.$i18n.locale = selectedLanguage;
@@ -29,22 +24,11 @@ export default {
     hideSelect() {
       this.showSelect = false;
     }
-  },
-  created() {
-    this.getUserRole();
   }
 };
 </script>
 
 <template>
-  <header>
-   <div v-if="userRole === 'citizen'">
-     <ToolbarCitizen  />
-   </div>
-    <div v-else-if="userRole === 'authority'">
-      <ToolbarAuthority />
-    </div>
-  </header>
   <main>
     <div class="container">
       <router-view/>

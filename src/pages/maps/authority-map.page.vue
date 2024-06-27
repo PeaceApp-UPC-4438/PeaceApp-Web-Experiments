@@ -1,5 +1,5 @@
 <script setup>
-
+import AuthorityToolbar from "../../components/toolbar/toolbarAuthority.component.vue";
 const center = { lat: -12.051578172100546, lng: -77.03460936232625 }
 
 const heatmapData = [
@@ -24,6 +24,9 @@ const heatmapData = [
 </script>
 
 <template>
+  <header>
+    <AuthorityToolbar/>
+  </header>
   <div class="container">
     <div class="heat-map">
       <h1 class="titulo">{{ $t('map.title') }}</h1>

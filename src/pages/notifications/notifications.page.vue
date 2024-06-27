@@ -1,9 +1,10 @@
 <script>
 import NotificationList from '../../components/notifications/view-notifications.component.vue';
-
+import CitizenToolbar from "../../components/toolbar/toolbarCitizen.component.vue";
 export default {
   components: {
-    NotificationList
+    NotificationList,
+    CitizenToolbar
   },
   data() {
     return {
@@ -46,7 +47,9 @@ export default {
 </script>
 
 <template>
-  <Toolbar/>
+  <header>
+    <CitizenToolbar/>
+  </header>
   <main>
     <div class="container">
       <button @click="addNotification">Update Notification</button>
