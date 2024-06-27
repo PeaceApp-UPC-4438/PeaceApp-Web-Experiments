@@ -1,4 +1,4 @@
-<<script>
+<script>
 import userSign from '../../components/dialogs/user-sign-in.component.vue';
 import authoritySign from '../../components/dialogs/authority-sign-in.component.vue';
 import { UserApiService } from "../../services/userapi.service.js";
@@ -70,7 +70,7 @@ export default {
         <h3>{{$t('main.message1')}}</h3>
         <div class="input-container">
           <input type="email" id="input" required="" v-model="userData.email">
-          <label for="input" class="label">{{$t('main.email')}}</label>
+          <label for="input" class="label">{{ $t('main.email') }}</label>
           <div class="underline"></div>
         </div>
         <div class="input-container">
@@ -167,57 +167,6 @@ button:hover {
   display: flex;
   justify-content: space-around;
 }
-.input-container {
-  position: relative;
-  margin: 20px auto;
-  width: 50%
-}
-
-.input-container input[type="text"], .input-container input[type="password"]{
-  font-size: 20px;
-  width: 100%;
-  border: none;
-  border-bottom: 2px solid black;
-  padding: 5px 0;
-  background-color: transparent;
-  outline: none;
-}
-
-.input-container .label {
-  position: absolute;
-  top: 0;
-  left: 0;
-  color: black;
-  transition: all 0.3s ease;
-  pointer-events: none;
-}
-
-.input-container input[type="text"]:focus ~ .label,
-.input-container input[type="text"]:valid ~ .label,
-.input-container input[type="password"]:focus ~ .label,
-.input-container input[type="password"]:valid ~ .label{
-  top: -20px;
-  font-size: 16px;
-  color: #333;
-}
-
-.input-container .underline {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 2px;
-  width: 100%;
-  background-color: #333;
-  transform: scaleX(0);
-  transition: all 0.3s ease;
-}
-
-.input-container input[type="text"]:focus ~ .underline,
-.input-container input[type="text"]:valid ~ .underline,
-.input-container input[type="password"]:focus ~ .underline,
-.input-container input[type="password"]:valid ~ .underline{
-  transform: scaleX(1);
-}
 
 @media screen and (max-width: 1000px) {
   .container {
@@ -250,27 +199,6 @@ button:hover {
   button{
     width: fit-content;
   }
-}
-
-.popup {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.popup-content {
-  background: white;
-  padding: 20px;
-  border-radius: 5px;
-  text-align: center;
-
 }
 </style>
 

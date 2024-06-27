@@ -17,7 +17,6 @@ export default {
   },
   methods: {
     getUserRole() {
-      // Obtener el email y rol del usuario desde localStorage
       this.userRole = localStorage.getItem('userRole');
       console.log(this.userRole);
     },
@@ -48,17 +47,17 @@ export default {
   <main>
     <div class="container">
       <router-view/>
-      <footer>
-        <select v-model="$i18n.locale" @change="changeLanguage($event)" class="locale-select" v-show="showSelect"
-                ref="languageSelect"
-                @blur="hideSelect">
-          <option v-for="locale in locales" :key="locale.code" :value="locale.code" :selected="$i18n.locale === locale.code">
-            <flag :iso="locale.flag" v-bind:squared=false class="flag-icon" /> {{ locale.name }}
-          </option>
-        </select>
-        <img src="./assets/Language.png" alt="Language" @click="showSelect = !showSelect">
-      </footer>
     </div>
+    <footer>
+      <select v-model="$i18n.locale" @change="changeLanguage($event)" class="locale-select" v-show="showSelect"
+              ref="languageSelect"
+              @blur="hideSelect">
+        <option v-for="locale in locales" :key="locale.code" :value="locale.code" :selected="$i18n.locale === locale.code">
+          <flag :iso="locale.flag" v-bind:squared=false class="flag-icon" /> {{ locale.name }}
+        </option>
+      </select>
+      <img src="./assets/Language.png" alt="Language" @click="showSelect = !showSelect">
+    </footer>
   </main>
 </template>
 
@@ -74,13 +73,11 @@ body {
   min-height: 100vh;
 }
 footer{
-  align-items: center;
-  display: flex;
-  margin: 0;
+  position: fixed;
   bottom: 0;
-  color: white;
-  text-align: center;
-  float: right;
+  right: 0;
+  display: flex;
+  padding: 10px 20px;
 }
 .locale-select {
   padding: 0.2em 0 0.2em ;
