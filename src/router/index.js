@@ -1,6 +1,6 @@
 import {createRouter, createWebHistory} from 'vue-router'
 
-import Profile from "../pages/profile/main-profile.page.vue";
+import Profile from "../pages/profile/profile.page.vue";
 import MapCitizen from "../pages/maps/user-map.page.vue"
 import MapGovernment from "../pages/maps/authority-map.page.vue"
 import EditProfileView from '../components/profile/citizen/user-edit-profile.page.vue';

@@ -154,7 +154,6 @@
       "description": "Description: "
     },
     "authority": {
-        "municipality_name": "Municipality Name: ",
         "email": "Email: ",
         "contact_number": "Contact Number: ",
         "office_address": "Office Address: ",

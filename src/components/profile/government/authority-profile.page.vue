@@ -1,32 +1,3 @@
-<template>
-  <header>
-    <AuthorityToolbar/>
-  </header>
-  <div class="padre">
-    <div class="container">
-      <div class="left">
-        <img :src="authority.profileImage" alt="User" class="img" />
-      </div>
-
-      <div class="right">
-        <p>{{ authority.name }}</p>
-        <p>{{ $t('profile.authority.email') }} {{ authority.email }}</p>
-        <p>{{ $t('profile.authority.contact_number') }} {{ authority.contact_number }}</p>
-        <p>{{ $t('profile.authority.office_address') }} {{ authority.address }}</p>
-        <p>{{ $t('profile.authority.description') }} {{ authority.description }}</p>
-      </div>
-
-      <div class="buttons">
-        <router-link to="/authority/edit-profile">
-          <button>Edit Profile</button>
-        </router-link>
-        <button @click="logout">Log Out</button>
-        <button>Delete Account</button>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script>
 import AuthorityToolbar from "../../toolbar/toolbarAuthority.component.vue";
 export default {
@@ -44,8 +15,41 @@ export default {
   }
 };
 </script>
+<template>
+  <header>
+    <AuthorityToolbar/>
+  </header>
+  <div class="padre">
+    <div class="container">
+      <div class="left">
+        <img :src="authority.profileImage" alt="User" class="img" />
+      </div>
+      <div class="right">
+        <h2>{{ authority.name }}</h2>
+        <p>{{ $t('profile.authority.email') }} {{ authority.email }}</p>
+        <p>{{ $t('profile.authority.contact_number') }} {{ authority.contact_number }}</p>
+        <p>{{ $t('profile.authority.office_address') }} {{ authority.address }}</p>
+        <p>{{ $t('profile.authority.description') }} {{ authority.description }}</p>
+      </div>
+      <div class="buttons">
+        <router-link to="/authority/edit-profile">
+          <button>Edit Profile</button>
+        </router-link>
+        <button @click="logout">Log Out</button>
+      </div>
+    </div>
+  </div>
+</template>
 
 <style scoped>
+.left img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+  object-fit: cover;
+}
+
 .padre {
   padding: 20vh 0 0 0;
   margin: 0 auto;
@@ -64,6 +68,7 @@ button {
   width: 30%;
 }
 .container {
+  padding: 10px;
   border-radius: 24px;
   background-color: #6DC9FF;
   width: 60vw;
@@ -74,13 +79,7 @@ button {
   margin: auto;
 
 }
-.img{
-  width: auto;
-  border: 1px solid black;
-  border-radius: 100%;
-}
 .left {
-  isplay: flex;
   align-items: center;
   padding: 3vh;
   margin: 0 auto;
