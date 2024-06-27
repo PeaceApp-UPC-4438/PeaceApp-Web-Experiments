@@ -1,19 +1,57 @@
-<script setup>
+<<script>
 import userSign from '../../components/dialogs/user-sign-in.component.vue';
 import authoritySign from '../../components/dialogs/authority-sign-in.component.vue';
-</script>
-<script>
+import { UserApiService } from "../../services/userapi.service.js";
+
 export default {
+  components: {
+    userSign,
+    authoritySign
+  },
   data() {
     return {
       visible: false,
       signUser: false,
-      signAuthority: false
+      signAuthority: false,
+      userData: {
+        email: '',
+        password: ''
+      },
+      userApiService: new UserApiService(),
+      error: null
     };
   },
   methods: {
     redirectLanding() {
       window.location.href = 'https://g2webapplication-wx54.github.io/landing-page-web-app/';
+    },
+
+    async authenticateUser() {
+      try {
+        const response = await this.userApiService.getUserByEmailAndPassword(this.userData.email, this.userData.password);
+        if (response && response.data.length > 0) {
+          const user = response.data[0];
+          console.log("User authenticated: ", user);
+
+          // Save email and role in localStorage or Vuex store for further use
+          localStorage.setItem('userEmail', user.email);
+          localStorage.setItem('userRole', user.role);
+
+          this.error = null; // Clear any previous errors
+          // Proceed with redirect or setting user data
+          this.$router.push('/profile');
+        } else {
+          this.error = "Invalid email or password";
+        }
+      } catch (error) {
+        console.error("Error during authentication: ", error);
+        this.error = "An error occurred during authentication";
+      }
+    },
+
+    async onSubmit() {
+      this.error = null; // Clear previous errors
+      await this.authenticateUser();
     }
   }
 }
@@ -27,25 +65,26 @@ export default {
         <h2 class="info">{{$t('main.title')}}</h2>
         <button class="butInfo" @click="redirectLanding">{{ $t('main.buttonInfo') }}</button>
       </div>
-      <div class="box2">
+      <form class="box2" @submit.prevent="onSubmit()">
         <h2>{{$t('main.welcome')}}</h2>
         <h3>{{$t('main.message1')}}</h3>
         <div class="input-container">
-          <input type="text" id="input" required="">
+          <input type="email" id="input" required="" v-model="userData.email">
           <label for="input" class="label">{{$t('main.email')}}</label>
           <div class="underline"></div>
         </div>
         <div class="input-container">
-          <input type="password" id="input" required="">
+          <input type="password" id="input" required="" v-model="userData.password">
           <label for="input" class="label">{{ $t('main.password') }}</label>
           <div class="underline"></div>
         </div>
-        <router-link to="/profile">
-          <Button>{{ $t('main.login') }}</Button>
-        </router-link>
+
+        <button type="submit">{{ $t('main.login') }}</button>
+        <p v-if="error" class="error">{{ error }}</p>
+
         <h4>{{$t('main.message2')}}<a href="#" @click="visible=true">{{$t('main.signUp')}}</a></h4>
         <h4>{{ $t('main.message3')}}<router-link to="/password-recover">{{ $t('main.clickHere') }}</router-link></h4>
-      </div>
+      </form>
     </div>
   </div>
 
@@ -212,4 +251,28 @@ button:hover {
     width: fit-content;
   }
 }
+
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+
+}
 </style>
+
+
+

@@ -1,67 +1,127 @@
-<script setup>
-import authorityVerification from './authority-verification.component.vue';
-</script>
-
 <script>
+import AuthorityVerification from './authority-verification.component.vue';
+import {UserApiService} from "../../services/userapi.service.js";
+import {AuthorityApiService} from "../../services/authorityapi.service.js";
+
 export default {
+  components: {
+    AuthorityVerification
+  },
   data() {
     return {
-      visible: false
+      userService: new UserApiService(),
+      authorityService: new AuthorityApiService(),
+      users: [],
+      visible: false,
+      userData: {
+        email:  '',
+        password: '',
+        role: 'authority'
+      },
+      formData: {
+        name: '',
+        email: '',
+        password: '',
+        contact_number: '',
+        address: '',
+        description: '',
+        profileImage: 'https://picsum.photos/200/300'
+      },
+      exists: false,
+      error: null
     };
+  },
+  methods: {
+
+    async getAllUsers() {
+      try {
+        const response = await this.userService.getAllUsers();
+        this.users = response.data;
+        console.log("All users: ", response.data);
+      } catch (error) {
+        console.log("Error getting users: ", error);
+      }
+    },
+
+    async getExistingUser() {
+      for (let i = 0; i < this.users.length; i++) {
+        if (this.users[i].email === this.formData.email) {
+          this.exists = true;
+          console.log("User already exists");
+          return true;
+        }
+      }
+      this.exists = false;
+      return false;
+    },
+
+    async createUser() {
+        try {
+          this.userData.email = this.formData.email;
+          this.userData.password = this.formData.password;
+          const userResponse = await this.userService.createUser(this.userData);
+          console.log("User successfully created: ", userResponse);
+
+          const authorityResponse = await this.authorityService.createAuthority(this.formData);
+          console.log("Authority successfully created: ", authorityResponse);
+        } catch (error) {
+          console.log("Error creating authority: ", error);
+        }
+    },
+
+    async submit() {
+      console.log(this.formData);
+      await this.getAllUsers();
+      const userExists = await this.getExistingUser();
+
+      if(!userExists) {
+        await this.createUser();
+      } else {
+        this.error = "User with this email already exists.";
+      }
+    }
   }
 }
+
 </script>
 
+
 <template>
-  <form class="form">
+  <form class="form" @submit.prevent="submit()">
     <p class="message">{{ $t('authorityForm.message') }}</p>
     <div class="flex">
       <label>
-        <input class="input" type="text" placeholder="" required="">
-        <span>{{ $t('authorityForm.municipality_name') }}</span>
-      </label>
-      <label>
-        <input class="input" type="text" placeholder="" required="">
-        <span>{{ $t('authorityForm.representative_position') }}</span>
-      </label>
-    </div>
-    <div class="flex">
-      <label>
-        <input class="input" type="email" placeholder="" required="">
+        <input class="input" type="email" placeholder="" required="" v-model="formData.email">
         <span>{{ $t('authorityForm.email') }}</span>
       </label>
+    </div>
+    <div class="flex">
       <label>
-        <input class="input" type="text" placeholder="" required="">
-        <span>{{ $t('authorityForm.fiscal_id') }}</span>
+        <input class="input" type="text" placeholder="" required="" v-model="formData.name">
+        <span>Authority Name</span>
+      </label>
+      <label>
+        <input class="input" type="text" placeholder="" required="" v-model="formData.address">
+        <span>Address</span>
       </label>
     </div>
     <div class="flex">
       <label>
-        <input class="input" type="text" placeholder="" required="">
-        <span>{{ $t('authorityForm.governmental_registration') }}</span>
-      </label>
-      <label>
-        <input class="input" type="number" placeholder="" required="">
+        <input class="input" type="text" placeholder="" required="" v-model="formData.contact_number">
         <span>{{ $t('authorityForm.contact_number') }}</span>
       </label>
-    </div>
-    <div class="flex">
       <label>
-        <input class="input" type="text" placeholder="" required="">
-        <span>{{ $t('authorityForm.office_address') }}</span>
-      </label>
-      <label>
-        <input class="input" type="text" placeholder="" required="">
-        <span>{{ $t('authorityForm.representative_name') }}</span>
+        <input class="input" type="text" placeholder="" required="" v-model="formData.description">
+        <span>Description</span>
       </label>
     </div>
     <div class="flex">
       <label>
-        <input class="input" type="password" placeholder="" required="">
+        <input class="input" type="password" placeholder="" required="" >
         <span>{{ $t('authorityForm.password') }}</span>
       </label>
       <label>
-        <input class="input" type="password" placeholder="" required="">
+        <input class="input" type="password" placeholder="" required="" v-model="formData.password">
         <span>{{ $t('authorityForm.confirm_password') }}</span>
       </label>
     </div>
@@ -74,7 +134,7 @@ export default {
     <button class="submit" @click="visible = true">{{ $t('authorityForm.next') }}</button>
   </form>
   <Dialog v-model:visible="visible" modal :header="$t('authorityForm.subscription_header')" :style="{ width: '65vw' }" :breakpoints="{ '1199px': '85vw', '575px': '90vw' }">
-    <authority-verification/>
+    <AuthorityVerification/>
   </Dialog>
 </template>
 

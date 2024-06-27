@@ -1,4 +1,142 @@
 {
+  "users": [
+    {
+      "id": 1,
+      "email": "johndoe@email.com",
+      "password": "123",
+      "role": "citizen"
+    },
+    {
+      "id": 2,
+      "email": "janept@email.com",
+      "password": "456",
+      "role": "citizen"
+    },
+    {
+      "email": "johan@email.com",
+      "password": "123",
+      "role": "citizen",
+      "id": 3
+    },
+    {
+      "email": "munilima@email.com",
+      "password": "munilima123",
+      "role": "authority",
+      "id": 4
+    },
+    {
+      "email": "munisani@email.com",
+      "password": "munisani123",
+      "role": "authority",
+      "id": 5
+    },
+    {
+      "email": "luis@email.com",
+      "password": "456",
+      "role": "citizen",
+      "id": 6
+    },
+    {
+      "email": "muniCarabayllo@email.com",
+      "password": "123",
+      "role": "authority",
+      "id": 7
+    },
+    {
+      "email": "muniLince@email.com",
+      "password": "123",
+      "role": "authority",
+      "id": 8
+    }
+  ],
+  "citizens": [
+    {
+      "id": 1,
+      "firstname": "John",
+      "lastname": "Doe",
+      "email": "johndoe@email.com",
+      "password": "123",
+      "address": "Av. Arequipa 123",
+      "district": "San Isidro",
+      "city": "Lima",
+      "profileImage": "https://picsum.photos/200/300"
+    },
+    {
+      "id": 2,
+      "firstname": "Jane",
+      "lastname": "Paterson",
+      "email": "janept@email.com",
+      "password": "456",
+      "address": "Av. Arequipa 456",
+      "district": "Surco",
+      "city": "Lima",
+      "profileImage": "https://picsum.photos/200/300"
+    },
+    {
+      "firstname": "Johan",
+      "lastname": "Principe Godoy",
+      "email": "johan@email.com",
+      "password": "123",
+      "address": "Av. Canada",
+      "district": "Lince",
+      "city": "Lima",
+      "profileImage": "https://picsum.photos/200/300",
+      "id": 3
+    },
+    {
+      "firstname": "Luis",
+      "lastname": "Alvarez",
+      "email": "luis@email.com",
+      "password": "456",
+      "address": "Av. Salaverry",
+      "district": "San Isidro",
+      "city": "Lima",
+      "profileImage": "https://picsum.photos/200/300",
+      "id": 4
+    }
+  ],
+  "governments": [
+    {
+      "id": 1,
+      "name": "Municipalidad de Lima",
+      "email": "munilima@email.com",
+      "password": "munilima123",
+      "contact_number": "123456789",
+      "address": "Av. Tacna 123",
+      "description": "Gobierno de la ciudad de Lima",
+      "profileImage": "https://picsum.photos/200/300"
+    },
+    {
+      "id": 2,
+      "name": "Municipalidad de San Isidro",
+      "email": "munisani@email.com",
+      "password": "munisani123",
+      "contact_number": "987654321",
+      "address": "Av. Javier Prado 456",
+      "description": "Gobierno de la ciudad de San Isidro",
+      "profileImage": "https://picsum.photos/200/300"
+    },
+    {
+      "name": "Municipalidad de Carabayllo",
+      "email": "muniCarabayllo@email.com",
+      "password": "123",
+      "contact_number": "123456789",
+      "address": "Av. Carabayllo",
+      "description": "Municipalidad de Carabayllo encargada de cuidar",
+      "profileImage": "https://picsum.photos/200/300",
+      "id": 3
+    },
+    {
+      "name": "Municipalidad de Lince",
+      "email": "muniLince@email.com",
+      "password": "123",
+      "contact_number": "12312das",
+      "address": "dasdsa",
+      "description": "Municipalidad de Lince descrip",
+      "profileImage": "https://picsum.photos/200/300",
+      "id": 4
+    }
+  ],
   "reports": [
     {
       "id": 1,
@@ -49,6 +187,26 @@
       "description": "Rateros",
       "urlEvidence": "",
       "id": 5
+    },
+    {
+      "type": "prueba",
+      "date": "2024-05-29",
+      "time": "15:02",
+      "district": "Ancon",
+      "location": "UPC - San Isidro",
+      "description": "dasd",
+      "urlEvidence": "https://picsum.photos/1600/900",
+      "id": 6
+    },
+    {
+      "type": "Robbery",
+      "date": "2024-06-01",
+      "time": "02:35",
+      "district": "Brena",
+      "location": "Real Plaza",
+      "description": "das",
+      "urlEvidence": "https://picsum.photos/1600/900",
+      "id": 7
     }
   ]
 }

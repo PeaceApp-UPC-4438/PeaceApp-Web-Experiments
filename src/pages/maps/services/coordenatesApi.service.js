@@ -1,4 +1,7 @@
 // coordinatesApi.service.js
+
+
+
 export async function obtenerCoordenadas(ubication) {
     const baseUrl = 'https://nominatim.openstreetmap.org/search';
     const params = new URLSearchParams({
@@ -20,8 +23,8 @@ export async function obtenerCoordenadas(ubication) {
             throw new Error('No se encontraron resultados para la ubicación proporcionada');
         }
 
-        const { lat, lon } = data[0];
-        return { lat: parseFloat(lat), lng: parseFloat(lon) };
+        const {lat, lon} = data[0];
+        return {lat: parseFloat(lat), lng: parseFloat(lon)};
     } catch (error) {
         console.error('Error al obtener coordenadas:', error);
         throw new Error('Error al obtener coordenadas: ' + error.message);

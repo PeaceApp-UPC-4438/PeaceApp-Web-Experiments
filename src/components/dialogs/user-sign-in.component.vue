@@ -1,39 +1,129 @@
-<script setup>
+<script>
+import {UserApiService} from '../../services/userapi.service.js'
+import {CitizenApiService} from '../../services/citizenapi.service.js'
+export default {
+  data() {
+    return {
+      userService: new UserApiService(),
+      citizenService: new CitizenApiService(),
+      users: [],
+      visible: false,
+      userData: {
+        email:  '',
+        password: '',
+        role: 'citizen'
+      },
+      formData: {
+        firstname: '',
+        lastname: '',
+        email: '',
+        password: '',
+        address: '',
+        district: '',
+        city: '',
+        profileImage: 'https://picsum.photos/200/300'
+      },
+      exists: false,
+      error: null
+    };
+  },
+  methods: {
 
+    async getAllUsers() {
+      try {
+        const response = await this.userService.getAllUsers();
+        this.users = response.data;
+        console.log("All users: ", response.data);
+      } catch (error) {
+        console.log("Error getting users: ", error);
+      }
+    },
+
+    async getExistingUser() {
+      for (let i = 0; i < this.users.length; i++) {
+        if (this.users[i].email === this.formData.email) {
+          this.exists = true;
+          console.log("User already exists");
+          return true;
+        }
+      }
+      this.exists = false;
+      return false;
+    },
+
+    async createUser() {
+      try {
+        this.userData.email = this.formData.email;
+        this.userData.password = this.formData.password;
+        const userResponse = await this.userService.createUser(this.userData);
+        console.log("User successfully created: ", userResponse);
+
+        const citizenResponse = await this.citizenService.createCitizen(this.formData);
+        console.log("Citizen successfully created: ", citizenResponse);
+      } catch (error) {
+        console.log("Error creating user: ", error);
+      }
+    },
+
+    async submit() {
+      console.log(this.formData);
+      await this.getAllUsers();
+      const userExists = await this.getExistingUser();
+
+      if (!userExists) {
+        await this.createUser();
+      } else {
+        this.error = "User with this email already exists.";
+      }
+    }
+
+  }
+}
 </script>
 
 <template>
   <div class="container">
-    <form class="form">
+    <form class="form" @submit.prevent="submit()">
       <p class="message">{{ $t('userForm.message') }}</p>
       <div class="flex">
         <label>
-          <input class="input" type="text" placeholder="" required="">
+          <input class="input" type="text" placeholder="" required="" v-model="formData.firstname">
           <span>{{ $t('userForm.firstname') }}</span>
         </label>
+        <label>
+          <input class="input" type="text" placeholder="" required="" v-model="formData.lastname">
+          <span>{{ $t('userForm.lastname') }}</span>
+        </label>
+
+      </div>
+      <div class="flex">
         <label>
           <input class="input" type="password" placeholder="" required="">
           <span>{{ $t('userForm.password') }}</span>
         </label>
-      </div>
-      <div class="flex">
         <label>
-          <input class="input" type="text" placeholder="" required="">
-          <span>{{ $t('userForm.lastname') }}</span>
-        </label>
-        <label>
-          <input class="input" type="password" placeholder="" required="">
+          <input class="input" type="password" placeholder="" required="" v-model="formData.password">
           <span>{{ $t('userForm.confirm_password') }}</span>
         </label>
       </div>
       <div class="flex">
         <label>
-          <input class="input" type="email" placeholder="" required="">
+          <input class="input" type="text" placeholder="" required="" v-model="formData.address">
+          <span>Address</span>
+        </label>
+        <label>
+          <input class="input" type="text" placeholder="" required="" v-model="formData.district">
+          <span>District</span>
+        </label>
+      </div>
+      <div class="flex">
+        <label>
+          <input class="input" type="email" placeholder="" required="" v-model="formData.email">
           <span>{{ $t('userForm.email') }}</span>
         </label>
         <label>
-          <input class="input" type="text" placeholder="" required="">
-          <span>{{ $t('userForm.lastname') }}</span>
+          <input class="input" type="text" placeholder="" required="" v-model="formData.city">
+          <span>City</span>
         </label>
       </div>
       <label class="material-checkbox">
@@ -41,9 +131,8 @@
         <span class="checkmark"></span>
         {{ $t('userForm.terms') }}
       </label>
-      <router-link to="/profile/user">
-        <button class="submit">{{ $t('userForm.submit') }}</button>
-      </router-link>
+        <button type="submit" >{{ $t('userForm.submit') }}</button>
+      <p v-if="error" class="error">{{ error }}</p>
     </form>
   </div>
 </template>

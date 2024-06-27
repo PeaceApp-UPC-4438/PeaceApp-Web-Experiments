@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import { ReportApiService } from "../../pages/reports/service/reportapi.service.js";
+import { ReportApiService } from "../../services/reportapi.service.js";
 
 export default {
   name: "ReportsList",

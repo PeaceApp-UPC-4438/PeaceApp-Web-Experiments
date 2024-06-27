@@ -1,12 +1,10 @@
 import {createRouter, createWebHistory} from 'vue-router'
 
-import Authority from '../pages/profile/authority-profile.page.vue'
-import User from '../pages/profile/user-profile.page.vue'
 import Profile from "../pages/profile/main-profile.page.vue";
 import MapCitizen from "../pages/maps/user-map.page.vue"
 import MapGovernment from "../pages/maps/authority-map.page.vue"
-import EditProfileView from '../pages/profile/user-edit-profile.page.vue';
-import editProfileAuthority from '../pages/profile/authority-edit-profile.page.vue';
+import EditProfileView from '../components/profile/citizen/user-edit-profile.page.vue';
+import editProfileAuthority from '../components/profile/government/authority-edit-profile.page.vue';
 import ReportFormView from "../pages/reports/report-form.page.vue";
 import Notification from '../pages/notifications/notifications.page.vue'
 import Principal from '../pages/main/main.page.vue'
@@ -21,8 +19,6 @@ const router= createRouter({
         {path: '/', component: Principal},
         {path: '/:pathMatch(.*)*', redirect: '/'},//redirect to home page if path is not found
         {path: '/profile', component: Profile},
-        {path: '/profile/user', component: User},
-        {path: '/profile/authority', component: Authority},
         {path: '/user/map', component: MapCitizen, name: 'mapcitizen' },
         {path: '/user/edit-profile', component: EditProfileView},
         {path: '/authority/edit-profile', component: editProfileAuthority},

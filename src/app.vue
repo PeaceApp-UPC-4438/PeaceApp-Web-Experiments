@@ -1,10 +1,13 @@
 <script setup>
-import Toolbar from "./components/toolbar/toolbar.component.vue";
+import ToolbarCitizen from "./components/toolbar/toolbarCitizen.component.vue";
+import ToolbarAuthority from "./components/toolbar/toolbarAuthority.component.vue";
 </script>
 <script>
 export default {
   data() {
     return {
+      userEmail: '',
+      userRole: '',
       locales: [
         { code: 'en', name: '🇺🇸 English', flag: 'us' },
         { code: 'es', name: '🇪🇸 Español', flag: 'es' },
@@ -13,6 +16,11 @@ export default {
     }
   },
   methods: {
+    getUserRole() {
+      // Obtener el email y rol del usuario desde localStorage
+      this.userRole = localStorage.getItem('userRole');
+      console.log(this.userRole);
+    },
     changeLanguage(event) {
       const selectedLanguage = event.target.value;
       this.$i18n.locale = selectedLanguage;
@@ -22,12 +30,20 @@ export default {
       this.showSelect = false;
     }
   },
+  created() {
+    this.getUserRole();
+  }
 };
 </script>
 
 <template>
   <header>
-    <Toolbar/>
+   <div v-if="userRole === 'citizen'">
+     <ToolbarCitizen  />
+   </div>
+    <div v-else-if="userRole === 'authority'">
+      <ToolbarAuthority />
+    </div>
   </header>
   <main>
     <div class="container">

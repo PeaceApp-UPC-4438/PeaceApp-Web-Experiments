@@ -1,6 +1,6 @@
 <script>
-import { ReportApiService } from "./service/reportapi.service.js";
-import { Report } from "./model/report.entity.js";
+import { ReportApiService } from "../../services/reportapi.service.js";
+import { Report } from "../../models/report.entity.js";
 export default {
   name: "report-component",
   data() {
