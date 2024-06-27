@@ -194,7 +194,18 @@
       "district": "San Isidro",
       "location": "UPC San Isidro",
       "description": "A car accident involving two vehicles.",
-      "urlEvidence": "http://example.com/evidence1"
+      "urlEvidence": "http://example.com/evidence1",
+      "user": {
+        "firstname": "Johan",
+        "lastname": "Principe Godoy",
+        "email": "johan@email.com",
+        "password": "123",
+        "address": "Av. Canada",
+        "district": "Lince",
+        "city": "Lima",
+        "profileImage": "https://picsum.photos/200/300",
+        "id": 3
+      }
     },
     {
       "id": 2,
@@ -204,7 +215,18 @@
       "district": "Surco",
       "location": "UPC Monterrico",
       "description": "A robbery at a convenience store.",
-      "urlEvidence": "http://example.com/evidence2"
+      "urlEvidence": "http://example.com/evidence2",
+      "user": {
+        "firstname": "Johan",
+        "lastname": "Principe Godoy",
+        "email": "johan@email.com",
+        "password": "123",
+        "address": "Av. Canada",
+        "district": "Lince",
+        "city": "Lima",
+        "profileImage": "https://picsum.photos/200/300",
+        "id": 3
+      }
     },
     {
       "type": "Asalto",
@@ -214,6 +236,17 @@
       "location": "Discoteca",
       "description": "Arma de fuego",
       "urlEvidence": "",
+      "user": {
+        "firstname": "Johan",
+        "lastname": "Principe Godoy",
+        "email": "johan@email.com",
+        "password": "123",
+        "address": "Av. Canada",
+        "district": "Lince",
+        "city": "Lima",
+        "profileImage": "https://picsum.photos/200/300",
+        "id": 3
+      },
       "id": 3
     },
     {
@@ -224,6 +257,17 @@
       "location": "America",
       "description": "Asesinato",
       "urlEvidence": "",
+      "user": {
+        "firstname": "Johan",
+        "lastname": "Principe Godoy",
+        "email": "johan@email.com",
+        "password": "123",
+        "address": "Av. Canada",
+        "district": "Lince",
+        "city": "Lima",
+        "profileImage": "https://picsum.photos/200/300",
+        "id": 3
+      },
       "id": 4
     },
     {
@@ -234,26 +278,59 @@
       "location": "Cerro",
       "description": "Rateros",
       "urlEvidence": "",
+      "user": {
+        "firstname": "Johan",
+        "lastname": "Principe Godoy",
+        "email": "johan@email.com",
+        "password": "123",
+        "address": "Av. Canada",
+        "district": "Lince",
+        "city": "Lima",
+        "profileImage": "https://picsum.photos/200/300",
+        "id": 3
+      },
       "id": 5
     },
     {
-      "type": "prueba",
-      "date": "2024-05-29",
-      "time": "15:02",
-      "district": "Ancon",
-      "location": "UPC - San Isidro",
-      "description": "dasd",
-      "urlEvidence": "https://picsum.photos/1600/900",
+      "type": "Robbery",
+      "date": "2024-06-06",
+      "time": "16:45",
+      "district": "Cercado de Lima",
+      "location": "Real Plaza",
+      "description": "dasasd",
+      "evidence": "",
+      "user": {
+        "firstname": "Johan",
+        "lastname": "Principe Godoy",
+        "email": "johan@email.com",
+        "password": "123",
+        "address": "Av. Canada",
+        "district": "Lince",
+        "city": "Lima",
+        "profileImage": "https://picsum.photos/200/300",
+        "id": 3
+      },
       "id": 6
     },
     {
-      "type": "Robbery",
-      "date": "2024-06-01",
-      "time": "02:35",
-      "district": "Brena",
-      "location": "Real Plaza",
+      "type": "Accident",
+      "date": "2024-06-12",
+      "time": "20:25",
+      "district": "Comas",
+      "location": "Parque Sinchi Roca",
       "description": "das",
-      "urlEvidence": "https://picsum.photos/1600/900",
+      "evidence": "",
+      "user": {
+        "firstname": "Luis",
+        "lastname": "Alvarez",
+        "email": "luis@email.com",
+        "password": "456",
+        "address": "Av. Salaverry",
+        "district": "San Isidro",
+        "city": "Lima",
+        "profileImage": "https://picsum.photos/200/300",
+        "id": 4
+      },
       "id": 7
     }
   ]

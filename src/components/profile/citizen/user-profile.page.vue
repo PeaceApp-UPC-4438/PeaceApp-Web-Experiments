@@ -1,12 +1,26 @@
 <script >
+import CitizenToolbar from "../../toolbar/toolbarCitizen.component.vue";
 export default {
+  components: {
+    CitizenToolbar
+  },
   props: {
     citizen: Object
+  },
+  methods: {
+    logout() {
+      localStorage.removeItem('userEmail');
+      localStorage.removeItem('userRole');
+      this.$router.push('/login');
+    }
   }
 };
 </script>
 
 <template>
+  <header>
+    <CitizenToolbar/>
+  </header>
   <div class="padre">
     <div class="container">
       <div class="left">
@@ -23,9 +37,7 @@ export default {
         <router-link to="/user/edit-profile">
           <button>Edit Profile</button>
         </router-link>
-        <router-link to="/">
-          <button>Log Out</button>
-        </router-link>
+        <button @click="logout()">Log Out</button>
         <button>Delete Account</button>
       </div>
     </div>

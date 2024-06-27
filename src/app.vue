@@ -16,10 +16,6 @@ export default {
     }
   },
   methods: {
-    getUserRole() {
-      this.userRole = localStorage.getItem('userRole');
-      console.log(this.userRole);
-    },
     changeLanguage(event) {
       const selectedLanguage = event.target.value;
       this.$i18n.locale = selectedLanguage;
@@ -28,36 +24,25 @@ export default {
     hideSelect() {
       this.showSelect = false;
     }
-  },
-  created() {
-    this.getUserRole();
   }
 };
 </script>
 
 <template>
-  <header>
-   <div v-if="userRole === 'citizen'">
-     <ToolbarCitizen  />
-   </div>
-    <div v-else-if="userRole === 'authority'">
-      <ToolbarAuthority />
-    </div>
-  </header>
   <main>
     <div class="container">
       <router-view/>
+      <footer>
+        <select v-model="$i18n.locale" @change="changeLanguage($event)" class="locale-select" v-show="showSelect"
+                ref="languageSelect"
+                @blur="hideSelect">
+          <option v-for="locale in locales" :key="locale.code" :value="locale.code" :selected="$i18n.locale === locale.code">
+            <flag :iso="locale.flag" v-bind:squared=false class="flag-icon" /> {{ locale.name }}
+          </option>
+        </select>
+        <img src="./assets/Language.png" alt="Language" @click="showSelect = !showSelect">
+      </footer>
     </div>
-    <footer>
-      <select v-model="$i18n.locale" @change="changeLanguage($event)" class="locale-select" v-show="showSelect"
-              ref="languageSelect"
-              @blur="hideSelect">
-        <option v-for="locale in locales" :key="locale.code" :value="locale.code" :selected="$i18n.locale === locale.code">
-          <flag :iso="locale.flag" v-bind:squared=false class="flag-icon" /> {{ locale.name }}
-        </option>
-      </select>
-      <img src="./assets/Language.png" alt="Language" @click="showSelect = !showSelect">
-    </footer>
   </main>
 </template>
 
@@ -73,11 +58,13 @@ body {
   min-height: 100vh;
 }
 footer{
-  position: fixed;
-  bottom: 0;
-  right: 0;
+  align-items: center;
   display: flex;
-  padding: 10px 20px;
+  margin: 0;
+  bottom: 0;
+  color: white;
+  text-align: center;
+  float: right;
 }
 .locale-select {
   padding: 0.2em 0 0.2em ;

@@ -34,6 +34,7 @@ export default {
       this.citizenService.getCitizenByEmail(this.userEmail)
           .then((response) => {
             this.userInfo = response.data[0];
+            localStorage.setItem('citizen', JSON.stringify(this.userInfo));
             console.log(this.userInfo);
           })
           .catch((error) => {

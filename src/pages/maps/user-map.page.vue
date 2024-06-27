@@ -1,10 +1,10 @@
 <script>
 import {obtenerCoordenadas} from './services/coordenatesApi.service.js';
 import {HeatmapLayer as Heatmap} from "vue3-google-map";
-
+import CitizenToolbar from "../../components/toolbar/toolbarCitizen.component.vue";
 export default {
   name: 'UserMapPage',
-  components: {Heatmap},
+  components: {Heatmap, CitizenToolbar},
   data() {
     return {
       center: { lat: 0, lng: -180 },
@@ -60,6 +60,9 @@ export default {
 </script>
 
 <template>
+  <header>
+    <CitizenToolbar/>
+  </header>
   <div class="container">
     <div class="search">
       <h1 class="titulo">{{$t('map.find')}}</h1>
