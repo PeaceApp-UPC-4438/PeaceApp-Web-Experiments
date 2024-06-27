@@ -65,60 +65,58 @@ export default {
               <input v-model="reportData.date" id="date" type="date" name="date" required class="input-style">
               <input v-model="reportData.time" id="time" type="time" name="time" required class="input-style">
             </div>
-            <div class="form-group">
-              <div class="row">
-                <div class="column-half">
-                  <label for="district" class="label-black">{{ $t('reportForm.district') }}</label>
-                  <select v-model="reportData.district" id="district" name="district" required class="input-style">
-                    <option value="Ancon">Ancón</option>
-                    <option value="Ate">Ate</option>
-                    <option value="Barranco">Barranco</option>
-                    <option value="Brena">Breña</option>
-                    <option value="Carabayllo">Carabayllo</option>
-                    <option value="Cercado de Lima">Cercado de Lima</option>
-                    <option value="Chaclacayo">Chaclacayo</option>
-                    <option value="Chorrillos">Chorrillos</option>
-                    <option value="Cieneguilla">Cieneguilla</option>
-                    <option value="Comas">Comas</option>
-                    <option value="El Agustino">El agustino</option>
-                    <option value="Independencia">Independencia</option>
-                    <option value="Jesus Maria">Jesús maría</option>
-                    <option value="La Molina">La molina</option>
-                    <option value="La Victoria">La victoria</option>
-                    <option value="Lince">Lince</option>
-                    <option value="Los Olivos">Los olivos</option>
-                    <option value="Lurigancho">Lurigancho</option>
-                    <option value="Lurin">Lurín</option>
-                    <option value="Magdalena del Mar">Magdalena del mar</option>
-                    <option value="Miraflores">Miraflores</option>
-                    <option value="Pachacamac">Pachacámac</option>
-                    <option value="Pucusana">Pucusana</option>
-                    <option value="Pueblo Libre">Pueblo libre</option>
-                    <option value="Puente Piedra">Puente piedra</option>
-                    <option value="Punta Hermosa">Punta hermosa</option>
-                    <option value="Punta Negra">Punta negra</option>
-                    <option value="Rimac">Rímac</option>
-                    <option value="San Bartolo">San bartolo</option>
-                    <option value="San Borja">San borja</option>
-                    <option value="San Isidro">San isidro</option>
-                    <option value="San Juan de Lurigancho">San Juan de Lurigancho</option>
-                    <option value="San Juan de Miraflores">San Juan de Miraflores</option>
-                    <option value="San Luis">San Luis</option>
-                    <option value="San Martin de Porres">San Martin de Porres</option>
-                    <option value="San Miguel">San Miguel</option>
-                    <option value="Santa Anita">Santa Anita</option>
-                    <option value="Santa Maria del Mar">Santa María del Mar</option>
-                    <option value="Santa Rosa">Santa Rosa</option>
-                    <option value="Santiago de Surco">Santiago de Surco</option>
-                    <option value="Surquillo">Surquillo</option>
-                    <option value="Villa el Salvador">Villa el Salvador</option>
-                    <option value="Villa Maria del Triunfo">Villa Maria del Triunfo</option>
-                  </select>
-                </div>
-                <div class="column-half">
-                  <label for="location" class="label-black">{{ $t('reportForm.location') }}</label>
-                  <input v-model="reportData.location" id="location" type="text" :placeholder="$t('reportForm.placeholders.location')" name="location" required class="input-style" >
-                </div>
+            <div class="form-group row">
+              <div class="column-half">
+                <label for="district" class="label-black">{{ $t('reportForm.district') }}</label>
+                <select v-model="reportData.district" id="district" name="district" required class="input-style">
+                  <option value="Ancon">Ancón</option>
+                  <option value="Ate">Ate</option>
+                  <option value="Barranco">Barranco</option>
+                  <option value="Brena">Breña</option>
+                  <option value="Carabayllo">Carabayllo</option>
+                  <option value="Cercado de Lima">Cercado de Lima</option>
+                  <option value="Chaclacayo">Chaclacayo</option>
+                  <option value="Chorrillos">Chorrillos</option>
+                  <option value="Cieneguilla">Cieneguilla</option>
+                  <option value="Comas">Comas</option>
+                  <option value="El Agustino">El agustino</option>
+                  <option value="Independencia">Independencia</option>
+                  <option value="Jesus Maria">Jesús maría</option>
+                  <option value="La Molina">La molina</option>
+                  <option value="La Victoria">La victoria</option>
+                  <option value="Lince">Lince</option>
+                  <option value="Los Olivos">Los olivos</option>
+                  <option value="Lurigancho">Lurigancho</option>
+                  <option value="Lurin">Lurín</option>
+                  <option value="Magdalena del Mar">Magdalena del mar</option>
+                  <option value="Miraflores">Miraflores</option>
+                  <option value="Pachacamac">Pachacámac</option>
+                  <option value="Pucusana">Pucusana</option>
+                  <option value="Pueblo Libre">Pueblo libre</option>
+                  <option value="Puente Piedra">Puente piedra</option>
+                  <option value="Punta Hermosa">Punta hermosa</option>
+                  <option value="Punta Negra">Punta negra</option>
+                  <option value="Rimac">Rímac</option>
+                  <option value="San Bartolo">San bartolo</option>
+                  <option value="San Borja">San borja</option>
+                  <option value="San Isidro">San isidro</option>
+                  <option value="San Juan de Lurigancho">San Juan de Lurigancho</option>
+                  <option value="San Juan de Miraflores">San Juan de Miraflores</option>
+                  <option value="San Luis">San Luis</option>
+                  <option value="San Martin de Porres">San Martin de Porres</option>
+                  <option value="San Miguel">San Miguel</option>
+                  <option value="Santa Anita">Santa Anita</option>
+                  <option value="Santa Maria del Mar">Santa María del Mar</option>
+                  <option value="Santa Rosa">Santa Rosa</option>
+                  <option value="Santiago de Surco">Santiago de Surco</option>
+                  <option value="Surquillo">Surquillo</option>
+                  <option value="Villa el Salvador">Villa el Salvador</option>
+                  <option value="Villa Maria del Triunfo">Villa Maria del Triunfo</option>
+                </select>
+              </div>
+              <div class="column-half">
+                <label for="location" class="label-black">{{ $t('reportForm.location') }}</label>
+                <input v-model="reportData.location" id="location" type="text" :placeholder="$t('reportForm.placeholders.location')" name="location" required class="input-style" >
               </div>
             </div>
             <div class="form-group">
@@ -166,7 +164,16 @@ export default {
 }
 .row {
   display: flex;
-  justify-content: space-between; /* Distributes space evenly between the columns */
+}
+.column-half{
+  flex: 1;
+}
+.column-half:last-child{
+  margin-left: 20px;
+}
+.column-half input,
+.column-half select{
+  width:100%;
 }
 .evidence-container {
   display: flex;
@@ -194,18 +201,11 @@ export default {
 }
 
 .file-input {
-
   width: 0;
   height: 0;
 }
 .column-half {
-  flex: 1; /* Each column takes up equal space */
-  padding-right: 20px; /* Adds spacing between the two columns */
-}
-
-.column-half:last-child {
-  padding-right: 0; /* Removes padding from the right side of the last column */
-  padding-left: 20px; /* Adds spacing on the left side of the last column to maintain consistent spacing */
+  width: fit-content;/* Each column takes up equal space */
 }
 .form-flex {
   display: flex;
@@ -230,15 +230,10 @@ export default {
   margin-bottom: 20px;
 }
 
-.form-group.date-time-container .label-black {
-  width: auto; /* Allow labels to adjust width based on content */
-  margin-right: 20px;
-}
-
 #date,
 #time {
-  flex: 1; /* Allow date and time inputs to expand and fill available space */
-  margin-right: 10px; /* Add some spacing between date and time inputs */
+  flex: 1;
+  margin-right: 10px;
 }
 .date-time-container {
   display: flex;
