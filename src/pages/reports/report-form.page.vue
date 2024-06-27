@@ -1,6 +1,6 @@
 <script>
 import { ReportApiService } from "../../services/reportapi.service.js";
-import { Report } from "../../models/report.entity.js";
+import { Report } from "./model/report.entity.js";
 export default {
   name: "report-component",
   data() {
@@ -58,18 +58,18 @@ export default {
           <div class="column">
             <div class="form-group">
               <label for="report-type" class="label-black">{{$t('reportForm.type')}}</label>
-              <input v-model="reportData.type" id="type" type="text" name="type" :placeholder="$t('reportForm.placeholders.type')" required class="border-black" >
+              <input :placeholder="$t('reportForm.placeholders.type')" class="input-style" type="text" id="input" required="" v-model="reportData.type">
             </div>
             <label for="date" class="label-black">{{ $t('reportForm.dateTime') }}</label>
             <div class="date-time-container">
-              <input v-model="reportData.date" id="date" type="date" name="date" required class="border-black">
-              <input v-model="reportData.time" id="time" type="time" name="time" required class="border-black">
+              <input v-model="reportData.date" id="date" type="date" name="date" required class="input-style">
+              <input v-model="reportData.time" id="time" type="time" name="time" required class="input-style">
             </div>
             <div class="form-group">
               <div class="row">
                 <div class="column-half">
                   <label for="district" class="label-black">{{ $t('reportForm.district') }}</label>
-                  <select v-model="reportData.district" id="district" name="district" required class="border-black">
+                  <select v-model="reportData.district" id="district" name="district" required class="input-style">
                     <option value="Ancon">Ancón</option>
                     <option value="Ate">Ate</option>
                     <option value="Barranco">Barranco</option>
@@ -117,13 +117,13 @@ export default {
                 </div>
                 <div class="column-half">
                   <label for="location" class="label-black">{{ $t('reportForm.location') }}</label>
-                  <input v-model="reportData.location" id="location" type="text" :placeholder="$t('reportForm.placeholders.location')" name="location" required class="border-black" >
+                  <input v-model="reportData.location" id="location" type="text" :placeholder="$t('reportForm.placeholders.location')" name="location" required class="input-style" >
                 </div>
               </div>
             </div>
             <div class="form-group">
               <label for="description" class="label-black">{{ $t('reportForm.description') }}</label>
-              <textarea v-model="reportData.description" id="description" :placeholder="$t('reportForm.placeholders.description')" name="description" required class="border-black" rows="5" ></textarea>
+              <textarea :placeholder="$t('reportForm.description')" class="input-style" type="email" id="description" rows="3" required="" v-model="reportData.description"/>
             </div>
             <div class="form-group">
               <div class="evidence-container">
@@ -151,7 +151,6 @@ export default {
 </template>
 
 <style scoped>
-
 .page-container {
   display: flex;
   align-items: center;
@@ -268,6 +267,7 @@ input, select, textarea {
   font-size: clamp(12px, 1.2vw, 16px);
   transition: background-color 0.3s ease, border-color 0.3s ease;
   resize: none; /* Allow vertical resizing */
+  margin: 0;
 }
 .form-container {
   background-color: #6DC9FF;
@@ -282,16 +282,12 @@ input, select, textarea {
 .date-time-container {
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  margin: 0;
 }
 
 .date-time-container .label-black {
   width: 80px;
   margin-right: 20px;
-}
-.border-black {
-  border: 1px solid black; /* Set the border to black */
-  border-radius: 0; /* Remove rounded border */
 }
 .button-container {
   display: flex;
@@ -308,6 +304,13 @@ h1 {
 .form-group {
   margin-bottom: 20px;
   flex: 1;
+}
+
+.form-group input, .date-time-container input{
+  margin: 10px 0;
+}
+.date-time-container input{
+  height: 40px;
 }
 label {
   display: block;
@@ -328,7 +331,7 @@ button:hover {
   background-color: #9EA016;
 }
 .container-fluid {
-  padding: 15vh 10vw 0 10vw;
+  padding: 5vh 10vw 0 10vw;
 }
 
 @media (max-width: 1000px) {

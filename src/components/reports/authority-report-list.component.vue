@@ -42,7 +42,7 @@
           <p><strong>{{$t('reports.district_label')}}</strong> {{ report.district }}</p>
           <p><strong>{{$t('reports.location_label')}}</strong> {{ report.location }}</p>
           <p><strong>{{$t('reports.description_label')}}</strong> {{ report.description }}</p>
-          <p><strong>Reported by User:</strong> {{ report.user?.firstname + ' ' + report.user?.lastname}}</p>
+          <p><strong>{{$t('reports.user_label')}}</strong> {{ report.user?.firstname + ' ' + report.user?.lastname}}</p>
           <p><strong>{{$t('reports.evidence_label')}}</strong> <a :href="report.urlEvidence" target="_blank">{{ $t('reports.view_evidence') }}</a></p>
         </li>
       </ul>

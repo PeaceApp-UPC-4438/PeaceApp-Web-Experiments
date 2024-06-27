@@ -20,13 +20,11 @@ export default {
       <div class="box2">
         <h3>{{$t('main.recover.message')}}</h3>
         <div class="input-container">
-          <input type="text" id="input" required="">
-          <label for="input" class="label">{{$t('main.email')}}</label>
-          <div class="underline"></div>
+          <input :placeholder="$t('main.email')" class="input-style" type="text" id="input" required="">
         </div>
         <div class="bts">
           <router-link to="/recover">
-            <Button>{{ $t('main.login') }}</Button>
+            <Button>{{ $t('main.recover.send') }}</Button>
           </router-link>
           <router-link to="/">
             <Button>{{ $t('main.recover.know') }}</Button>

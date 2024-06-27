@@ -17,7 +17,8 @@
     "recover": {
       "back": "Go Back",
       "message": "If you have forgotten your password, please enter your registered email. Upon confirming your account, we will send you a link to reset your password.",
-      "know": "Know your password? "
+      "know": "Know your password? ",
+      "send": "Send code"
     }
   },
   "userForm": {
@@ -66,6 +67,7 @@
     "district_label": "District:",
     "location_label": "Location:",
     "description_label": "Description:",
+    "user_label": "Reported by: ",
     "evidence_label": "Evidence:",
     "clear_filters": "Clear Filters",
     "no_reports": "No reports available.",

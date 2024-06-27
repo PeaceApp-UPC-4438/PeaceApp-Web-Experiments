@@ -17,7 +17,8 @@
     "recover": {
       "back": "Regresar",
       "message": "Si usted ha olvidado su contraseña, por favor ingrese su correo registrado. Al momento de confirmar su cuenta, le enviaremos un enlace para que pueda reestablecer su contraseña.",
-      "know": "¿Conoce su contraseña?"
+      "know": "¿Conoce su contraseña?",
+      "send": "Enviar código"
     }
   },
   "userForm": {
@@ -66,6 +67,7 @@
     "district_label": "Distrito:",
     "location_label": "Ubicación:",
     "description_label": "Descripción:",
+    "user_label": "Reportado por: ",
     "evidence_label": "Evidencia:",
     "clear_filters": "Limpiar Filtros",
     "no_reports": "No hay reportes disponibles.",
