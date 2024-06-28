@@ -1,6 +1,5 @@
 <script>
 import { ReportApiService } from "../../services/reportapi.service.js";
-import { Report } from "../../models/report.entity.js";
 import CitizenToolbar from "../../components/toolbar/toolbarCitizen.component.vue";
 export default {
   components: {
