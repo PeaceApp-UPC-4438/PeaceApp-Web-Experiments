@@ -158,6 +158,8 @@
         "contact_number": "Contact Number: ",
         "office_address": "Office Address: ",
         "description": "Description: "
-    }
+    },
+    "edit": "Edit Profile",
+    "logout": "Log out"
   }
 }

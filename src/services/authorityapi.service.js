@@ -40,4 +40,15 @@ export class AuthorityApiService {
         return response;
     }
 
+    async updateProfile(id, data) {
+        let response = null;
+
+        try {
+            response = await axios.patch(`${this.baseUrl}/governments/${id}`, data);
+        }catch(e){
+            console.error('Error editing a government', e)
+        }
+        return response;
+    }
+
 }

@@ -33,9 +33,9 @@ export default {
       </div>
       <div class="buttons">
         <router-link to="/authority/edit-profile">
-          <button>Edit Profile</button>
+          <button>{{$t('profile.edit')}}</button>
         </router-link>
-        <button @click="logout">Log Out</button>
+        <button @click="logout">{{ $t('profile.logout') }}</button>
       </div>
     </div>
   </div>
