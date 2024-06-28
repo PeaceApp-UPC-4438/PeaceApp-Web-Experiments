@@ -1,7 +1,11 @@
 <script>
 import { ReportApiService } from "../../services/reportapi.service.js";
 import { Report } from "../../models/report.entity.js";
+import CitizenToolbar from "../../components/toolbar/toolbarCitizen.component.vue";
 export default {
+  components: {
+    CitizenToolbar
+  },
   name: "report-component",
   data() {
     return {
@@ -49,6 +53,9 @@ export default {
 </script>
 
 <template>
+  <header>
+    <CitizenToolbar />
+  </header>
   <div class="container-fluid">
     <div class="page-container">
       <div class="form-container">

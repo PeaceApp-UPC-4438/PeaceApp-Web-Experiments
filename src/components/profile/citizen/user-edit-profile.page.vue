@@ -1,241 +1,212 @@
 <template>
-  <div class="page-container">
-    <div class="profile-bg">
-      <div class="profile-info">
-        <h1>{{ $t('userEdit.edit_profile') }}</h1>
-        <img src="../../../assets/Citizen.png" alt="Citizen" class="profile-image">
+  <div>
+    <header>
+      <CitizenToolbar />
+    </header>
+    <div class="padre">
+      <div class="container">
+        <div class="left">
+          <img :src="citizen.profileImage" alt="Usuario" class="img" />
+        </div>
+        <div class="right">
+          <p>{{ $t('profile.user.full_name') }} {{ citizen.firstname + citizen.lastname }}</p>
+          <p>{{ $t('profile.user.email')}} {{ citizen.email }}</p>
+          <p>Address {{citizen.address}}</p>
+          <p>{{$t('profile.user.district')}} {{citizen.district}}</p>
+          <p>City {{citizen.city}}</p>
+        </div>
+        <div class="buttons">
+          <button @click="openPopup">Edit Profile</button>
+          <button @click="logout">Log Out</button>
+          <button>Delete Account</button>
+        </div>
       </div>
-      <div class="form-container">
-        <form class="form-flex">
-          <div class="column">
-            <div class="form-group">
-              <label for="names" class="label-black">{{ $t('userEdit.first_names') }}</label>
-              <input
-                  type="text"
-                  id="names"
-                  name="names"
-                  required
-                  class="border-black"
-                  :placeholder="$t('userEdit.placeholders.first_names')"
-              >
+    </div>
+
+    <!-- Popup de Edición de Perfil -->
+    <div class="popup-container" v-if="showPopup">
+      <div class="popup">
+        <header>
+          <CitizenToolbar />
+        </header>
+        <div class="padre">
+          <div class="container">
+            <div class="left">
+              <img :src="editedCitizen.profileImage" alt="Usuario" class="img" />
             </div>
-            <div class="form-group">
-              <label for="last-names" class="label-black">{{ $t('userEdit.last_names') }}</label>
-              <input
-                  type="text"
-                  id="last-names"
-                  name="last-names"
-                  required
-                  class="border-black"
-                  :placeholder="$t('userEdit.placeholders.last_names')"
-              >
-            </div>
-            <div class="form-group">
-              <label for="district" class="label-black">{{ $t('userEdit.district') }}</label>
-              <input
-                  type="text"
-                  id="district"
-                  name="district"
-                  required
-                  class="border-black"
-                  :placeholder="$t('userEdit.placeholders.district')"
-              >
-            </div>
-            <div class="form-group">
-              <label for="emails" class="label-black">{{ $t('userEdit.email') }}</label>
-              <input
-                  type="email"
-                  id="emails"
-                  name="emails"
-                  required
-                  class="border-black"
-                  :placeholder="$t('userEdit.placeholders.email')"
-              >
-            </div>
-            <div class="form-group">
-              <label for="route-type" class="label-black">{{ $t('userEdit.route_type') }}</label>
-              <select id="route-type" name="route-type" required class="border-black">
-                <option value="safe">{{ $t('userEdit.route_type_options.safe') }}</option>
-                <option value="fast">{{ $t('userEdit.route_type_options.fast') }}</option>
-              </select>
+            <div class="right">
+              <form @submit.prevent="updateProfile">
+                <div>
+                  <label for="firstname">{{ $t('profile.user.first_name') }}</label>
+                  <input type="text" id="firstname" v-model="editedCitizen.firstname" required />
+                </div>
+                <div>
+                  <label for="lastname">{{ $t('profile.user.last_name') }}</label>
+                  <input type="text" id="lastname" v-model="editedCitizen.lastname" required />
+                </div>
+                <div>
+                  <label for="email">{{ $t('profile.user.email') }}</label>
+                  <input type="email" id="email" v-model="editedCitizen.email" required />
+                </div>
+                <div>
+                  <label for="address">{{ $t('profile.user.address') }}</label>
+                  <input type="text" id="address" v-model="editedCitizen.address" />
+                </div>
+                <div>
+                  <label for="district">{{ $t('profile.user.district') }}</label>
+                  <input type="text" id="district" v-model="editedCitizen.district" />
+                </div>
+                <div>
+                  <label for="city">{{ $t('profile.user.city') }}</label>
+                  <input type="text" id="city" v-model="editedCitizen.city" />
+                </div>
+                <div class="buttons">
+                  <button type="submit">Save Changes</button>
+                  <button @click="closePopup">Cancel</button>
+                  <button @click="deleteAccount">Delete Account</button>
+                </div>
+              </form>
             </div>
           </div>
-          <div class="column">
-            <div class="form-group">
-              <label for="notification" class="label-black">{{ $t('userEdit.alert_frequency') }}</label>
-              <select id="notification" name="notification" required class="border-black">
-                <option value="high">{{ $t('userEdit.alert_frequency_options.high') }}</option>
-                <option value="medium">{{ $t('userEdit.alert_frequency_options.medium') }}</option>
-                <option value="low">{{ $t('userEdit.alert_frequency_options.low') }}</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="location" class="label-black">{{ $t('userEdit.location_optional') }}</label>
-              <input
-                  type="text"
-                  id="location"
-                  name="location"
-                  class="border-black"
-                  :placeholder="$t('userEdit.placeholders.location')"
-              >
-            </div>
-            <div class="form-group">
-              <label for="description" class="label-black">{{ $t('userEdit.description') }}</label>
-              <textarea
-                  id="description"
-                  name="description"
-                  required
-                  class="border-black"
-                  rows="5"
-                  :placeholder="$t('userEdit.placeholders.description')"
-              ></textarea>
-            </div>
-            <div class="button-container">
-              <button type="submit">{{ $t('userEdit.confirm_changes') }}</button>
-            </div>
-          </div>
-        </form>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
+<script>
+import CitizenToolbar from "../../toolbar/toolbarCitizen.component.vue";
+
+export default {
+  components: {
+    CitizenToolbar
+  },
+  props: {
+    citizen: Object
+  },
+  data() {
+    return {
+      editedCitizen: { ...this.citizen },
+      showPopup: false
+    };
+  },
+  methods: {
+    updateProfile() {
+      console.log('Updating profile:', this.editedCitizen);
+      this.closePopup();
+      // Aquí iría la lógica para enviar los cambios al backend
+    },
+    deleteAccount() {
+      console.log('Deleting account:', this.editedCitizen);
+      this.closePopup();
+      // Aquí iría la lógica para eliminar la cuenta en el backend
+    },
+    openPopup() {
+      this.showPopup = true;
+    },
+    closePopup() {
+      this.showPopup = false;
+    },
+    logout() {
+      localStorage.removeItem('userEmail');
+      localStorage.removeItem('userRole');
+      this.$router.push('/login');
+    }
+  }
+};
+</script>
+
 <style scoped>
-.page-container {
-  padding: 15vh 0 0 0;
-}
-.form-flex {
+.popup-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semi-transparente */
   display: flex;
-  gap: 50px;
-}
-.column {
-  width: 50%;
-}
-
-.label-black {
-  color: black;
-  text-align: left;
-  font-weight: bold;
-  font-size: 1.5rem; /* Responsive font size */
-}
-
-input, select, textarea {
-  width: 100%; /* Full width to be responsive within its container */
-  padding: 0.8em; /* Responsive padding */
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: clamp(12px, 1.2vw, 16px);
-  transition: background-color 0.3s ease, border-color 0.3s ease;
-}
-#description {
-  width: 100%; /* Full width by default */
-  height: 200px; /* Auto height to adjust based on content */
-  padding: 0.8em; /* Responsive padding */
-  border: 1px solid black;
-  font-size: clamp(12px, 1.2vw, 16px);
-  transition: background-color 0.3s ease, border-color 0.3s ease;
-  resize: none;
-}
-.profile-image{
-  height: auto;
-  border: 1px solid black;
-  border-radius: 100%;
-  max-width: 250px;
-  margin-top: 20px;
+  justify-content: center;
   align-items: center;
 }
-.profile-bg {
-  border-radius: 24px;
-  background-color: #6DC9FF;
-  padding: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+
+.popup {
+  background-color: #6DC9FF; /* Color de fondo del popup */
+  border-radius: 10px;
+  padding: 20px;
+  width: 70%; /* Ancho del popup */
+  max-width: 600px; /* Ancho máximo del popup */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Sombra ligera */
 }
 
-.profile-info {
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Align items to the left */
-
-}
-/* Media Query for smaller screens */
-.form-group {
-  margin-bottom: 20px; /* Add bottom margin to the form groups */
-}
-.border-black {
-  border: 1px solid black; /* Set the border to black */
-  border-radius: 0; /* Remove rounded border */
-}
-
-.form-container {
-  flex: 1;
-  padding: 40px;
-}
-
-h1 {
-  color: white;
-  font-size: clamp(24px, 5vw, 40px);
-  transition: font-size 0.3s ease;
-}
-.form-group {
-  margin-bottom: 20px;
-  flex: 1;
-}
-label {
-  display: block;
-  font-weight: bold;
+.padre {
+  padding: 0;
 }
 
 button {
-  padding: 10px 20px;
-  background-color: yellow;
-  color: black;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+  background-color: #EEF221;
+  color: #161616;
   font-weight: bolder;
+  border: none;
+  border-radius: 0.25em;
+  padding: 0.5em 1em;
+  margin: 0.5em;
+  cursor: pointer;
   font-size: 20px;
+  height: 45px;
+  width: 30%;
 }
+
 button:hover {
   background-color: #9EA016;
 }
-@media (max-width: 1000px) {
-  .page-container{
-    padding: 10vh 0 0 0;
-  }
-  .form-flex {
-    flex-direction: column;
-    width: 100%;
-    gap: 0;
-  }
-  .profile-bg {
-    flex-direction: column; /* Stack elements in the profile-bg container vertically on smaller screens */
-    align-items: center;
-  }
-  .form-container {
-    width: 100%;
-    padding: 10px;/* Ensure the form container spans the full width */
-  }
-  .column {
-    width: 100%;
-    gap: 0;
-  }
-  input, select{
-    width: 100%;
-  }
-  textarea {
-    width: calc(80% - 100px);
-  }
-  #description {
-    width: 100%; /* Ensure textarea doesn't overflow container */
-  }
-  .button-container{
-    display: flex;
-    justify-content: center;
-  }
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  margin: auto;
 }
 
+.img {
+  height: auto;
+  border: 1px solid black;
+  border-radius: 100%;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  padding: 3vh;
+  margin: 0 auto;
+}
+
+.right {
+  font-family: 'Montserrat', sans-serif;
+  color: black;
+  text-align: justify;
+  font-weight: bold;
+  font-size: 18px;
+  padding: 3vh;
+  flex: 1;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form > div {
+  margin-bottom: 1em;
+}
+
+.buttons {
+  flex: 100%;
+  padding: 0 0 3vh 0;
+}
+
+@media (max-width: 1000px) {
+  .popup {
+    width: 90%; /* Ajustar ancho del popup para dispositivos móviles */
+  }
+}
 </style>
-<script setup lang="ts">
-</script>
