@@ -71,12 +71,12 @@ export default {
         <div class="input-container">
           <input :placeholder="$t('main.email')" class="input-style" type="email" id="input" required="" v-model="userData.email">
           <input :placeholder="$t('main.password')" class="input-style" type="password" id="input" required="" v-model="userData.password">
-        </div>
-        <button type="submit">{{ $t('main.login') }}</button>
-        <p v-if="error" class="error">{{ error }}</p>
+          <button type="submit">{{ $t('main.login') }}</button>
+          <p v-if="error" class="error">{{ error }}</p>
 
-        <h4>{{ $t('main.message2')}}<a href="#" @click="visible=true">{{$t('main.signUp')}}</a></h4>
-        <h4>{{ $t('main.message3')}}<router-link to="/password-recover">{{ $t('main.clickHere') }}</router-link></h4>
+          <h4>{{ $t('main.message2')}}<a href="#" @click="visible=true">{{$t('main.signUp')}}</a></h4>
+          <h4>{{ $t('main.message3')}}<router-link to="/password-recover">{{ $t('main.clickHere') }}</router-link></h4>
+        </div>
       </form>
     </div>
   </div>
