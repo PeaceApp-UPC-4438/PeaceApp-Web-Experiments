@@ -15,8 +15,8 @@ export class authUserService  {
 
     async signInUser(email, password) {
         try {
-            return await this.http.post('/authentication/sign-in', {
-                email: email,
+            return await this.http.get('/authentication/sign-in', {
+                username: email,
                 password: password
             });
         } catch (error) {

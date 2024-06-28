@@ -44,7 +44,7 @@ export class AuthorityApiService {
         let response = null;
 
         try {
-            response = await axios.patch(`${this.baseUrl}/governments/${id}`, data);
+            response = await axios.put(`${this.baseUrl}/governments/${id}`, data);
         }catch(e){
             console.error('Error editing a government', e)
         }
