@@ -96,7 +96,11 @@
     "find": "Find Route",
     "question": "Where do you want to go today?",
     "latitude": "New Latitude:",
-    "longitude": "New Longitude:"
+    "longitude": "New Longitude:",
+    "toggleHeatmap": "Toggle Heatmap",
+    "changeGradient": "Change Gradient",
+    "changeOpacity": "Change Opacity",
+    "changeRadius": "Change Radius"
   },
   "authorityEdit": {
     "municipality_name": "Name of the Municipality:",

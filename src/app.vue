@@ -68,6 +68,9 @@ footer {
   right: 0;
   color: #fff;
   padding: 10px 20px;
+  background-color: #349ddc;
+  height: fit-content;
+  border-radius: 10px 0 0 0;
 }
 
 .locale-select {

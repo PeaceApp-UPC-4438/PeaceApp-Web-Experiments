@@ -162,6 +162,9 @@ export default {
   color: white;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  width: fit-content;
+  font-weight: normal;
+  font-size: 1rem;
 }
 
 .filter-option button:hover {

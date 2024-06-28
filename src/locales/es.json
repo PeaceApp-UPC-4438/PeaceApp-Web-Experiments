@@ -96,7 +96,11 @@
     "find": "Hallar Ruta",
     "question": "¿A donde desea ir?",
     "latitude": "Nueva Latitud:",
-    "longitude": "Nueva Longitud:"
+    "longitude": "Nueva Longitud:",
+    "toggleHeatmap": "Alternar Mapa de Calor",
+    "changeGradient": "Cambiar Gradiente",
+    "changeOpacity": "Cambiar Opacidad",
+    "changeRadius": "Cambiar Radio"
   },
   "authorityEdit": {
     "municipality_name": "Nombre de la Municipalidad:",

@@ -7,10 +7,10 @@
       <h1 class="titulo">{{ $t('map.title') }}</h1>
     </div>
     <div class="buttons">
-      <button @click="toggleHeatmap">Toggle Heatmap</button>
-      <button @click="changeGradient">Change Gradient</button>
-      <button @click="changeOpacity">Change Opacity</button>
-      <button @click="changeRadius">Change Radius</button>
+      <button @click="toggleHeatmap">{{ $t('map.toggleHeatmap') }}</button>
+      <button @click="changeGradient">{{ $t('map.changeGradient') }}</button>
+      <button @click="changeOpacity">{{ $t('map.changeOpacity') }}</button>
+      <button @click="changeRadius">{{ $t('map.changeRadius') }}</button>
     </div>
     <div id="map"></div>
   </div>
