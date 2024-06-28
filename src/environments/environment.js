@@ -1,4 +1,4 @@
 export const environment = {
     production: false,
-    baseUrl: "http://localhost:3000/api/v1"
+    baseUrl: "https://p3ace-app.azurewebsites.net/api/v1"
 }

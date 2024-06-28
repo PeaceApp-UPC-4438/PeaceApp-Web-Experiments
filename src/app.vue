@@ -1,12 +1,15 @@
 <script setup>
 import ToolbarCitizen from "./components/toolbar/toolbarCitizen.component.vue";
 import ToolbarAuthority from "./components/toolbar/toolbarAuthority.component.vue";
-
 </script>
 <script>
+import {authUserService} from "./services/authuser.service.js";
+
 export default {
   data() {
     return {
+      users: [],
+      userService: new authUserService(),
       userEmail: '',
       userRole: '',
       locales: [
@@ -17,6 +20,17 @@ export default {
       ],
       showSelect: false
     }
+  },
+  mounted() {
+    this.userService.signInUser('johan@email.com','123').then(
+        (res) => {
+          console.log('res', res)
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  console.log(this.users);
   },
   methods: {
     changeLanguage(event) {
