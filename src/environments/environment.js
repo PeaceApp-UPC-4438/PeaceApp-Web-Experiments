@@ -1,4 +1,4 @@
 export const environment = {
     production: false,
-    baseUrl: "https://p3ace-app.azurewebsites.net/api/v1"
+    baseUrl: "root.c3wc2qoki91r.us-east-2.rds.amazonaws.com/api/v1"
 }
