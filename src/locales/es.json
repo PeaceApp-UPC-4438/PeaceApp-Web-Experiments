@@ -115,33 +115,13 @@
     }
   },
   "userEdit": {
-    "edit_profile": "Editar Perfil",
-    "first_names": "Nombres:",
-    "last_names": "Apellidos:",
-    "district": "Distrito:",
+    "first_name": "Nombres:",
+    "last_name": "Apellidos:",
     "email": "Correo Electrónico:",
-    "route_type": "Tipo de Ruta:",
-    "alert_frequency": "Frecuencia de Alertas:",
-    "location_optional": "Ubicación (Opcional):",
-    "description": "Descripción:",
-    "confirm_changes": "Confirmar Cambios",
-    "placeholders": {
-      "first_names": "Nombres",
-      "last_names": "Apellidos",
-      "district": "Distrito",
-      "email": "Correo Electrónico",
-      "location": "Ubicación",
-      "description": "Descripción"
-    },
-    "route_type_options": {
-      "safe": "Segura",
-      "fast": "Rápida"
-    },
-    "alert_frequency_options": {
-      "high": "Alta",
-      "medium": "Media",
-      "low": "Baja"
-    }
+    "address": "Dirección:",
+    "district": "Distrito:",
+    "city": "Ciudad:",
+    "profile_picture": "Foto de Perfil:"
   },
   "profile": {
     "user": {

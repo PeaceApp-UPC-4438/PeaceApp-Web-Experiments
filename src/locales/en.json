@@ -115,33 +115,13 @@
     }
   },
   "userEdit": {
-    "edit_profile": "Edit Profile",
-    "first_names": "First Names:",
-    "last_names": "Last Names:",
-    "district": "District:",
+    "firstname": "Firstname:",
+    "lastname": "Lastname:",
     "email": "Email:",
-    "route_type": "Route Type:",
-    "alert_frequency": "Alert Frequency:",
-    "location_optional": "Location (Optional):",
-    "description": "Description:",
-    "confirm_changes": "Confirm Changes",
-    "placeholders": {
-      "first_names": "First names",
-      "last_names": "Last names",
-      "district": "District",
-      "email": "Email",
-      "location": "Location",
-      "description": "Description"
-    },
-    "route_type_options": {
-      "safe": "Safe",
-      "fast": "Fast"
-    },
-    "alert_frequency_options": {
-      "high": "High",
-      "medium": "Medium",
-      "low": "Low"
-    }
+    "address": "Address:",
+    "district": "District:",
+    "city": "City:",
+    "profile_picture": "Profile Picture:"
   },
   "profile": {
     "user": {

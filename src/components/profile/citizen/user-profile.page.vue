@@ -37,7 +37,7 @@ export default {
           <img :src="citizen.profileImage" alt="Usuario" class="img" />
         </div>
         <div class="right">
-          <h2> {{ citizen.firstname +citizen.lastname }}</h2>
+          <h2> {{ citizen.firstname + ' ' + citizen.lastname }}</h2>
           <p>{{ $t('profile.user.email')}} {{ citizen.email }}</p>
           <p>{{ $t('profile.user.address') }} {{citizen.address}}</p>
           <p>{{$t('profile.user.district')}} {{citizen.district}}</p>
@@ -145,6 +145,9 @@ button:hover {
   .img{
     align-items: center;
     justify-items: center;
+  }
+  .popup-container{
+    z-index: 1000;
   }
 }
 </style>
