@@ -10,8 +10,10 @@ export default {
       userEmail: '',
       userRole: '',
       locales: [
+        { code: 'de', name: '🇩🇪 Deutsch', flag: 'de' },
         { code: 'en', name: '🇺🇸 English', flag: 'us' },
         { code: 'es', name: '🇪🇸 Español', flag: 'es' },
+        { code: 'fr', name: '🇫🇷 Français', flag: 'fr' }
       ],
       showSelect: false
     }

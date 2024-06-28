@@ -1,0 +1,139 @@
+{
+  "main": {
+    "title": "Für weitere Informationen besuchen Sie unsere Seite und entdecken Sie unser Angebot",
+    "welcome": "Willkommen bei PeaceApp",
+    "buttonInfo": "Mehr Informationen",
+    "message1": "Bitte melden Sie sich an, um zu starten",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "login": "Anmelden",
+    "message2": "Haben Sie kein Konto? ",
+    "signUp": "Registrieren",
+    "message3": "Passwort vergessen? ",
+    "clickHere": "Hier klicken",
+    "select": "Wählen Sie Ihre Rolle:",
+    "user": "Benutzer",
+    "authority": "Behörde",
+    "recover": {
+      "back": "Zurück",
+      "message": "Wenn Sie Ihr Passwort vergessen haben, geben Sie bitte Ihre registrierte E-Mail ein. Nach Bestätigung Ihres Kontos senden wir Ihnen einen Link zum Zurücksetzen Ihres Passworts.",
+      "know": "Kennen Sie Ihr Passwort? ",
+      "send": "Code senden"
+    }
+  },
+  "userForm": {
+    "message": "Bitte füllen Sie die erforderlichen Angaben aus, um Ihr Konto zu erstellen",
+    "firstname": "Vorname",
+    "lastname": "Nachname",
+    "email": "E-Mail",
+    "address": "Adresse",
+    "district": "Bezirk",
+    "city": "Stadt",
+    "password": "Passwort",
+    "confirm_password": "Passwort bestätigen",
+    "terms": "Allgemeine Geschäftsbedingungen und Sicherheitsrichtlinien akzeptieren",
+    "submit": "Absenden"
+  },
+  "authorityForm": {
+    "message": "Bitte füllen Sie die angegebenen Informationen aus, um Ihr Konto zu erstellen",
+    "municipality_name": "Name der Gemeinde",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "confirm_password": "Passwort bestätigen",
+    "fiscal_id": "Steueridentifikation",
+    "address": "Büroadresse",
+    "contact_number": "Kontakt Nummer",
+    "description": "Beschreibung",
+    "terms_and_policies": "Allgemeine Geschäftsbedingungen und Sicherheitsrichtlinien akzeptieren",
+    "next": "Weiter",
+    "subscription_header": "Regierungsabonnement:"
+  },
+  "payment": {
+    "considerations_heading": "Überlegungen:",
+    "considerations_content": "Ihr Zugang erfolgt monatlich und wird alle 30 Tage ab Aktivierung automatisch verlängert. Wenn Sie den Dienst nicht mehr nutzen möchten, haben Sie die Möglichkeit, ihn jederzeit von Ihrem Profil aus zu kündigen. Bitte beachten Sie, dass die Privilegien und das Abonnement nach Ablauf des aktuellen Abrechnungszeitraums deaktiviert werden.",
+    "separator": "oder bezahlen Sie mit Kreditkarte",
+    "card_holder_name": "Vollständiger Name des Karteninhabers",
+    "card_number": "Kartennummer",
+    "expiry_cvv": "Ablaufdatum / CVV",
+    "expiry_date": "Ablaufdatum",
+    "cvv": "CVV",
+    "checkout": "Zur Kasse"
+  },
+  "reports": {
+    "title": "Berichtsliste",
+    "all": "Alle",
+    "type_label": "Typ:",
+    "date_label": "Datum:",
+    "district_label": "Bezirk:",
+    "location_label": "Ort:",
+    "description_label": "Beschreibung:",
+    "user_label": "Gemeldet von: ",
+    "evidence_label": "Beweis:",
+    "clear_filters": "Filter löschen",
+    "no_reports": "Keine Berichte verfügbar.",
+    "view_evidence": "Beweise anzeigen",
+    "button": "Neuer Bericht"
+  },
+  "reportForm": {
+    "title": "Bericht senden",
+    "subtitle": "Bitte füllen Sie die folgenden Felder aus, um den Vorfall genau zu protokollieren.",
+    "type": "Berichtstyp:",
+    "dateTime": "Datum und Uhrzeit: ",
+    "district": "Bezirk: ",
+    "location": "Ort: ",
+    "description": "Beschreibung: ",
+    "evidence": "Beweis: ",
+    "upload": "Datei hochladen",
+    "send": "Senden",
+    "placeholders": {
+      "type": "Typ",
+      "location": "Ort",
+      "description": "Beschreibung"
+    }
+  },
+  "map": {
+    "title": "Heatmap des Bezirks",
+    "find": "Route finden",
+    "question": "Wohin möchten Sie heute gehen?",
+    "latitude": "Neue Breite:",
+    "longitude": "Neuer Längegrad:",
+    "toggleHeatmap": "Heatmap umschalten",
+    "changeGradient": "Gradient ändern",
+    "changeOpacity": "Deckkraft ändern",
+    "changeRadius": "Radius ändern"
+  },
+  "authorityEdit": {
+    "municipality_name": "Name der Gemeinde:",
+    "email": "E-Mail:",
+    "contact_number": "Kontakt Nummer:",
+    "address": "Büroadresse:",
+    "description": "Beschreibung:",
+    "profile_picture": "Profilbild:",
+    "confirm_changes": "Änderungen bestätigen"
+  },
+  "userEdit": {
+    "firstname": "Vorname:",
+    "lastname": "Nachname:",
+    "email": "E-Mail:",
+    "address": "Adresse:",
+    "district": "Bezirk:",
+    "city": "Stadt:",
+    "profile_picture": "Profilbild:"
+  },
+  "profile": {
+    "user": {
+      "email": "E-Mail: ",
+      "address": "Adresse: ",
+      "district": "Bezirk: ",
+      "city": "Stadt: "
+    },
+    "authority": {
+      "email": "E-Mail: ",
+      "contact_number": "Kontakt Nummer: ",
+      "office_address": "Büroadresse: ",
+      "description": "Beschreibung: "
+    },
+    "edit": "Profil bearbeiten",
+    "logout": "Abmelden"
+  }
+}
