@@ -4,7 +4,7 @@
 <template>
   <nav class="toolbar">
     <ul class="left-icons">
-      <li><a href="/"><img src="../../assets/PeaceApp.png" alt="PeaceApp" /></a></li> <!-- Left-aligned icon -->
+      <li><img src="../../assets/PeaceApp.png" alt="PeaceApp" /></li> <!-- Left-aligned icon -->
     </ul>
     <ul class="right-icons">
       <li><router-link to="/user/map"><img src="../../assets/Map.png" alt="Map" /></router-link></li>

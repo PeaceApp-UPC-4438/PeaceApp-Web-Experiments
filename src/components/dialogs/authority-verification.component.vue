@@ -77,7 +77,7 @@ export default {
             </div>
           </div>
         </div>
-        <button class="purchase--btn" @click="redirect">{{ $t('payment.checkout') }}</button>
+        <button class="purchase--btn" @click="redirect()">{{ $t('payment.checkout') }}</button>
       </form>
     </div>
   </div>
@@ -207,12 +207,13 @@ export default {
 
 .input_field:focus {
   border: 1px solid transparent;
-  box-shadow: 0px 0px 0px 2px #242424;
+  box-shadow: 0 0 0 2px #242424;
   background-color: transparent;
 }
 
 .purchase--btn {
   height: 55px;
+  width: 100%;
   background: #F2F2F2;
   border-radius: 11px;
   border: 0;

@@ -6,14 +6,13 @@
     <div class="heat-map">
       <h1 class="titulo">{{ $t('map.title') }}</h1>
     </div>
-    <div>
+    <div class="buttons">
       <button @click="toggleHeatmap">Toggle Heatmap</button>
       <button @click="changeGradient">Change Gradient</button>
       <button @click="changeOpacity">Change Opacity</button>
       <button @click="changeRadius">Change Radius</button>
     </div>
-
-  <div id="map"></div>
+    <div id="map"></div>
   </div>
 </template>
 
@@ -160,6 +159,11 @@ export default {
   height: 400px;
   width: 100%;
 }
+.buttons{
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
 
 .container {
   margin-top: 50px;
@@ -176,6 +180,14 @@ export default {
 .titulo {
   font-size: 36px;
   margin-bottom: 20px;
+}
+@media (max-width: 500px) {
+  .buttons {
+    flex-direction: column;
+  }
+  button{
+    width: 100%;
+  }
 }
 </style>
 

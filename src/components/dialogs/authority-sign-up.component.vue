@@ -99,7 +99,7 @@ export default {
     </div>
     <div class="flex">
       <input :placeholder="$t('authorityForm.address')" class="input-style" type="text" id="input" required="" v-model="formData.address">
-      <input :placeholder="$t('authorityForm.contact_number')" class="input-style" type="text" id="input" required="" v-model="formData.contact_number">
+      <input :placeholder="$t('authorityForm.contact_number')" class="input-style" type="text" id="input" required="" v-model="formData.contactNumber">
     </div>
     <textarea :placeholder="$t('authorityForm.description')" class="input-style description" rows="5" cols="30" required="" v-model="formData.description"/>
     <label class="material-checkbox">
@@ -129,6 +129,7 @@ export default {
 .description {
   width: 100%;
   height: 100px;
+  resize: none;
 }
 
 .message {
