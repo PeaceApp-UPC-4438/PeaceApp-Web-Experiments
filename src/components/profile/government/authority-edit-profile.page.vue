@@ -1,152 +1,94 @@
 <template>
-  <div class="padre">
-    <div class="profile-bg">
-      <h1>{{ $t('authorityEdit.edit_profile') }}</h1>
-      <div class="left">
-        <!--<img :src="authority.profileImage" alt="User" class="img" />-->
+  <div class="popup">
+    <form @submit.prevent="updateProfile">
+      <div class="flex">
+        <input :placeholder="$t('authorityEdit.municipality_name')" class="input-style" type="text" id="name" v-model="authority.name" required />
+        <input :placeholder="$t('authorityEdit.contact_number')" class="input-style" type="text" id="contactNumber" required="" v-model="authority.contactNumber">
       </div>
-      <div class="form-container">
-        <form class="form-flex">
-          <div class="column">
-            <div class="form-group">
-              <label for="names" class="label-black">{{ $t('authorityEdit.municipality_name') }}</label>
-              <input :placeholder="$t('authorityEdit.placeholder.municipality_name')" class="input-style" type="text" id="input" required>
-            </div>
-            <div class="form-group">
-              <label for="emails" class="label-black">{{ $t('authorityEdit.email') }}</label>
-              <input :placeholder="$t('authorityEdit.placeholder.email')" class="input-style" type="email" id="input" required >
-            </div>
-            <div class="form-group">
-              <label for="description" class="label-black">{{ $t('authorityEdit.contact_number') }}</label>
-              <input :placeholder="$t('authorityEdit.placeholder.contact_number')" class="input-style" type="text" id="input" required>
-            </div>
-          </div>
-          <div class="column">
-            <div class="form-group">
-              <label for="description" class="label-black">{{ $t('authorityEdit.office_address') }}</label>
-              <input :placeholder="$t('authorityEdit.placeholder.office_address')" class="input-style" type="text" id="input" required >
-            </div>
-            <div class="form-group">
-              <label for="description" class="label-black">{{ $t('authorityEdit.description') }}</label>
-              <textarea :placeholder="$t('authorityEdit.placeholder.description')" class="input-style description" rows="5" cols="30" required/>
-            </div>
-            <div class="button-container">
-              <button type="submit">{{ $t('authorityEdit.confirm_changes') }}</button>
-            </div>
-          </div>
-        </form>
+      <div class="flex">
+        <input :placeholder="$t('authorityEdit.email')" class="input-style" type="email" id="email" required="" v-model="authority.email">
+        <input :placeholder="$t('authorityEdit.address')" class="input-style" type="text" id="address" required="" v-model="authority.address">
       </div>
-    </div>
+      <div class="flex">
+        <input :placeholder="$t('authorityEdit.profile_picture')" class="input-style" type="text" id="profileImage" v-model="authority.profileImage">
+      </div>
+      <div class="flex">
+        <Textarea :placeholder="authority.description" class="input-style" type="text" id="district" required="" v-model="authority.description"/>
+      </div>
+      <div class="buttons">
+        <button type="submit">Save Changes</button>
+        <button @click="closePopup">Cancel</button>
+        <button @click="deleteAccount">Delete Account</button>
+      </div>
+    </form>
   </div>
 </template>
+<script>
+import {AuthorityApiService} from '../../../services/authorityapi.service.js';
+export default {
+  props: {
+    authority: Object,
+  },
+  data() {
+    return {
+      authorityService: new AuthorityApiService()
+    };
+  },
+  methods: {
+    updateProfile() {
+      console.log('Updating profile:', this.authority);
+      this.closePopup();
+      this.authorityService.updateAuthority(this.authority.id, this.authority);
+      localStorage.setItem('citizen', JSON.stringify(this.authority));
+    },
+    deleteAccount() {
+      console.log('Deleting account:', this.authority);
+      this.closePopup();
+      // Aquí iría la lógica para eliminar la cuenta en el backend
+    },
+    closePopup() {
+      this.$emit('close');
+    }
+  }
+};
+</script>
 <style scoped>
-.left img {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  border: 2px solid #ddd;
-  object-fit: cover;
-}
-.left {
-  align-items: center;
-  padding: 3vh;
-  margin: 0 auto;
-}
-.padre {
-  padding: 15vh 0 0 0;
-  margin: 0 auto;
-}
-.form-flex {
+.flex {
   display: flex;
-  gap: 50px;
-}
-.column {
-  width: 50%;
-}
-
-.label-black {
-  color: black;
-  text-align: left;
-  font-weight: bold;
-  font-size: 1.3rem; /* Responsive font size */
-}
-
-.profile-bg {
-  padding: 10px;
-  border-radius: 24px;
-  background-color: #6DC9FF;
-  width: 70vw;
-  height: fit-content;
-  display: flex;
-  flex-wrap: wrap;
-  text-align: center;
-  margin: auto;
-}
-/* Media Query for smaller screens */
-.form-group {
-  margin-bottom: 20px; /* Add bottom margin to the form groups */
-}
-.form-container {
-  flex: 1;
-  padding: 40px;
-}
-
-h1 {
-  color: white;
-  font-size: clamp(24px, 5vw, 40px);
-  transition: font-size 0.3s ease;
-}
-.form-group input, textarea{
-  margin: 0;
   width: 100%;
 }
-.form-group textarea{
+#profileImage, textarea{
+  width: 97%;
+}
+textarea{
+  height: 100px;
   resize: none;
-  height: 135px;
 }
-label {
-  display: block;
-  font-weight: bold;
+.popup {
+  background-color: #6DC9FF; /* Color de fondo del popup */
+  border-radius: 10px;
+  padding: 20px;
+  width: 70%; /* Ancho del popup */
+  max-width: 600px; /* Ancho máximo del popup */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Sombra ligera */
 }
-
-button {
-  padding: 10px 20px;
-  background-color: yellow;
-  color: black;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bolder;
-  font-size: 20px;
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
 }
-button:hover {
-  background-color: #9EA016;
+button{
+  font-size: 15px;
 }
 @media (max-width: 1000px) {
-  .form-flex {
+  .popup {
+    width: 90%; /* Ajustar ancho del popup para dispositivos móviles */
+  }
+  .flex, .buttons {
     flex-direction: column;
-    width: 100%;
-    gap: 0;
   }
-  .profile-bg {
-    flex-direction: column; /* Stack elements in the profile-bg container vertically on smaller screens */
-    align-items: center;
-  }
-  .form-container {
-    width: 100%;
-    padding: 10px;/* Ensure the form container spans the full width */
-  }
-  .column {
-    width: 100%;
-    gap: 0;
-  }
-  input, select{
-    width: 100%;
-  }
-  .button-container{
-    display: flex;
-    justify-content: center;
+  button, input, textarea {
+    width: 98%;
   }
 }
-
 </style>

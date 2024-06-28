@@ -3,7 +3,7 @@
     <form @submit.prevent="updateProfile">
       <div class="flex">
         <input :placeholder="$t('userEdit.first_name')" class="input-style" type="text" id="firstname" v-model="citizen.firstname" required />
-        <input :placeholder="$t('profile.user.last_name')" class="input-style" type="text" id="lastname" required="" v-model="citizen.lastname">
+        <input :placeholder="$t('userEdit.last_name')" class="input-style" type="text" id="lastname" required="" v-model="citizen.lastname">
       </div>
       <div class="flex">
         <input :placeholder="$t('userEdit.email')" class="input-style" type="email" id="email" required="" v-model="citizen.email">

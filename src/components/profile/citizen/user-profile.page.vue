@@ -49,7 +49,6 @@ export default {
         </div>
       </div>
     </div>
-
     <!-- Popup de Edición de Perfil -->
     <div class="popup-container" v-if="showPopup">
       <EditUser :citizen="citizen" @close="showPopup = false" />

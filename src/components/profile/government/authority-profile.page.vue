@@ -1,45 +1,73 @@
 <script>
 import AuthorityToolbar from "../../toolbar/toolbarAuthority.component.vue";
+import EditAuthority from "./authority-edit-profile.page.vue";
 export default {
   components: {
+    EditAuthority,
     AuthorityToolbar
   },
   props: {
     authority: Object
   },
+  data() {
+    return {
+      showPopup: false
+    };
+  },
   methods: {
+    openPopup() {
+      this.showPopup = true;
+    },
     logout() {
-      localStorage.clear();
+      localStorage.removeItem('userEmail');
+      localStorage.removeItem('userRole');
       this.$router.push('/login');
     }
   }
 };
 </script>
 <template>
-  <header>
-    <AuthorityToolbar/>
-  </header>
-  <div class="padre">
-    <div class="container">
-      <div class="left">
-        <img :src="authority.profileImage" alt="User" class="img" />
+  <div>
+    <header>
+      <AuthorityToolbar/>
+    </header>
+    <div class="padre">
+      <div class="container">
+        <div class="left">
+          <img :src="authority.profileImage" alt="User" class="img" />
+        </div>
+        <div class="right">
+          <h2>{{ authority.name }}</h2>
+          <p>{{ $t('profile.authority.email') }} {{ authority.email }}</p>
+          <p>{{ $t('profile.authority.contact_number') }} {{ authority.contactNumber }}</p>
+          <p>{{ $t('profile.authority.office_address') }} {{ authority.address }}</p>
+          <p>{{ $t('profile.authority.description') }} {{ authority.description }}</p>
+        </div>
+        <div class="buttons">
+          <button @click="openPopup">{{ $t('profile.edit') }}</button>
+          <button @click="logout">{{ $t('profile.logout') }}</button>
+        </div>
       </div>
-      <div class="right">
-        <h2>{{ authority.name }}</h2>
-        <p>{{ $t('profile.authority.email') }} {{ authority.email }}</p>
-        <p>{{ $t('profile.authority.contact_number') }} {{ authority.contact_number }}</p>
-        <p>{{ $t('profile.authority.office_address') }} {{ authority.address }}</p>
-        <p>{{ $t('profile.authority.description') }} {{ authority.description }}</p>
-      </div>
-      <div class="buttons">
-        <button @click="openPopup">{{ $t('profile.edit') }}</button>
-        <button @click="logout">{{ $t('profile.logout') }}</button>
-      </div>
+    </div>
+    <!-- Popup de Edición de Perfil -->
+    <div class="popup-container" v-if="showPopup">
+      <EditAuthority :authority="authority" @close="showPopup = false" />
     </div>
   </div>
 </template>
 
 <style scoped>
+.popup-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semi-transparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .left img {
   width: 200px;
   height: 200px;
@@ -116,6 +144,9 @@ button:hover {
   .img{
     align-items: center;
     justify-items: center;
+  }
+  .popup-container{
+    z-index: 1000;
   }
 }
 </style>

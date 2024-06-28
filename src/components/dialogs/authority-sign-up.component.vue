@@ -22,7 +22,7 @@ export default {
         name: '',
         email: '',
         password: '',
-        contact_number: '',
+        contactNumber: '',
         address: '',
         description: '',
         profileImage: 'https://picsum.photos/200/300'

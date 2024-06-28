@@ -99,20 +99,13 @@
     "longitude": "Nueva Longitud:"
   },
   "authorityEdit": {
-    "edit_profile": "Editar Perfil",
     "municipality_name": "Nombre de la Municipalidad:",
     "email": "Correo Electrónico:",
     "contact_number": "Número de Contacto:",
-    "office_address": "Dirección de Oficina:",
+    "address": "Dirección de Oficina:",
     "description": "Descripción:",
-    "confirm_changes": "Confirmar Cambios",
-    "placeholder": {
-      "municipality_name": "Nombres",
-      "email": "Correo Electrónico",
-      "contact_number": "Número",
-      "office_address": "Dirección",
-      "description": "Descripción"
-    }
+    "profile_picture": "Foto de Perfil:",
+    "confirm_changes": "Confirmar Cambios"
   },
   "userEdit": {
     "first_name": "Nombres:",

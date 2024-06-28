@@ -40,7 +40,7 @@ export class AuthorityApiService {
         return response;
     }
 
-    async updateProfile(id, data) {
+    async updateAuthority(id, data) {
         let response = null;
 
         try {
