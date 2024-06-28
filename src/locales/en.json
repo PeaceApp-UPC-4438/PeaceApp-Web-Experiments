@@ -1,0 +1,139 @@
+{
+  "main": {
+    "title": "For more information, visit our page and discover our offer",
+    "welcome": "Welcome to PeaceApp",
+    "buttonInfo": "More information",
+    "message1": "Please, log in to start",
+    "email": "E-mail",
+    "password": "Password",
+    "login": "Log in",
+    "message2": "Don't have an account? ",
+    "signUp": "Sign up",
+    "message3": "Forgot your password? ",
+    "clickHere": "Click here",
+    "select": "Select your role:",
+    "user": "User",
+    "authority": "Authority",
+    "recover": {
+      "back": "Go Back",
+      "message": "If you have forgotten your password, please enter your registered email. Upon confirming your account, we will send you a link to reset your password.",
+      "know": "Know your password? ",
+      "send": "Send code"
+    }
+  },
+  "userForm": {
+    "message": "Please fill in the required details to create your account",
+    "firstname": "Firstname",
+    "lastname": "Lastname",
+    "email": "Email",
+    "address": "Address",
+    "district": "District",
+    "city": "City",
+    "password": "Password",
+    "confirm_password": "Confirm Password",
+    "terms": "Accept Terms of Service and Security Policies",
+    "submit": "Submit"
+  },
+  "authorityForm": {
+    "message": "Please fill in the indicated information to create your account",
+    "municipality_name": "Municipality Name",
+    "email": "Email",
+    "password": "Password",
+    "confirm_password": "Confirm Password",
+    "fiscal_id": "Fiscal Identification",
+    "address": "Office Address",
+    "contact_number": "Contact Number",
+    "description": "Description",
+    "terms_and_policies": "Accept Terms of Service and Security Policies",
+    "next": "Next",
+    "subscription_header": "Governmental Subscription:"
+  },
+  "payment": {
+    "considerations_heading": "Considerations:",
+    "considerations_content": "Your access is on a monthly basis and will automatically renew every 30 days from activation. If you decide not to continue with the service, you have the option to cancel it at any time from your profile. By doing so, please note that the privileges and subscription will be deactivated once the current billing cycle ends.",
+    "separator": "or pay using credit card",
+    "card_holder_name": "Card holder full name",
+    "card_number": "Card Number",
+    "expiry_cvv": "Expiry Date / CVV",
+    "expiry_date": "Expiry Date",
+    "cvv": "CVV",
+    "checkout": "Checkout"
+  },
+  "reports": {
+    "title": "Report list",
+    "all": "All",
+    "type_label": "Type:",
+    "date_label": "Date:",
+    "district_label": "District:",
+    "location_label": "Location:",
+    "description_label": "Description:",
+    "user_label": "Reported by: ",
+    "evidence_label": "Evidence:",
+    "clear_filters": "Clear Filters",
+    "no_reports": "No reports available.",
+    "view_evidence": "View Evidence",
+    "button": "New Report"
+  },
+  "reportForm": {
+    "title": "Report Sending",
+    "subtitle": "Please complete the following fields to help us accurately record the incident.",
+    "type": "Type of Report:",
+    "dateTime": "Date and Time: ",
+    "district": "District: ",
+    "location": "Location: ",
+    "description": "Description: ",
+    "evidence": "Evidence: ",
+    "upload": "Upload File",
+    "send": "Send",
+    "placeholders": {
+      "type": "Type",
+      "location": "Location",
+      "description": "Description"
+    }
+  },
+  "map": {
+    "title": "District's Heat Map",
+    "find": "Find Route",
+    "question": "Where do you want to go today?",
+    "latitude": "New Latitude:",
+    "longitude": "New Longitude:",
+    "toggleHeatmap": "Toggle Heatmap",
+    "changeGradient": "Change Gradient",
+    "changeOpacity": "Change Opacity",
+    "changeRadius": "Change Radius"
+  },
+  "authorityEdit": {
+    "municipality_name": "Name of the Municipality:",
+    "email": "Email:",
+    "contact_number": "Contact Number:",
+    "address": "Office Address:",
+    "description": "Description:",
+    "profile_picture": "Profile Picture:",
+    "confirm_changes": "Confirm Changes"
+  },
+  "userEdit": {
+    "firstname": "Firstname:",
+    "lastname": "Lastname:",
+    "email": "Email:",
+    "address": "Address:",
+    "district": "District:",
+    "city": "City:",
+    "profile_picture": "Profile Picture:"
+  },
+  "profile": {
+    "user": {
+      "email": "Email: ",
+      "address": "Address: ",
+      "district": "District: ",
+      "city": "City: "
+    },
+    "authority": {
+        "email": "Email: ",
+        "contact_number": "Contact Number: ",
+        "office_address": "Office Address: ",
+        "description": "Description: "
+    },
+    "edit": "Edit Profile",
+    "logout": "Log out"
+  }
+}

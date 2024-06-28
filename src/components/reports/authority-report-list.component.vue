@@ -1,57 +1,77 @@
 <template>
+  <header>
+    <div v-if="role === 'citizen'">
+      <CitizenToolbar/>
+    </div>
+    <div v-else-if="role === 'authority'">
+      <AuthorityToolbar/>
+    </div>
+  </header>
   <div class="container">
-    <h1>Report List</h1>
+    <h1>
+      {{$t("reports.title")}}
+    </h1>
     <div class="filters">
       <div class="filter-option">
-        <label for="filter-type">Type:</label>
+        <label for="filter-type">{{$t("reports.type_label")}}</label>
         <select v-model="filterType" id="filter-type">
-          <option value="">All</option>
+          <option value="">{{ $t('reports.all') }}</option>
           <option v-for="type in uniqueTypes" :key="type" :value="type">{{ type }}</option>
         </select>
       </div>
       <div class="filter-option">
-        <label for="filter-date">Date:</label>
+        <label for="filter-date">{{$t('reports.date_label')}}</label>
         <input type="date" v-model="filterDate" id="filter-date">
       </div>
       <div class="filter-option">
-        <label for="filter-district">District:</label>
+        <label for="filter-district">{{$t('reports.district_label')}}</label>
         <select v-model="filterDistrict" id="filter-district">
-          <option value="">All</option>
+          <option value="">{{ $t('reports.all') }}</option>
           <option v-for="district in uniqueDistricts" :key="district" :value="district">{{ district }}</option>
         </select>
       </div>
       <div class="filter-option">
-        <button @click="clearFilters">Clear Filters</button>
+        <button @click="clearFilters">{{$t('reports.clear_filters')}}</button>
       </div>
     </div>
     <div class="reports-container">
       <ul v-if="filteredReports.length" class="reports-grid">
         <li v-for="report in filteredReports" :key="report.id" class="report-item">
           <h2>{{ report.type }}</h2>
-          <p><strong>Date:</strong> {{ report.date }} <strong>Time:</strong> {{ report.time }}</p>
-          <p><strong>District:</strong> {{ report.district }}</p>
-          <p><strong>Location:</strong> {{ report.location }}</p>
-          <p><strong>Description:</strong> {{ report.description }}</p>
-          <p><strong>Evidence:</strong> <a :href="report.urlEvidence" target="_blank">View Evidence</a></p>
+          <p><strong>{{ $t('reports.date_label') }}</strong> {{ report.date }} <strong>Time:</strong> {{ report.time }}</p>
+          <p><strong>{{$t('reports.district_label')}}</strong> {{ report.district }}</p>
+          <p><strong>{{$t('reports.location_label')}}</strong> {{ report.location }}</p>
+          <p><strong>{{$t('reports.description_label')}}</strong> {{ report.description }}</p>
+          <p><strong>{{$t('reports.user_label')}}</strong> {{ report.user?.firstname + ' ' + report.user?.lastname}}</p>
+          <p><strong>{{$t('reports.evidence_label')}}</strong> <a :href="report.urlEvidence" target="_blank">{{ $t('reports.view_evidence') }}</a></p>
         </li>
       </ul>
-      <p v-else>No reports available.</p>
+      <ul v-else class="reports-grid">
+        <li class="report-item"><h2>{{$t('reports.no_reports')}}</h2></li>
+      </ul>
     </div>
   </div>
 </template>
 
 <script>
-import { ReportApiService } from "../../pages/reports/service/reportapi.service.js";
-
+import { ReportApiService } from "../../services/reportapi.service.js";
+import AuthorityToolbar from "../toolbar/toolbarAuthority.component.vue";
+import CitizenToolbar from "../toolbar/toolbarCitizen.component.vue";
+import ToolbarCitizen from "../../app.vue";
 export default {
   name: "ReportsList",
+  components: {
+    CitizenToolbar,
+    AuthorityToolbar
+  },
   data() {
     return {
       reports: [],
       api: new ReportApiService(),
       filterType: "",
       filterDate: "",
-      filterDistrict: ""
+      filterDistrict: "",
+      role: ""
     };
   },
   async created() {
@@ -61,6 +81,7 @@ export default {
     } catch (error) {
       console.error("Error fetching reports:", error);
     }
+    await this.getRole();
   },
   computed: {
     uniqueTypes() {
@@ -88,6 +109,9 @@ export default {
       this.filterType = "";
       this.filterDate = "";
       this.filterDistrict = "";
+    },
+    async getRole() {
+      this.role = localStorage.getItem('userRole');
     }
   },
 };
@@ -138,6 +162,9 @@ export default {
   color: white;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  width: fit-content;
+  font-weight: normal;
+  font-size: 1rem;
 }
 
 .filter-option button:hover {
@@ -171,6 +198,9 @@ h1 {
   background-color: #f9f9f9;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.report-item h2{
+  text-align: center;
 }
 
 .report-item:hover {

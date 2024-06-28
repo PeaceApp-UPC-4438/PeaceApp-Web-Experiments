@@ -1,14 +1,27 @@
 <script>
-import { ReportApiService } from "./service/reportapi.service.js";
-import { Report } from "./model/report.entity.js";
+import { ReportApiService } from "../../services/reportapi.service.js";
+import CitizenToolbar from "../../components/toolbar/toolbarCitizen.component.vue";
 export default {
+  components: {
+    CitizenToolbar
+  },
   name: "report-component",
   data() {
     return {
-      report: new Report(),
+      reportData: {
+        type: "",
+        date: "",
+        time: "",
+        district: "",
+        location: "",
+        description: "",
+        evidence: "",
+        user: {}
+      },
       api: new ReportApiService(),
       successMessage: "",
       showSuccessMessage: false,
+      citizen: {}
     };
   },
   methods: {
@@ -17,17 +30,19 @@ export default {
 
       setTimeout(() => {
         this.$router.push({ name: 'reportlist' });
-      }, 4000);
+      }, 3000);
     },
     async new(){
+      this.citizen = JSON.parse(localStorage.getItem('citizen'));
+      this.reportData.user = this.citizen;
       try {
-        await this.api.create(this.report);
+        await this.api.create(this.reportData);
         this.successMessage = "Report created successfully"; // Set success message
         this.showSuccessMessage = true; // Show the popup
         setTimeout(() => {
           this.showSuccessMessage = false; // Hide the popup after 5 seconds
         }, 5000);
-        console.log("New report added:", this.report);
+        console.log("New report added:", this.reportData);
       } catch (error) {
         console.error("Error creating report:", error);
       }
@@ -37,86 +52,87 @@ export default {
 </script>
 
 <template>
+  <header>
+    <CitizenToolbar />
+  </header>
   <div class="container-fluid">
     <div class="page-container">
       <div class="form-container">
-        <h1>Report Sending</h1>
-        <p>Please complete the following fields to help us accurately record the incident.</p>
+        <h1>{{$t('reportForm.title')}}</h1>
+        <p>{{ $t('reportForm.subtitle') }}</p>
         <form @submit.prevent="createReport" class="form-flex">
           <div class="column">
             <div class="form-group">
-              <label for="report-type" class="label-black">Type of Report:</label>
-              <input v-model="report.type" id="type" type="text" name="type" placeholder="Type" required class="border-black" >
+              <label for="report-type" class="label-black">{{$t('reportForm.type')}}</label>
+              <input :placeholder="$t('reportForm.placeholders.type')" class="input-style" type="text" id="input" required="" v-model="reportData.type">
             </div>
-            <label for="date" class="label-black">Date and Time:</label>
+            <label for="date" class="label-black">{{ $t('reportForm.dateTime') }}</label>
             <div class="date-time-container">
-              <input v-model="report.date" id="date" type="date" name="date" required class="border-black">
-              <input v-model="report.time" id="time" type="time" name="time" required class="border-black">
+              <input v-model="reportData.date" id="date" type="date" name="date" required class="input-style">
+              <input v-model="reportData.time" id="time" type="time" name="time" required class="input-style">
             </div>
-            <div class="form-group">
-              <div class="row">
-                <div class="column-half">
-                  <label for="district" class="label-black">District:</label>
-                  <select v-model="report.district" id="district" name="district" required class="border-black">
-                    <option value="Ancon">Ancón</option>
-                    <option value="Ate">Ate</option>
-                    <option value="Barranco">Barranco</option>
-                    <option value="Brena">Breña</option>
-                    <option value="Carabayllo">Carabayllo</option>
-                    <option value="Cercado de Lima">Cercado de Lima</option>
-                    <option value="Chaclacayo">Chaclacayo</option>
-                    <option value="Chorrillos">Chorrillos</option>
-                    <option value="Cieneguilla">Cieneguilla</option>
-                    <option value="Comas">Comas</option>
-                    <option value="El Agustino">El agustino</option>
-                    <option value="Independencia">Independencia</option>
-                    <option value="Jesus Maria">Jesús maría</option>
-                    <option value="La Molina">La molina</option>
-                    <option value="La Victoria">La victoria</option>
-                    <option value="Lince">Lince</option>
-                    <option value="Los Olivos">Los olivos</option>
-                    <option value="Lurigancho">Lurigancho</option>
-                    <option value="Lurin">Lurín</option>
-                    <option value="Magdalena del Mar">Magdalena del mar</option>
-                    <option value="Miraflores">Miraflores</option>
-                    <option value="Pachacamac">Pachacámac</option>
-                    <option value="Pucusana">Pucusana</option>
-                    <option value="Pueblo Libre">Pueblo libre</option>
-                    <option value="Puente Piedra">Puente piedra</option>
-                    <option value="Punta Hermosa">Punta hermosa</option>
-                    <option value="Punta Negra">Punta negra</option>
-                    <option value="Rimac">Rímac</option>
-                    <option value="San Bartolo">San bartolo</option>
-                    <option value="San Borja">San borja</option>
-                    <option value="San Isidro">San isidro</option>
-                    <option value="San Juan de Lurigancho">San Juan de Lurigancho</option>
-                    <option value="San Juan de Miraflores">San Juan de Miraflores</option>
-                    <option value="San Luis">San Luis</option>
-                    <option value="San Martin de Porres">San Martin de Porres</option>
-                    <option value="San Miguel">San Miguel</option>
-                    <option value="Santa Anita">Santa Anita</option>
-                    <option value="Santa Maria del Mar">Santa María del Mar</option>
-                    <option value="Santa Rosa">Santa Rosa</option>
-                    <option value="Santiago de Surco">Santiago de Surco</option>
-                    <option value="Surquillo">Surquillo</option>
-                    <option value="Villa el Salvador">Villa el Salvador</option>
-                    <option value="Villa Maria del Triunfo">Villa Maria del Triunfo</option>
-                  </select>
-                </div>
-                <div class="column-half">
-                  <label for="location" class="label-black">Location:</label>
-                  <input v-model="report.location" id="location" type="text" placeholder="Location" name="location" required class="border-black" >
-                </div>
+            <div class="form-group row">
+              <div class="column-half">
+                <label for="district" class="label-black">{{ $t('reportForm.district') }}</label>
+                <select v-model="reportData.district" id="district" name="district" required class="input-style">
+                  <option value="Ancon">Ancón</option>
+                  <option value="Ate">Ate</option>
+                  <option value="Barranco">Barranco</option>
+                  <option value="Brena">Breña</option>
+                  <option value="Carabayllo">Carabayllo</option>
+                  <option value="Cercado de Lima">Cercado de Lima</option>
+                  <option value="Chaclacayo">Chaclacayo</option>
+                  <option value="Chorrillos">Chorrillos</option>
+                  <option value="Cieneguilla">Cieneguilla</option>
+                  <option value="Comas">Comas</option>
+                  <option value="El Agustino">El agustino</option>
+                  <option value="Independencia">Independencia</option>
+                  <option value="Jesus Maria">Jesús maría</option>
+                  <option value="La Molina">La molina</option>
+                  <option value="La Victoria">La victoria</option>
+                  <option value="Lince">Lince</option>
+                  <option value="Los Olivos">Los olivos</option>
+                  <option value="Lurigancho">Lurigancho</option>
+                  <option value="Lurin">Lurín</option>
+                  <option value="Magdalena del Mar">Magdalena del mar</option>
+                  <option value="Miraflores">Miraflores</option>
+                  <option value="Pachacamac">Pachacámac</option>
+                  <option value="Pucusana">Pucusana</option>
+                  <option value="Pueblo Libre">Pueblo libre</option>
+                  <option value="Puente Piedra">Puente piedra</option>
+                  <option value="Punta Hermosa">Punta hermosa</option>
+                  <option value="Punta Negra">Punta negra</option>
+                  <option value="Rimac">Rímac</option>
+                  <option value="San Bartolo">San bartolo</option>
+                  <option value="San Borja">San borja</option>
+                  <option value="San Isidro">San isidro</option>
+                  <option value="San Juan de Lurigancho">San Juan de Lurigancho</option>
+                  <option value="San Juan de Miraflores">San Juan de Miraflores</option>
+                  <option value="San Luis">San Luis</option>
+                  <option value="San Martin de Porres">San Martin de Porres</option>
+                  <option value="San Miguel">San Miguel</option>
+                  <option value="Santa Anita">Santa Anita</option>
+                  <option value="Santa Maria del Mar">Santa María del Mar</option>
+                  <option value="Santa Rosa">Santa Rosa</option>
+                  <option value="Santiago de Surco">Santiago de Surco</option>
+                  <option value="Surquillo">Surquillo</option>
+                  <option value="Villa el Salvador">Villa el Salvador</option>
+                  <option value="Villa Maria del Triunfo">Villa Maria del Triunfo</option>
+                </select>
+              </div>
+              <div class="column-half">
+                <label for="location" class="label-black">{{ $t('reportForm.location') }}</label>
+                <input v-model="reportData.location" id="location" type="text" :placeholder="$t('reportForm.placeholders.location')" name="location" required class="input-style" >
               </div>
             </div>
             <div class="form-group">
-              <label for="description" class="label-black">Description:</label>
-              <textarea v-model="report.description" id="description" placeholder="Description" name="description" required class="border-black" rows="5" ></textarea>
+              <label for="description" class="label-black">{{ $t('reportForm.description') }}</label>
+              <textarea :placeholder="$t('reportForm.description')" class="input-style" type="email" id="description" rows="3" required="" v-model="reportData.description"/>
             </div>
             <div class="form-group">
               <div class="evidence-container">
-                <label for="evidence" class="label-black">Evidence:</label>
-                <label for="file-upload" class="upload-button">Upload File</label>
+                <label for="evidence" class="label-black">{{$t('reportForm.evidence')}}</label>
+                <label for="file-upload" class="upload-button">{{ $t('reportForm.upload') }}</label>
                 <input type="file" id="file-upload" name="file-upload" class="file-input" style="display: none;">
               </div>
             </div>
@@ -124,7 +140,7 @@ export default {
           <div class="column">
             <img src="../../assets/Map-Placeholder.png" alt="Map" class="map-image">
             <div class="button-container">
-              <button type="submit">Send</button>
+              <button type="submit">{{ $t('reportForm.send') }}</button>
             </div>
           </div>
         </form>
@@ -139,7 +155,6 @@ export default {
 </template>
 
 <style scoped>
-
 .page-container {
   display: flex;
   align-items: center;
@@ -155,7 +170,16 @@ export default {
 }
 .row {
   display: flex;
-  justify-content: space-between; /* Distributes space evenly between the columns */
+}
+.column-half{
+  flex: 1;
+}
+.column-half:last-child{
+  margin-left: 20px;
+}
+.column-half input,
+.column-half select{
+  width:100%;
 }
 .evidence-container {
   display: flex;
@@ -183,18 +207,11 @@ export default {
 }
 
 .file-input {
-
   width: 0;
   height: 0;
 }
 .column-half {
-  flex: 1; /* Each column takes up equal space */
-  padding-right: 20px; /* Adds spacing between the two columns */
-}
-
-.column-half:last-child {
-  padding-right: 0; /* Removes padding from the right side of the last column */
-  padding-left: 20px; /* Adds spacing on the left side of the last column to maintain consistent spacing */
+  width: fit-content;/* Each column takes up equal space */
 }
 .form-flex {
   display: flex;
@@ -219,15 +236,10 @@ export default {
   margin-bottom: 20px;
 }
 
-.form-group.date-time-container .label-black {
-  width: auto; /* Allow labels to adjust width based on content */
-  margin-right: 20px;
-}
-
 #date,
 #time {
-  flex: 1; /* Allow date and time inputs to expand and fill available space */
-  margin-right: 10px; /* Add some spacing between date and time inputs */
+  flex: 1;
+  margin-right: 10px;
 }
 .date-time-container {
   display: flex;
@@ -256,6 +268,7 @@ input, select, textarea {
   font-size: clamp(12px, 1.2vw, 16px);
   transition: background-color 0.3s ease, border-color 0.3s ease;
   resize: none; /* Allow vertical resizing */
+  margin: 0;
 }
 .form-container {
   background-color: #6DC9FF;
@@ -270,16 +283,12 @@ input, select, textarea {
 .date-time-container {
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  margin: 0;
 }
 
 .date-time-container .label-black {
   width: 80px;
   margin-right: 20px;
-}
-.border-black {
-  border: 1px solid black; /* Set the border to black */
-  border-radius: 0; /* Remove rounded border */
 }
 .button-container {
   display: flex;
@@ -296,6 +305,13 @@ h1 {
 .form-group {
   margin-bottom: 20px;
   flex: 1;
+}
+
+.form-group input, .date-time-container input{
+  margin: 10px 0;
+}
+.date-time-container input{
+  height: 40px;
 }
 label {
   display: block;
@@ -316,7 +332,7 @@ button:hover {
   background-color: #9EA016;
 }
 .container-fluid {
-  padding: 15vh 10vw 0 10vw;
+  padding: 5vh 10vw 0 10vw;
 }
 
 @media (max-width: 1000px) {

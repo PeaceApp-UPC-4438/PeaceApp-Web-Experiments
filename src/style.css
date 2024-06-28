@@ -19,3 +19,36 @@ h1 {
 .card {
   padding: 2em;
 }
+
+.input-style {
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #555;
+  outline: none;
+  width: 80%;
+  margin: 10px;
+}
+
+.input-style:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+button {
+  background-color: #EEF221;
+  color: #161616;
+  font-weight: bolder;
+  border: none;
+  border-radius: 0.25em;
+  padding: 0.5em 1em;
+  margin: 0.5em;
+  cursor: pointer;
+  font-size: 20px;
+  height: 10%;
+  width: 40%;
+}
+button:hover {
+  background-color: #9EA016;
+}

@@ -1,0 +1,139 @@
+{
+  "main": {
+    "title": "Pour plus d'informations, visitez notre page et découvrez notre offre",
+    "welcome": "Bienvenue à PeaceApp",
+    "buttonInfo": "Plus d'informations",
+    "message1": "Veuillez vous connecter pour commencer",
+    "email": "E-mail",
+    "password": "Mot de passe",
+    "login": "Se connecter",
+    "message2": "Vous n'avez pas de compte? ",
+    "signUp": "S'inscrire",
+    "message3": "Mot de passe oublié? ",
+    "clickHere": "Cliquez ici",
+    "select": "Sélectionnez votre rôle:",
+    "user": "Utilisateur",
+    "authority": "Autorité",
+    "recover": {
+      "back": "Retour",
+      "message": "Si vous avez oublié votre mot de passe, veuillez entrer votre e-mail enregistré. Après avoir confirmé votre compte, nous vous enverrons un lien pour réinitialiser votre mot de passe.",
+      "know": "Vous connaissez votre mot de passe? ",
+      "send": "Envoyer le code"
+    }
+  },
+  "userForm": {
+    "message": "Veuillez remplir les détails requis pour créer votre compte",
+    "firstname": "Prénom",
+    "lastname": "Nom de famille",
+    "email": "E-mail",
+    "address": "Adresse",
+    "district": "District",
+    "city": "Ville",
+    "password": "Mot de passe",
+    "confirm_password": "Confirmer le mot de passe",
+    "terms": "Accepter les Conditions de service et les Politiques de sécurité",
+    "submit": "Soumettre"
+  },
+  "authorityForm": {
+    "message": "Veuillez remplir les informations indiquées pour créer votre compte",
+    "municipality_name": "Nom de la municipalité",
+    "email": "E-mail",
+    "password": "Mot de passe",
+    "confirm_password": "Confirmer le mot de passe",
+    "fiscal_id": "Identification fiscale",
+    "address": "Adresse du bureau",
+    "contact_number": "Numéro de contact",
+    "description": "Description",
+    "terms_and_policies": "Accepter les Conditions de service et les Politiques de sécurité",
+    "next": "Suivant",
+    "subscription_header": "Abonnement gouvernemental:"
+  },
+  "payment": {
+    "considerations_heading": "Considérations:",
+    "considerations_content": "Votre accès est mensuel et se renouvellera automatiquement tous les 30 jours à partir de l'activation. Si vous décidez de ne plus utiliser le service, vous avez la possibilité de l'annuler à tout moment depuis votre profil. Veuillez noter que les privilèges et l'abonnement seront désactivés une fois le cycle de facturation en cours terminé.",
+    "separator": "ou payer avec une carte de crédit",
+    "card_holder_name": "Nom complet du titulaire de la carte",
+    "card_number": "Numéro de carte",
+    "expiry_cvv": "Date d'expiration / CVV",
+    "expiry_date": "Date d'expiration",
+    "cvv": "CVV",
+    "checkout": "Paiement"
+  },
+  "reports": {
+    "title": "Liste des rapports",
+    "all": "Tous",
+    "type_label": "Type:",
+    "date_label": "Date:",
+    "district_label": "District:",
+    "location_label": "Lieu:",
+    "description_label": "Description:",
+    "user_label": "Signalé par: ",
+    "evidence_label": "Preuve:",
+    "clear_filters": "Effacer les filtres",
+    "no_reports": "Aucun rapport disponible.",
+    "view_evidence": "Voir les preuves",
+    "button": "Nouveau rapport"
+  },
+  "reportForm": {
+    "title": "Envoi du rapport",
+    "subtitle": "Veuillez remplir les champs suivants pour nous aider à enregistrer l'incident avec précision.",
+    "type": "Type de rapport:",
+    "dateTime": "Date et heure: ",
+    "district": "District: ",
+    "location": "Lieu: ",
+    "description": "Description: ",
+    "evidence": "Preuve: ",
+    "upload": "Télécharger le fichier",
+    "send": "Envoyer",
+    "placeholders": {
+      "type": "Type",
+      "location": "Lieu",
+      "description": "Description"
+    }
+  },
+  "map": {
+    "title": "Carte de chaleur du district",
+    "find": "Trouver un itinéraire",
+    "question": "Où voulez-vous aller aujourd'hui?",
+    "latitude": "Nouvelle latitude:",
+    "longitude": "Nouvelle longitude:",
+    "toggleHeatmap": "Activer/désactiver la carte de chaleur",
+    "changeGradient": "Changer le dégradé",
+    "changeOpacity": "Changer l'opacité",
+    "changeRadius": "Changer le rayon"
+  },
+  "authorityEdit": {
+    "municipality_name": "Nom de la municipalité:",
+    "email": "E-mail:",
+    "contact_number": "Numéro de contact:",
+    "address": "Adresse du bureau:",
+    "description": "Description:",
+    "profile_picture": "Photo de profil:",
+    "confirm_changes": "Confirmer les modifications"
+  },
+  "userEdit": {
+    "firstname": "Prénom:",
+    "lastname": "Nom de famille:",
+    "email": "E-mail:",
+    "address": "Adresse:",
+    "district": "District:",
+    "city": "Ville:",
+    "profile_picture": "Photo de profil:"
+  },
+  "profile": {
+    "user": {
+      "email": "E-mail: ",
+      "address": "Adresse: ",
+      "district": "District: ",
+      "city": "Ville: "
+    },
+    "authority": {
+      "email": "E-mail: ",
+      "contact_number": "Numéro de contact: ",
+      "office_address": "Adresse du bureau: ",
+      "description": "Description: "
+    },
+    "edit": "Modifier le profil",
+    "logout": "Se déconnecter"
+  }
+}

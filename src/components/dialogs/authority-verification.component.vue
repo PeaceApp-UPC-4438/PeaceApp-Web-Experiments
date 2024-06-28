@@ -2,8 +2,7 @@
 export default {
   methods: {
     redirect() {
-      const Link = '/profile/authority';
-      window.location.href = Link;
+      window.location.href = '/profile';
     }
   }
 }
@@ -12,11 +11,8 @@ export default {
 <template>
   <div class="container">
     <div class="right">
-      <a class="subhead">Consideraciones:<br></a>
-      <a class="content">Su acceso es de carácter mensual y se renovará automáticamente cada 30 días desde la activación. Si decide no
-        continuar con el servicio, tiene la opción de cancelarlo en cualquier momento desde su perfil. Al hacerlo, tenga
-        en cuenta que los priviliegiso e suscripción se desactivarpan una vez que finalice el cicli de facturación actual.
-      </a>
+      <a class="subhead">{{ $t('payment.considerations_heading') }}<br></a>
+      <a class="content">{{ $t('payment.considerations_content') }}</a>
     </div>
     <div class="modal">
       <form class="form">
@@ -61,27 +57,27 @@ export default {
         </div>
         <div class="separator">
           <hr class="line">
-          <p>or pay using credit card</p>
+          <p>{{ $t('payment.separator') }}</p>
           <hr class="line">
         </div>
         <div class="credit-card-info--form">
           <div class="input_container">
-            <label for="password_field" class="input_label">Card holder full name</label>
-            <input id="password_field" class="input_field" type="text" name="input-name" title="Inpit title" placeholder="Enter your full name">
+            <label for="card_holder_name" class="input_label">{{ $t('payment.card_holder_name') }}</label>
+            <input id="card_holder_name" class="input_field" type="text" name="card_holder_name" title="Card Holder Name">
           </div>
           <div class="input_container">
-            <label for="password_field" class="input_label">Card Number</label>
-            <input id="password_field" class="input_field" type="number" name="input-name" title="Inpit title" placeholder="0000 0000 0000 0000">
+            <label for="card_number" class="input_label">{{ $t('payment.card_number') }}</label>
+            <input id="card_number" class="input_field" type="number" name="card_number" title="Card Number" placeholder="0000 0000 0000 0000">
           </div>
           <div class="input_container">
-            <label for="password_field" class="input_label">Expiry Date / CVV</label>
+            <label for="expiry_cvv" class="input_label">{{ $t('payment.expiry_cvv') }}</label>
             <div class="split">
-              <input id="password_field" class="input_field" type="text" name="input-name" title="Expiry Date" placeholder="01/23">
-              <input id="password_field" class="input_field" type="number" name="cvv" title="CVV" placeholder="CVV">
+              <input id="expiry_date" class="input_field" type="text" name="expiry_date" title="Expiry Date" placeholder="01/23">
+              <input id="cvv" class="input_field" type="number" name="cvv" title="CVV" placeholder="CVV">
             </div>
           </div>
         </div>
-        <button class="purchase--btn" @click="redirect">Checkout</button>
+        <button class="purchase--btn" @click="redirect()">{{ $t('payment.checkout') }}</button>
       </form>
     </div>
   </div>
@@ -100,14 +96,13 @@ export default {
 .right{
   text-align: justify;
   width: 50%;
+  min-width: 400px;
 }
 .modal {
-  width: fit-content;
   height: fit-content;
-  background: #FFFFFF;
-  box-shadow: 0px 187px 75px rgba(0, 0, 0, 0.01), 0px 105px 63px rgba(0, 0, 0, 0.05), 0px 47px 47px rgba(0, 0, 0, 0.09), 0px 12px 26px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
   border-radius: 26px;
-  max-width: 450px;
+  min-width: 400px;
+  box-shadow: 0 187px 75px rgba(0, 0, 0, 0.01), 0 105px 63px rgba(0, 0, 0, 0.05), 0px 47px 47px rgba(0, 0, 0, 0.09), 0px 12px 26px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
 }
 
 .form {
@@ -212,12 +207,13 @@ export default {
 
 .input_field:focus {
   border: 1px solid transparent;
-  box-shadow: 0px 0px 0px 2px #242424;
+  box-shadow: 0 0 0 2px #242424;
   background-color: transparent;
 }
 
 .purchase--btn {
   height: 55px;
+  width: 100%;
   background: #F2F2F2;
   border-radius: 11px;
   border: 0;
@@ -251,7 +247,7 @@ export default {
   .container {
     flex-wrap: wrap; /* Stacks the boxes vertically on smaller screens */
   }
-  .right{
+  .right, .modal{
     width: 100%;
   }
 }
