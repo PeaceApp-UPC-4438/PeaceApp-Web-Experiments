@@ -1,49 +1,60 @@
 <template>
-  <div class="container-fluid px-0">
-    <div class="page-container">
-      <div class="profile-bg">
-        <div class="profile-info">
-          <h1>{{ $t('authorityEdit.edit_profile') }}</h1>
-          <img src="../../../assets/municipalidad.png" alt="Municipalidad" class="profile-image">
-        </div>
-        <div class="form-container">
-          <form class="form-flex">
-            <div class="column">
-              <div class="form-group">
-                <label for="names" class="label-black">{{ $t('authorityEdit.municipality_name') }}</label>
-                <input type="text" id="names" name="names" required class="border-black" :placeholder="$t('authorityEdit.placeholder.municipality_name')">
-              </div>
-              <div class="form-group">
-                <label for="emails" class="label-black">{{ $t('authorityEdit.email') }}</label>
-                <input type="email" id="emails" name="emails" required class="border-black" :placeholder="$t('authorityEdit.placeholder.email')">
-              </div>
-              <div class="form-group">
-                <label for="description" class="label-black">{{ $t('authorityEdit.contact_number') }}</label>
-                <input type="text" id="names" name="names" required class="border-black" :placeholder="$t('authorityEdit.placeholder.contact_number')">
-              </div>
+  <div class="padre">
+    <div class="profile-bg">
+      <h1>{{ $t('authorityEdit.edit_profile') }}</h1>
+      <div class="left">
+        <!--<img :src="authority.profileImage" alt="User" class="img" />-->
+      </div>
+      <div class="form-container">
+        <form class="form-flex">
+          <div class="column">
+            <div class="form-group">
+              <label for="names" class="label-black">{{ $t('authorityEdit.municipality_name') }}</label>
+              <input :placeholder="$t('authorityEdit.placeholder.municipality_name')" class="input-style" type="text" id="input" required>
             </div>
-            <div class="column">
-              <div class="form-group">
-                <label for="description" class="label-black">{{ $t('authorityEdit.office_address') }}</label>
-                <input type="text" id="names" name="names" required class="border-black" :placeholder="$t('authorityEdit.placeholder.office_address')">
-              </div>
-              <div class="form-group">
-                <label for="description" class="label-black">{{ $t('authorityEdit.description') }}</label>
-                <textarea id="description" name="description" required class="border-black" rows="5" :placeholder="$t('authorityEdit.placeholder.description')"></textarea>
-              </div>
-              <div class="button-container">
-                <button type="submit">{{ $t('authorityEdit.confirm_changes') }}</button>
-              </div>
+            <div class="form-group">
+              <label for="emails" class="label-black">{{ $t('authorityEdit.email') }}</label>
+              <input :placeholder="$t('authorityEdit.placeholder.email')" class="input-style" type="email" id="input" required >
             </div>
-          </form>
-        </div>
+            <div class="form-group">
+              <label for="description" class="label-black">{{ $t('authorityEdit.contact_number') }}</label>
+              <input :placeholder="$t('authorityEdit.placeholder.contact_number')" class="input-style" type="text" id="input" required>
+            </div>
+          </div>
+          <div class="column">
+            <div class="form-group">
+              <label for="description" class="label-black">{{ $t('authorityEdit.office_address') }}</label>
+              <input :placeholder="$t('authorityEdit.placeholder.office_address')" class="input-style" type="text" id="input" required >
+            </div>
+            <div class="form-group">
+              <label for="description" class="label-black">{{ $t('authorityEdit.description') }}</label>
+              <textarea :placeholder="$t('authorityEdit.placeholder.description')" class="input-style description" rows="5" cols="30" required/>
+            </div>
+            <div class="button-container">
+              <button type="submit">{{ $t('authorityEdit.confirm_changes') }}</button>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
   </div>
 </template>
 <style scoped>
-.page-container {
+.left img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+  object-fit: cover;
+}
+.left {
+  align-items: center;
+  padding: 3vh;
+  margin: 0 auto;
+}
+.padre {
   padding: 15vh 0 0 0;
+  margin: 0 auto;
 }
 .form-flex {
   display: flex;
@@ -57,59 +68,24 @@
   color: black;
   text-align: left;
   font-weight: bold;
-  font-size: 1.5rem; /* Responsive font size */
-}
-
-input, select, textarea {
-  width: 100%; /* Full width to be responsive within its container */
-  padding: 0.8em; /* Responsive padding */
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: clamp(12px, 1.2vw, 16px);
-  transition: background-color 0.3s ease, border-color 0.3s ease;
-}
-#description {
-  width: 100%; /* Full width by default */
-  height: 150px; /* Auto height to adjust based on content */
-  padding: 0.8em; /* Responsive padding */
-  border: 1px solid black;
-  font-size: clamp(12px, 1.2vw, 16px);
-  transition: background-color 0.3s ease, border-color 0.3s ease;
-  resize: none;
-}
-.profile-image{
-  height: auto;
-  border: 1px solid black;
-  border-radius: 100%;
-  max-width: 250px;
-  margin-top: 20px;
-  align-items: center;
+  font-size: 1.3rem; /* Responsive font size */
 }
 
 .profile-bg {
+  padding: 10px;
   border-radius: 24px;
   background-color: #6DC9FF;
-  padding: 10px;
+  width: 70vw;
+  height: fit-content;
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-.profile-info {
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Align items to the left */
-
+  flex-wrap: wrap;
+  text-align: center;
+  margin: auto;
 }
 /* Media Query for smaller screens */
 .form-group {
   margin-bottom: 20px; /* Add bottom margin to the form groups */
 }
-.border-black {
-  border: 1px solid black; /* Set the border to black */
-  border-radius: 0; /* Remove rounded border */
-}
-
 .form-container {
   flex: 1;
   padding: 40px;
@@ -120,9 +96,13 @@ h1 {
   font-size: clamp(24px, 5vw, 40px);
   transition: font-size 0.3s ease;
 }
-.form-group {
-  margin-bottom: 20px;
-  flex: 1;
+.form-group input, textarea{
+  margin: 0;
+  width: 100%;
+}
+.form-group textarea{
+  resize: none;
+  height: 135px;
 }
 label {
   display: block;
@@ -143,9 +123,6 @@ button:hover {
   background-color: #9EA016;
 }
 @media (max-width: 1000px) {
-  .page-container{
-    padding: 10vh 0 0 0;
-  }
   .form-flex {
     flex-direction: column;
     width: 100%;
@@ -166,12 +143,6 @@ button:hover {
   input, select{
     width: 100%;
   }
-  textarea {
-    width: calc(80% - 100px);
-  }
-  #description {
-    width: 100%; /* Ensure textarea doesn't overflow container */
-  }
   .button-container{
     display: flex;
     justify-content: center;
@@ -179,6 +150,3 @@ button:hover {
 }
 
 </style>
-
-<script setup lang="ts">
-</script>

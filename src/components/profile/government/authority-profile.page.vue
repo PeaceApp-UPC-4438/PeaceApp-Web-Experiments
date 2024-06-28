@@ -114,6 +114,7 @@ button:hover {
   .container{
     width: 90vw;
     padding: 15px 0 0 0;
+    display: inline-block;
   }
   .img{
     align-items: center;
