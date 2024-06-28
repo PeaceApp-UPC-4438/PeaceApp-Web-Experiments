@@ -26,4 +26,15 @@ export class CitizenApiService {
         }
         return response;
     }
+
+    async updateCitizen(id, data) {
+        let response = null;
+
+        try {
+            response = await axios.put(`${this.baseUrl}/citizens/${id}`, data);
+        } catch(e) {
+            console.error('Error updating user', e)
+        }
+        return response;
+    }
 }

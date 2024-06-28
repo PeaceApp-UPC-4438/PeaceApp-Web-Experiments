@@ -70,11 +70,11 @@
   "citizens": [
     {
       "id": 1,
-      "firstname": "John",
+      "firstname": "Johnerto",
       "lastname": "Doe",
       "email": "johndoe@email.com",
       "password": "123",
-      "address": "Av. Arequipa 123",
+      "address": "Av. Arequipa 123456",
       "district": "San Isidro",
       "city": "Lima",
       "profileImage": "https://picsum.photos/200/300"
@@ -353,6 +353,27 @@
         "id": 3
       },
       "id": 8
+    },
+    {
+      "type": "asd",
+      "date": "2024-06-06",
+      "time": "03:58",
+      "district": "Los Olivos",
+      "location": "Av. Cádiz 440, San Isidro 15076",
+      "description": "asd",
+      "evidence": "",
+      "user": {
+        "id": 1,
+        "firstname": "Johnerto",
+        "lastname": "Doe",
+        "email": "johndoe@email.com",
+        "password": "123",
+        "address": "Av. Arequipa 123456",
+        "district": "San Isidro",
+        "city": "Lima",
+        "profileImage": "https://picsum.photos/200/300"
+      },
+      "id": 9
     }
   ]
 }

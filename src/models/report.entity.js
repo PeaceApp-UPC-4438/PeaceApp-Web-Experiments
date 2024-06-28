@@ -7,7 +7,6 @@ export class Report {
         this.district = district;
         this.location = location;
         this.description = description;
-        this.urlEvidence = urlEvidence;
         this.user = user;
     }
 

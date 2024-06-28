@@ -32,9 +32,7 @@ export default {
         <p>{{ $t('profile.authority.description') }} {{ authority.description }}</p>
       </div>
       <div class="buttons">
-        <router-link to="/authority/edit-profile">
-          <button>{{$t('profile.edit')}}</button>
-        </router-link>
+        <button @click="openPopup">{{ $t('profile.edit') }}</button>
         <button @click="logout">{{ $t('profile.logout') }}</button>
       </div>
     </div>
@@ -49,7 +47,6 @@ export default {
   border: 2px solid #ddd;
   object-fit: cover;
 }
-
 .padre {
   padding: 20vh 0 0 0;
   margin: 0 auto;
@@ -67,6 +64,9 @@ button {
   height: 45px;
   width: 30%;
 }
+button:hover {
+  background-color: #9EA016;
+}
 .container {
   padding: 10px;
   border-radius: 24px;
@@ -77,7 +77,6 @@ button {
   flex-wrap: wrap;
   text-align: center;
   margin: auto;
-
 }
 .left {
   align-items: center;
@@ -94,9 +93,7 @@ button {
   flex: 1;
 }
 
-button:hover {
-  background-color: #9EA016;
-}
+
 .buttons {
   flex: 100%;
   padding: 0 0 3vh 0;

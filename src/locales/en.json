@@ -145,13 +145,10 @@
   },
   "profile": {
     "user": {
-      "full_name": "Full Name: ",
       "email": "Email: ",
+      "address": "Address: ",
       "district": "District: ",
-      "route_type": "Route Type: ",
-      "alert_frequency": "Alert Frequency: ",
-      "location": "Location: ",
-      "description": "Description: "
+      "city": "City: "
     },
     "authority": {
         "email": "Email: ",
