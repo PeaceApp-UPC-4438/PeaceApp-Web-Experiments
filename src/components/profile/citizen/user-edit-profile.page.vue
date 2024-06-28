@@ -1,42 +1,24 @@
 <template>
   <div class="popup">
-    <div class="padre">
-      <div class="container">
-        <div class="right">
-          <form @submit.prevent="updateProfile">
-            <div>
-              <label for="firstname">{{ $t('profile.user.first_name') }}</label>
-              <input type="text" id="firstname" v-model="citizen.firstname" required />
-            </div>
-            <div>
-              <label for="lastname">{{ $t('profile.user.last_name') }}</label>
-              <input type="text" id="lastname" v-model="citizen.lastname" required />
-            </div>
-            <div>
-              <label for="email">{{ $t('profile.user.email') }}</label>
-              <input type="email" id="email" v-model="citizen.email" required />
-            </div>
-            <div>
-              <label for="address">{{ $t('profile.user.address') }}</label>
-              <input type="text" id="address" v-model="citizen.address" />
-            </div>
-            <div>
-              <label for="district">{{ $t('profile.user.district') }}</label>
-              <input type="text" id="district" v-model="citizen.district" />
-            </div>
-            <div>
-              <label for="city">{{ $t('profile.user.city') }}</label>
-              <input type="text" id="city" v-model="citizen.city" />
-            </div>
-            <div class="buttons">
-              <button type="submit">Save Changes</button>
-              <button @click="closePopup">Cancel</button>
-              <button @click="deleteAccount">Delete Account</button>
-            </div>
-          </form>
-        </div>
+    <form @submit.prevent="updateProfile">
+      <div class="flex">
+        <input :placeholder="$t('profile.user.first_name')" class="input-style" type="text" id="firstname" v-model="citizen.firstname" required />
+        <input :placeholder="$t('profile.user.last_name')" class="input-style" type="text" id="lastname" required="" v-model="citizen.lastname">
       </div>
-    </div>
+      <div class="flex">
+        <input :placeholder="$t('profile.user.email')" class="input-style" type="email" id="email" required="" v-model="citizen.email">
+        <input :placeholder="$t('profile.user.address')" class="input-style" type="text" id="address" required="" v-model="citizen.address">
+      </div>
+      <div class="flex">
+        <input :placeholder="$t('profile.user.district')" class="input-style" type="text" id="district" required="" v-model="citizen.district">
+        <input :placeholder="$t('profile.user.city')" class="input-style" type="text" id="city" required="" v-model="citizen.city">
+      </div>
+      <div class="buttons">
+        <button type="submit">Save Changes</button>
+        <button @click="closePopup">Cancel</button>
+        <button @click="deleteAccount">Delete Account</button>
+      </div>
+    </form>
   </div>
 </template>
 <script>
@@ -63,6 +45,10 @@ export default {
 };
 </script>
 <style scoped>
+.flex {
+  display: flex;
+  width: 100%;
+}
 .popup {
   background-color: #6DC9FF; /* Color de fondo del popup */
   border-radius: 10px;
@@ -70,6 +56,14 @@ export default {
   width: 70%; /* Ancho del popup */
   max-width: 600px; /* Ancho máximo del popup */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Sombra ligera */
+}
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+button{
+  font-size: 15px;
 }
 @media (max-width: 1000px) {
   .popup {

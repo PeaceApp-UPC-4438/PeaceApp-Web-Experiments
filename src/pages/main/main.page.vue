@@ -111,24 +111,6 @@ export default {
 .logo{
   width: 50%;
 }
-
-button {
-  background-color: #EEF221;
-  color: #161616;
-  font-weight: bolder;
-  border: none;
-  border-radius: 0.25em;
-  padding: 0.5em 1em;
-  margin: 0.5em;
-  cursor: pointer;
-  font-size: 20px;
-  height: 10%;
-  width: 40%;
-}
-button:hover {
-  background-color: #9EA016;
-}
-
 .box2{
   background-color: #6DC9FF;
 }

@@ -136,14 +136,7 @@ export default {
 }
 
 button {
-  border: none;
-  outline: none;
-  background-color: #EEF221;
-  padding: 10px;
-  border-radius: 10px;
-  color: #161616;
   font-size: 16px;
-  font-weight: bolder;
 }
 
 .material-checkbox {
