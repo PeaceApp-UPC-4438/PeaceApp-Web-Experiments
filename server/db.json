@@ -192,7 +192,7 @@
       "date": "2024-06-01",
       "time": "14:30",
       "district": "San Isidro",
-      "location": "UPC San Isidro",
+      "location": "Av. Gral. Salaverry 2255, San Isidro 15076",
       "description": "A car accident involving two vehicles.",
       "urlEvidence": "http://example.com/evidence1",
       "user": {
@@ -213,7 +213,7 @@
       "date": "2024-06-02",
       "time": "22:15",
       "district": "Surco",
-      "location": "UPC Monterrico",
+      "location": "WW7X+8WW, Jr. Huiracocha, Jesús María 15072",
       "description": "A robbery at a convenience store.",
       "urlEvidence": "http://example.com/evidence2",
       "user": {
@@ -233,7 +233,7 @@
       "date": "2024-05-30",
       "time": "22:50",
       "district": "Barranco",
-      "location": "Discoteca",
+      "location": "Av. Gral. Salaverry 2370, Jesús María 15076",
       "description": "Arma de fuego",
       "urlEvidence": "",
       "user": {
@@ -254,7 +254,7 @@
       "date": "2024-06-28",
       "time": "23:26",
       "district": "Pachacamac",
-      "location": "America",
+      "location": "C. Burgos 276, San Isidro 27",
       "description": "Asesinato",
       "urlEvidence": "",
       "user": {
@@ -275,7 +275,7 @@
       "date": "2024-06-20",
       "time": "00:27",
       "district": "Lince",
-      "location": "Cerro",
+      "location": "Jr. Gral, Jirón Luis Sánchez Cerro 2141 Lima, Jesús María 15072",
       "description": "Rateros",
       "urlEvidence": "",
       "user": {
@@ -296,7 +296,7 @@
       "date": "2024-06-06",
       "time": "16:45",
       "district": "Cercado de Lima",
-      "location": "Real Plaza",
+      "location": "Av. San Felipe 968, Jesús María 15072",
       "description": "dasasd",
       "evidence": "",
       "user": {
@@ -317,7 +317,7 @@
       "date": "2024-06-12",
       "time": "20:25",
       "district": "Comas",
-      "location": "Parque Sinchi Roca",
+      "location": "Av. César Canevaro 1400, Lince 15073",
       "description": "das",
       "evidence": "",
       "user": {
@@ -332,6 +332,27 @@
         "id": 4
       },
       "id": 7
+    },
+    {
+      "type": "Robbery",
+      "date": "2024-06-17",
+      "time": "00:30",
+      "district": "Lurin",
+      "location": "4X52+794, jr. los gladiolos 287 urb. los huertos de, Tungasuca, Comas 15316",
+      "description": "das",
+      "evidence": "",
+      "user": {
+        "firstname": "Johan",
+        "lastname": "Principe Godoy",
+        "email": "johan@email.com",
+        "password": "123",
+        "address": "Av. Canada",
+        "district": "Lince",
+        "city": "Lima",
+        "profileImage": "https://picsum.photos/200/300",
+        "id": 3
+      },
+      "id": 8
     }
   ]
 }

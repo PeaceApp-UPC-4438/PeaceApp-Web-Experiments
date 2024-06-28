@@ -12,6 +12,8 @@ import muniReport from '../components/reports/authority-report-list.component.vu
 import reportList from '../components/reports/report-list.component.vue'
 import passwordRecover from '../pages/recover/password-recover.page.vue'
 import finalRecover from '../pages/recover/final-recover.page.vue'
+import MapCitizen from '../components/maps/citizenmap/mapCitizen.vue'
+import MapAuthority from "../components/maps/authoritymap/mapAuthority.vue";
 
 const router= createRouter({
     history: createWebHistory(),
@@ -19,16 +21,15 @@ const router= createRouter({
         {path: '/', component: Principal},
         {path: '/:pathMatch(.*)*', redirect: '/'},//redirect to home page if path is not found
         {path: '/profile', component: Profile},
-        {path: '/user/map', component: MapCitizen, name: 'mapcitizen' },
-        {path: '/user/edit-profile', component: EditProfileView},
         {path: '/authority/edit-profile', component: editProfileAuthority},
         {path: '/authority/report', component: muniReport},
         {path: '/user/report', component: reportList, name: 'reportlist'},
-        {path: '/authority/map', component: MapGovernment, name: 'mapgovernment' },
         {path: '/user/create-report-form', component: ReportFormView},
         {path: '/notifications', component: Notification},
         {path: '/password-recover', component: passwordRecover},
-        {path: '/recover', component: finalRecover}
+        {path: '/recover', component: finalRecover},
+        {path: '/user/map', component: MapCitizen},
+        {path: '/authority/map', component: MapAuthority},
     ]
 });
 

@@ -1,6 +1,7 @@
 <script setup>
 import ToolbarCitizen from "./components/toolbar/toolbarCitizen.component.vue";
 import ToolbarAuthority from "./components/toolbar/toolbarAuthority.component.vue";
+
 </script>
 <script>
 export default {
@@ -47,9 +48,10 @@ export default {
 </template>
 
 <style scoped>
-.container{
+.container {
   height: fit-content;
 }
+
 body {
   margin: 0;
   display: flex;
@@ -57,7 +59,9 @@ body {
   min-width: 500px;
   min-height: 100vh;
 }
-footer{
+
+footer {
+  align-items: center;
   display: flex;
   position: fixed;
   bottom: 0;
@@ -65,12 +69,14 @@ footer{
   color: #fff;
   padding: 10px 20px;
 }
+
 .locale-select {
-  padding: 0.2em 0 0.2em ;
+  padding: 0.2em 0 0.2em;
   font-size: 1em;
   border-radius: 5px;
   width: 100px;
 }
+
 .flag-icon {
   margin-right: 8px;
 }
@@ -84,7 +90,8 @@ img {
   img {
     height: 4vh; /* Smallest icon size for mobile devices */
   }
-  .container{
+
+  .container {
     height: 120vh;
   }
 }
