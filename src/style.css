@@ -5,7 +5,7 @@
 
   /*color-scheme: light dark;*/
   color: rgba(255, 255, 255, 0.87);
-  background-color: #01A1FF;
+  background-color: #1F79AA;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -32,12 +32,12 @@ h1 {
 }
 
 .input-style:focus {
-  border-color: #007bff;
+  border-color: #1C597C;
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
 button {
-  background-color: #EEF221;
+  background-color: #C4E2F3;
   color: #161616;
   font-weight: bolder;
   border: none;
@@ -50,5 +50,5 @@ button {
   width: 40%;
 }
 button:hover {
-  background-color: #9EA016;
+  background-color: #A1B9C6;
 }

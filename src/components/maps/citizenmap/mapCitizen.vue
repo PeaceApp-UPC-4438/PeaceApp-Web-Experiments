@@ -30,8 +30,8 @@ export default {
       map: null,
       directionsRenderer: null,
       directionsService: null,
-      startLocation: '', // Se actualizará con la ubicación actual
-      endLocationInput: '', // Será la entrada del usuario para el destino
+      startLocation: '',
+      endLocationInput: '',
     };
   },
   mounted() {
@@ -55,7 +55,7 @@ export default {
       const control = document.getElementById('floating-panel');
       this.map.controls[google.maps.ControlPosition.TOP_CENTER].push(control);
 
-      this.calculateRoute(); // Llama a calculateRoute inicialmente
+      this.calculateRoute();
     },
     getCurrentLocation() {
       if (navigator.geolocation) {
@@ -64,7 +64,6 @@ export default {
             lat: position.coords.latitude,
             lng: position.coords.longitude,
           };
-          // Puedes centrar el mapa en la ubicación actual si lo deseas
           this.map.setCenter(this.startLocation);
         }, (error) => {
           console.error('Error getting current location:', error);
@@ -85,33 +84,28 @@ export default {
         })
             .then((response) => {
               if (response.routes && response.routes.length > 0) {
-                // Mostrar el panel lateral solo si hay indicaciones de ruta
                 this.directionsRenderer.setDirections(response);
-                document.getElementById('sidebar').style.display = 'block'; // Mostrar el sidebar
+                document.getElementById('sidebar').style.display = 'block';
               } else {
-                // Ocultar el panel lateral si no hay indicaciones de ruta
-                this.directionsRenderer.setDirections(null); // Limpiar las direcciones
-                document.getElementById('sidebar').style.display = 'none'; // Ocultar el sidebar
+                this.directionsRenderer.setDirections(null);
+                document.getElementById('sidebar').style.display = 'none';
               }
             })
             .catch((e) => {
               console.error('Directions request failed due to ' + e);
-              document.getElementById('sidebar').style.display = 'none'; // Ocultar el sidebar en caso de error
+              document.getElementById('sidebar').style.display = 'none';
             });
       } else {
-        // Si falta alguna ubicación, limpiar y ocultar el sidebar
         this.directionsRenderer.setDirections(null);
         document.getElementById('sidebar').style.display = 'none';
       }
     }
-
   }
 };
 </script>
 
 <style scoped>
 .container {
-  //background-color: #01A1FF;
   padding: 100px 0 0 0;
   display: flex;
   flex-direction: column;
@@ -124,7 +118,6 @@ export default {
 
 .search {
   margin-bottom: 20px;
-
 }
 
 .search {
@@ -168,23 +161,19 @@ h2 {
   width: 10%;
   cursor: pointer;
 }
-
 .titulo {
   font-size: 36px;
   margin-bottom: 20px;
 }
-
 #map {
   height: 500px;
-  width: 100%; /* Ancho completo del mapa */
+  width: 100%;
   margin-bottom: 20px;
 }
-
 #sidebar {
   background-color: #f0f0f0;
-  width: 100%; /* Ancho completo del panel lateral */
-  height: 200px; /* Altura del panel lateral */
+  width: 100%;
+  height: 200px;
   overflow: auto;
 }
 </style>
-

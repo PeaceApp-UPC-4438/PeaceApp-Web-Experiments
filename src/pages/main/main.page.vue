@@ -1,56 +1,55 @@
 <script>
 import userSign from '../../components/dialogs/user-sign-up.component.vue';
-import authoritySign from '../../components/dialogs/authority-sign-up.component.vue';
-import { UserApiService } from "../../services/userapi.service.js";
+import { authUserService } from "../../services/authuser.service.js";
 
 export default {
   components: {
-    userSign,
-    authoritySign
+    userSign
   },
   data() {
     return {
       visible: false,
-      signUser: false,
-      signAuthority: false,
       userData: {
         email: '',
         password: ''
       },
-      userApiService: new UserApiService(),
+      authService: new authUserService(),
       error: null
     };
   },
   methods: {
+    // Redirects the user to the landing page
     redirectLanding() {
       window.location.href = 'https://g2webapplication-wx54.github.io/landing-page-web-app/';
     },
 
+    // Handles user authentication using provided credentials
     async authenticateUser() {
       try {
-        const response = await this.userApiService.getUserByEmailAndPassword(this.userData.email, this.userData.password);
-        if (response && response.data.length > 0) {
-          const user = response.data[0];
+        const response = await this.authService.signInUser(this.userData.email, this.userData.password);
+
+        if (response && response.status === 200) {
+          const user = response.data;
           console.log("User authenticated: ", user);
 
-          // Save email and role in localStorage or Vuex store for further use
-          localStorage.setItem('userEmail', user.email);
-          localStorage.setItem('userRole', user.role);
+          localStorage.setItem('userEmail', user.username);
+          localStorage.setItem('userRole', 'citizen');
+          localStorage.setItem('authToken', user.token);
 
-          this.error = null; // Clear any previous errors
-          // Proceed with redirect or setting user data
+          this.error = null;
           this.$router.push('/profile');
         } else {
-          this.error = "Invalid email or password";
+          this.error = "Incorrect email or password.";
         }
       } catch (error) {
         console.error("Error during authentication: ", error);
-        this.error = "An error occurred during authentication";
+        this.error = "Login error.";
       }
     },
 
+    // Called when the login form is submitted
     async onSubmit() {
-      this.error = null; // Clear previous errors
+      this.error = null;
       await this.authenticateUser();
     }
   }
@@ -69,8 +68,8 @@ export default {
         <h2>{{$t('main.welcome')}}</h2>
         <h3>{{$t('main.message1')}}</h3>
         <div class="input-container">
-          <input :placeholder="$t('main.email')" class="input-style" type="email" id="input" required="" v-model="userData.email">
-          <input :placeholder="$t('main.password')" class="input-style" type="password" id="input" required="" v-model="userData.password">
+          <input :placeholder="$t('main.email')" class="input-style" type="email" required v-model="userData.email">
+          <input :placeholder="$t('main.password')" class="input-style" type="password" required v-model="userData.password">
           <button type="submit">{{ $t('main.login') }}</button>
           <p v-if="error" class="error">{{ error }}</p>
 
@@ -79,43 +78,31 @@ export default {
         </div>
       </form>
     </div>
-  </div>
 
-  <div class="card flex justify-content-center">
-    <Dialog v-model:visible="visible" modal :header="$t('main.select')" :style="{ width: '50vw' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
-      <div class="opc">
-        <button class="not" @click="signUser=true">{{$t('main.user')}}</button>
-        <button class="not" @click="signAuthority=true">{{$t('main.authority')}}</button>
-      </div>
-    </Dialog>
-    <Dialog v-model:visible="signUser" modal :header="$t('main.user')" :style="{ width: '50vw' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
-      <user-sign/>
-    </Dialog>
-    <Dialog v-model:visible="signAuthority" modal :header="$t('main.authority')" :style="{ width: '50vw' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
-      <authority-sign/>
+    <!-- Modal dialog for user sign-up -->
+    <Dialog v-model:visible="visible" modal :header="$t('main.user')" :style="{ width: '50vw' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
+      <user-sign />
     </Dialog>
   </div>
 </template>
 
 <style scoped>
-.input-container{
+.input-container {
   display: inline-block;
 }
-.card{
+.card {
   padding: 0;
 }
-.padre{
+.padre {
   padding: 20vh 10vw 0 10vw;
 }
-
-.logo{
+.logo {
   width: 50%;
 }
-.box2{
-  background-color: #6DC9FF;
+.box2 {
+  background-color: #55B0DB;
 }
-
-.info{
+.info {
   padding: 1vw;
 }
 .container {
@@ -129,7 +116,6 @@ export default {
   height: fit-content;
   width: fit-content;
 }
-
 .box1, .box2 {
   flex: 1;
   padding: 20px 0;
@@ -137,13 +123,8 @@ export default {
   border-radius: 24px;
   height: fit-content;
 }
-
-.butInfo{
+.butInfo {
   width: fit-content;
-}
-.opc{
-  display: flex;
-  justify-content: space-around;
 }
 
 @media screen and (max-width: 1000px) {
@@ -160,25 +141,15 @@ export default {
   .input-container {
     width: 80%;
   }
-  .not,.opc{
-    width: 100%;
-  }
-  .padre{
+  .padre {
     padding: 0;
   }
-  .logo{
+  .logo {
     width: 100%;
     margin: 0 auto;
   }
-  .opc{
-    display: inline-block;
-    justify-content: normal;
-  }
-  button{
+  button {
     width: fit-content;
   }
 }
 </style>
-
-
-

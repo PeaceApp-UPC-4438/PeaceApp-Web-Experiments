@@ -37,11 +37,11 @@ export default {
           <img :src="citizen.profileImage" alt="Usuario" class="img" />
         </div>
         <div class="right">
-          <h2> {{ citizen.firstname + ' ' + citizen.lastname }}</h2>
-          <p>{{ $t('profile.user.email')}} {{ citizen.email }}</p>
-          <p>{{ $t('profile.user.address') }} {{citizen.address}}</p>
-          <p>{{$t('profile.user.district')}} {{citizen.district}}</p>
-          <p>{{ $t('profile.user.city') }} {{citizen.city}}</p>
+          <h2> {{ citizen.fullName}}</h2>
+          <p>{{ $t('profile.user.address') }} {{ citizen.streetAddress?.split(',')[0] || '-' }}</p>
+          <p>{{ $t('profile.user.district') }} {{ citizen.streetAddress?.split(',')[1]?.trim() || '-' }}</p>
+          <p>{{ $t('profile.user.city') }} {{ citizen.streetAddress?.split(',')[2]?.trim() || '-' }}</p>
+          <p>{{ $t('profile.user.country') }} {{ citizen.streetAddress?.split(',')[3]?.trim() || '-' }}</p>
         </div>
         <div class="buttons">
           <button @click="openPopup">{{ $t('profile.edit') }}</button>
@@ -49,7 +49,7 @@ export default {
         </div>
       </div>
     </div>
-    <!-- Popup de Edición de Perfil -->
+
     <div class="popup-container" v-if="showPopup">
       <EditUser :citizen="citizen" @close="showPopup = false" />
     </div>
@@ -63,7 +63,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semi-transparente */
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -80,7 +80,7 @@ export default {
   margin: 0 auto;
 }
 button {
-  background-color: #EEF221;
+  background-color: #C4E2F3;
   color: #161616;
   font-weight: bolder;
   border: none;
@@ -93,12 +93,12 @@ button {
   width: 30%;
 }
 button:hover {
-  background-color: #9EA016;
+  background-color: #A1B9C6;
 }
 .container {
   padding: 10px;
   border-radius: 24px;
-  background-color: #6DC9FF;
+  background-color: #55B0DB;
   width: 60vw;
   height: fit-content;
   display: flex;

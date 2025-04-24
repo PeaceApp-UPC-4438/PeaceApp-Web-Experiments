@@ -1,6 +1,73 @@
+<template>
+  <header>
+    <CitizenToolbar />
+  </header>
+  <div class="container-fluid">
+    <div class="page-container">
+      <div class="form-container">
+        <h1>{{$t('reportForm.title')}}</h1>
+        <p>{{ $t('reportForm.subtitle') }}</p>
+        <form @submit.prevent="createReport" class="form-flex">
+          <div class="column">
+            <div class="form-group">
+              <label class="label-black">{{$t('reportForm.type')}}</label>
+              <input :placeholder="$t('reportForm.placeholders.type')" class="input-style" type="text" required v-model="reportData.type">
+            </div>
+
+            <label class="label-black">{{ $t('reportForm.dateTime') }}</label>
+            <div class="date-time-container">
+              <input v-model="reportData.date" type="date" required class="input-style">
+              <input v-model="reportData.time" type="time" required class="input-style">
+            </div>
+
+            <div class="form-group row">
+              <div class="column-half">
+                <label class="label-black">{{ $t('reportForm.district') }}</label>
+                <input v-model="reportData.district" type="text" required class="input-style" readonly />
+              </div>
+              <div class="column-half">
+                <label class="label-black">{{ $t('reportForm.location') }}</label>
+                <input v-model="reportData.location" type="text" :placeholder="$t('reportForm.placeholders.location')" required class="input-style" readonly>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="label-black">{{ $t('reportForm.description') }}</label>
+              <textarea :placeholder="$t('reportForm.description')" class="input-style" rows="3" required v-model="reportData.description"></textarea>
+            </div>
+
+            <div class="form-group">
+              <div class="evidence-container">
+                <label class="label-black">{{$t('reportForm.evidence')}}</label>
+                <label for="file-upload" class="upload-button">{{ $t('reportForm.upload') }}</label>
+                <input type="file" id="file-upload" class="file-input" @change="handleFileUpload">
+              </div>
+            </div>
+          </div>
+
+          <div class="column">
+            <div id="report-map" class="map-image"></div>
+            <div class="button-container">
+              <button type="submit">{{ $t('reportForm.send') }}</button>
+            </div>
+          </div>
+        </form>
+
+        <div v-if="successMessage" :class="{ 'success-message-overlay': true, 'show': showSuccessMessage }">
+          <div class="success-message">
+            {{ successMessage }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
 <script>
 import { ReportApiService } from "../../services/reportapi.service.js";
 import CitizenToolbar from "../../components/toolbar/toolbarCitizen.component.vue";
+import {nextTick} from "vue";
+
 export default {
   components: {
     CitizenToolbar
@@ -15,146 +82,132 @@ export default {
         district: "",
         location: "",
         description: "",
-        evidence: "",
-        user: {}
+        urlEvidence: "https://example.com/placeholder.jpg",
+        citizenId: null
       },
       api: new ReportApiService(),
       successMessage: "",
       showSuccessMessage: false,
-      citizen: {}
+      map: null,
+      marker: null,
+      districts: [
+        "Ancón", "Ate", "Barranco", "Breña", "Carabayllo", "Cercado de Lima", "Chaclacayo",
+        "Chorrillos", "Cieneguilla", "Comas", "El Agustino", "Independencia", "Jesús María",
+        "La Molina", "La Victoria", "Lince", "Los Olivos", "Lurigancho", "Lurín", "Magdalena del Mar",
+        "Miraflores", "Pachacámac", "Pucusana", "Pueblo Libre", "Puente Piedra", "Punta Hermosa",
+        "Punta Negra", "Rímac", "San Bartolo", "San Borja", "San Isidro", "San Juan de Lurigancho",
+        "San Juan de Miraflores", "San Luis", "San Martín de Porres", "San Miguel", "Santa Anita",
+        "Santa María del Mar", "Santa Rosa", "Santiago de Surco", "Surquillo", "Villa el Salvador",
+        "Villa María del Triunfo"
+      ]
     };
+  },
+  mounted() {
+    nextTick(() => {
+      this.initMap();
+    });
   },
   methods: {
     async createReport() {
-      await this.new();
+      const citizen = JSON.parse(localStorage.getItem('citizen'));
+      this.reportData.citizenId = citizen?.id || 0;
 
-      setTimeout(() => {
-        this.$router.push({ name: 'reportlist' });
-      }, 3000);
-    },
-    async new(){
-      this.citizen = JSON.parse(localStorage.getItem('citizen'));
-      this.reportData.user = this.citizen;
+        this.reportData.urlEvidence = "https://example.com/placeholder.jpg";
+
+      if (
+          !this.reportData.location ||
+          !this.reportData.district ||
+          this.reportData.district === "Desconocido"
+      ) {
+        alert("Por favor, asegúrate de seleccionar una ubicación válida en el mapa.");
+        return;
+      }
+
+
       try {
+        console.log("Datos a enviar:", JSON.stringify(this.reportData, null, 2));
+        this.reportData.date = new Date(this.reportData.date).toISOString().slice(0, 10);
+        this.reportData.time = this.reportData.time.padStart(5, '0');
+
         await this.api.create(this.reportData);
-        this.successMessage = "Report created successfully"; // Set success message
-        this.showSuccessMessage = true; // Show the popup
+        this.successMessage = "Report created successfully";
+        this.showSuccessMessage = true;
+
         setTimeout(() => {
-          this.showSuccessMessage = false; // Hide the popup after 5 seconds
-        }, 5000);
-        console.log("New report added:", this.reportData);
+          this.showSuccessMessage = false;
+          this.$router.push({ name: 'reports' });
+        }, 3000);
       } catch (error) {
         console.error("Error creating report:", error);
       }
+    },
+
+    handleFileUpload(event) {
+
+    },
+
+    initMap() {
+      const defaultLocation = { lat: -12.0464, lng: -77.0428 }; // Lima
+
+      this.map = new google.maps.Map(document.getElementById('report-map'), {
+        center: defaultLocation,
+        zoom: 12,
+        disableDefaultUI: true,
+      });
+
+      this.marker = new google.maps.Marker({
+        position: defaultLocation,
+        map: this.map,
+        draggable: true,
+      });
+
+      this.reportData.location = `${defaultLocation.lat}, ${defaultLocation.lng}`;
+      this.updateDistrictFromCoords(defaultLocation);
+
+      this.marker.addListener("dragend", () => {
+        const pos = this.marker.getPosition();
+        const latlng = { lat: pos.lat(), lng: pos.lng() };
+
+        this.reportData.location = `${latlng.lat.toFixed(6)}, ${latlng.lng.toFixed(6)}`;
+        this.updateDistrictFromCoords(latlng);
+      });
+    },
+
+    updateDistrictFromCoords(latlng) {
+      const geocoder = new google.maps.Geocoder();
+
+      geocoder.geocode({ location: latlng }, (results, status) => {
+        if (status === "OK" && results.length > 0) {
+          const addressComponents = results[0].address_components;
+          const component = addressComponents.find(c =>
+              c.types.includes("locality") ||
+              c.types.includes("sublocality") ||
+              c.types.includes("administrative_area_level_2")
+          );
+
+          if (component && typeof component.long_name === "string") {
+            this.reportData.district = component.long_name;
+          } else {
+            this.reportData.district = "Desconocido";
+          }
+        } else {
+          console.error("Geocoding failed:", status);
+          this.reportData.district = "Desconocido";
+        }
+      });
     }
   }
+
 };
 </script>
-
-<template>
-  <header>
-    <CitizenToolbar />
-  </header>
-  <div class="container-fluid">
-    <div class="page-container">
-      <div class="form-container">
-        <h1>{{$t('reportForm.title')}}</h1>
-        <p>{{ $t('reportForm.subtitle') }}</p>
-        <form @submit.prevent="createReport" class="form-flex">
-          <div class="column">
-            <div class="form-group">
-              <label for="report-type" class="label-black">{{$t('reportForm.type')}}</label>
-              <input :placeholder="$t('reportForm.placeholders.type')" class="input-style" type="text" id="input" required="" v-model="reportData.type">
-            </div>
-            <label for="date" class="label-black">{{ $t('reportForm.dateTime') }}</label>
-            <div class="date-time-container">
-              <input v-model="reportData.date" id="date" type="date" name="date" required class="input-style">
-              <input v-model="reportData.time" id="time" type="time" name="time" required class="input-style">
-            </div>
-            <div class="form-group row">
-              <div class="column-half">
-                <label for="district" class="label-black">{{ $t('reportForm.district') }}</label>
-                <select v-model="reportData.district" id="district" name="district" required class="input-style">
-                  <option value="Ancon">Ancón</option>
-                  <option value="Ate">Ate</option>
-                  <option value="Barranco">Barranco</option>
-                  <option value="Brena">Breña</option>
-                  <option value="Carabayllo">Carabayllo</option>
-                  <option value="Cercado de Lima">Cercado de Lima</option>
-                  <option value="Chaclacayo">Chaclacayo</option>
-                  <option value="Chorrillos">Chorrillos</option>
-                  <option value="Cieneguilla">Cieneguilla</option>
-                  <option value="Comas">Comas</option>
-                  <option value="El Agustino">El agustino</option>
-                  <option value="Independencia">Independencia</option>
-                  <option value="Jesus Maria">Jesús maría</option>
-                  <option value="La Molina">La molina</option>
-                  <option value="La Victoria">La victoria</option>
-                  <option value="Lince">Lince</option>
-                  <option value="Los Olivos">Los olivos</option>
-                  <option value="Lurigancho">Lurigancho</option>
-                  <option value="Lurin">Lurín</option>
-                  <option value="Magdalena del Mar">Magdalena del mar</option>
-                  <option value="Miraflores">Miraflores</option>
-                  <option value="Pachacamac">Pachacámac</option>
-                  <option value="Pucusana">Pucusana</option>
-                  <option value="Pueblo Libre">Pueblo libre</option>
-                  <option value="Puente Piedra">Puente piedra</option>
-                  <option value="Punta Hermosa">Punta hermosa</option>
-                  <option value="Punta Negra">Punta negra</option>
-                  <option value="Rimac">Rímac</option>
-                  <option value="San Bartolo">San bartolo</option>
-                  <option value="San Borja">San borja</option>
-                  <option value="San Isidro">San isidro</option>
-                  <option value="San Juan de Lurigancho">San Juan de Lurigancho</option>
-                  <option value="San Juan de Miraflores">San Juan de Miraflores</option>
-                  <option value="San Luis">San Luis</option>
-                  <option value="San Martin de Porres">San Martin de Porres</option>
-                  <option value="San Miguel">San Miguel</option>
-                  <option value="Santa Anita">Santa Anita</option>
-                  <option value="Santa Maria del Mar">Santa María del Mar</option>
-                  <option value="Santa Rosa">Santa Rosa</option>
-                  <option value="Santiago de Surco">Santiago de Surco</option>
-                  <option value="Surquillo">Surquillo</option>
-                  <option value="Villa el Salvador">Villa el Salvador</option>
-                  <option value="Villa Maria del Triunfo">Villa Maria del Triunfo</option>
-                </select>
-              </div>
-              <div class="column-half">
-                <label for="location" class="label-black">{{ $t('reportForm.location') }}</label>
-                <input v-model="reportData.location" id="location" type="text" :placeholder="$t('reportForm.placeholders.location')" name="location" required class="input-style" >
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="description" class="label-black">{{ $t('reportForm.description') }}</label>
-              <textarea :placeholder="$t('reportForm.description')" class="input-style" type="email" id="description" rows="3" required="" v-model="reportData.description"/>
-            </div>
-            <div class="form-group">
-              <div class="evidence-container">
-                <label for="evidence" class="label-black">{{$t('reportForm.evidence')}}</label>
-                <label for="file-upload" class="upload-button">{{ $t('reportForm.upload') }}</label>
-                <input type="file" id="file-upload" name="file-upload" class="file-input" style="display: none;">
-              </div>
-            </div>
-          </div>
-          <div class="column">
-            <img src="../../assets/Map-Placeholder.png" alt="Map" class="map-image">
-            <div class="button-container">
-              <button type="submit">{{ $t('reportForm.send') }}</button>
-            </div>
-          </div>
-        </form>
-        <div v-if="successMessage" :class="{ 'success-message-overlay': true, 'show': showSuccessMessage }">
-          <div class="success-message">
-            {{ successMessage }}
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
-
 <style scoped>
+.map-image {
+  width: 100%;
+  height: 400px;
+  border-radius: 10px;
+  margin: 20px 0;
+}
+
 .page-container {
   display: flex;
   align-items: center;
@@ -209,7 +262,11 @@ export default {
 .file-input {
   width: 0;
   height: 0;
+  opacity: 0;
+  position: absolute;
+  pointer-events: none;
 }
+
 .column-half {
   width: fit-content;/* Each column takes up equal space */
 }
@@ -217,13 +274,7 @@ export default {
   display: flex;
   justify-content: space-between;
 }
-.map-image {
-  width: 90%; /* Ensures the image takes the full width of its container */
-  height: auto; /* Keeps the image's aspect ratio intact */
-  max-width: 1200px; /* Adjusts the maximum width to be larger */
-  display: block; /* Ensures the image doesn't have extra space below it */
-  margin: 15% auto; /* Centers the image within the column */
-}
+
 .column {
   flex: 1;
   padding: 0 20px;
@@ -290,11 +341,20 @@ input, select, textarea {
   width: 80px;
   margin-right: 20px;
 }
-.button-container {
-  display: flex;
-  justify-content: center; /* Aligns the button in the center */
-  margin-top: 20px; /* Optional: adds some space above the button */
+.button-container button {
+  padding: 10px 40px;
+  font-size: 20px;
+  background-color: #C4E2F3;
+  color: #161616;
+  font-weight: bolder;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0 auto;
+  display: block;
 }
+
+
 
 h1 {
   color: white;
@@ -320,7 +380,7 @@ label {
 
 button {
   padding: 10px 80px;
-  background-color: yellow;
+  background-color: #C4E2F3;
   color: #161616;
   font-weight: bolder;
   border: none;
@@ -329,11 +389,13 @@ button {
   font-size: 20px;
 }
 button:hover {
-  background-color: #9EA016;
+  background-color: #A1B9C6;
 }
 .container-fluid {
-  padding: 5vh 10vw 0 10vw;
+  margin-top: 120px;
+  padding: 0 10vw 0 10vw;
 }
+
 
 @media (max-width: 1000px) {
   .form-container input, .form-container select, .form-container textarea, .form-container button {
@@ -347,9 +409,18 @@ button:hover {
     margin-bottom: 10px; /* Reduced margin for tighter layout */
   }
   .button-container button {
-    padding: 8px 40px;
-    width: 40%;
+    padding: 10px 80px;
+    font-size: 20px;
+    background-color: #C4E2F3;
+    color: #161616;
+    font-weight: bolder;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 auto;
+    display: block;
   }
+
   .date-time-container #date,
   .date-time-container #time {
     flex: none; /* Disable flex grow to manage width manually */
@@ -381,10 +452,6 @@ button:hover {
     width: 100%; /* Make columns full width */
   }
 
-  .map-image {
-    width:60%;
-    margin: 5% auto; /* Adjust margin for smaller screens */
-  }
   .form-group {
     margin-bottom: 15px; /* Adjust spacing */
   }

@@ -1,13 +1,26 @@
 <script>
 export default {
+  data() {
+    return {
+      email: ''
+    }
+  },
   methods: {
     redirectLanding() {
       const Link = 'https://g2webapplication-wx54.github.io/landing-page-web-app/';
       window.location.href = Link;
+    },
+    validateAndRedirect() {
+      if (this.email.trim() === '') {
+        alert(this.$t('main.recover.alert')); // Puedes definir esta clave en tu archivo de traducción
+        return;
+      }
+      this.$router.push('/recover');
     }
   }
 }
 </script>
+
 
 <template>
   <div class="padre">
@@ -20,14 +33,12 @@ export default {
       <div class="box2">
         <h3>{{$t('main.recover.message')}}</h3>
         <div class="input-container">
-          <input :placeholder="$t('main.email')" class="input-style" type="text" id="input" required="">
+          <input :placeholder="$t('main.email')" class="input-style" type="text" id="input" v-model="email" required />
         </div>
         <div class="bts">
-          <router-link to="/recover">
-            <Button>{{ $t('main.recover.send') }}</Button>
-          </router-link>
+          <button @click="validateAndRedirect">{{ $t('main.recover.send') }}</button>
           <router-link to="/">
-            <Button>{{ $t('main.recover.know') }}</Button>
+            <button>{{ $t('main.recover.know') }}</button>
           </router-link>
         </div>
       </div>
@@ -44,7 +55,7 @@ export default {
 }
 
 button {
-  background-color: #EEF221;
+  background-color: #C4E2F3;
   color: #161616;
   font-weight: bolder;
   border: none;
@@ -57,10 +68,10 @@ button {
   width: 50%;
 }
 button:hover {
-  background-color: #9EA016;
+  background-color: #A1B9C6;
 }
 .box2{
-  background-color: #6DC9FF;
+  background-color: #55B0DB;
   font-size: 0.9rem;
 }
 

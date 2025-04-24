@@ -1,39 +1,39 @@
 import axios from "axios";
+import { environment } from "../environments/environment.js";
+
 export class UserApiService {
-    baseUrl = ""
+    baseUrl = "";
+
     constructor() {
-        this.baseUrl = "http://localhost:3000"
+        this.baseUrl = environment.baseUrl;
     }
+
     async getAllUsers() {
-        let response = null;
-
         try {
-            response = await axios.get(`${this.baseUrl}/users`)
-        }catch(e) {
-            console.error('Error to obtain users', e)
+            const token = localStorage.getItem('authToken');
+            return await axios.get(`${this.baseUrl}/users`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+        } catch (e) {
+            console.error('Error to obtain users', e);
+            return e.response;
         }
-
-        return response;
     }
 
     async createUser(data) {
-        let response = null;
-
         try {
-            response = await axios.post(`${this.baseUrl}/users`, data);
-        }catch(e){
-            console.error('Error creating an users', e)
+            const token = localStorage.getItem('authToken');
+            return await axios.post(`${this.baseUrl}/users`, data, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+        } catch (e) {
+            console.error('Error creating a user', e);
+            return e.response;
         }
-        return response;
     }
 
-    async getUserByEmailAndPassword(email, password) {
-        let response = null;
-        try {
-            response = await axios.get(`${this.baseUrl}/users?email=${email}&password=${password}`);
-        }catch(e) {
-            console.error('Error to obtain the user', e);
-        }
-        return response;
-    }
 }

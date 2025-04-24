@@ -38,15 +38,13 @@ export default {
   margin-bottom: 20px;
 }
 
-/* Estilos para el contenedor de la lista */
 .list-container {
   width: 100%;
   max-width: 1200px;
 }
 
-/* Estilos para el botón */
 .btn {
-  background-color: #EEF221;
+  background-color: #C4E2F3;
   color: #161616;
   font-weight: bolder;
   border: none;
@@ -58,6 +56,6 @@ export default {
   text-decoration: none;
 }
 .btn:hover {
-  background-color: #9EA016;
+  background-color: #A1B9C6;
 }
 </style>

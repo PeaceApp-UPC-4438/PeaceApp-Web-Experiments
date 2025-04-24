@@ -37,7 +37,7 @@ export default {
 }
 
 button {
-  background-color: #EEF221;
+  background-color: #C4E2F3;
   color: #161616;
   font-weight: bolder;
   border: none;
@@ -50,11 +50,11 @@ button {
   width: 40%;
 }
 button:hover {
-  background-color: #9EA016;
+  background-color: #A1B9C6;
 }
 
 .box2{
-  background-color: #6DC9FF;
+  background-color: #55B0DB;;
 }
 
 .info{

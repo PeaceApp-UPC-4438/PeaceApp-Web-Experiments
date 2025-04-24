@@ -13,16 +13,14 @@ export default {
       userEmail: '',
       userRole: '',
       locales: [
-        { code: 'de', name: '🇩🇪 Deutsch', flag: 'de' },
         { code: 'en', name: '🇺🇸 English', flag: 'us' },
-        { code: 'es', name: '🇪🇸 Español', flag: 'es' },
-        { code: 'fr', name: '🇫🇷 Français', flag: 'fr' }
+        { code: 'es', name: '🇪🇸 Español', flag: 'es' }
       ],
       showSelect: false
     }
   },
   mounted() {
-    this.userService.signInUser('johan@email.com','123').then(
+    this.userService.signInUser('string@string','string').then(
         (res) => {
           console.log('res', res)
       },

@@ -2,90 +2,193 @@
   <div class="popup">
     <form @submit.prevent="updateProfile">
       <div class="flex">
-        <input :placeholder="$t('userEdit.first_name')" class="input-style" type="text" id="firstname" v-model="citizen.firstname" required />
-        <input :placeholder="$t('userEdit.last_name')" class="input-style" type="text" id="lastname" required="" v-model="citizen.lastname">
+        <input :placeholder="$t('userEdit.first_name')" class="input-style" type="text" v-model="firstname" required />
+        <input :placeholder="$t('userEdit.last_name')" class="input-style" type="text" v-model="lastname" required />
       </div>
       <div class="flex">
-        <input :placeholder="$t('userEdit.email')" class="input-style" type="email" id="email" required="" v-model="citizen.email">
-        <input :placeholder="$t('userEdit.address')" class="input-style" type="text" id="address" required="" v-model="citizen.address">
+        <input :placeholder="$t('userEdit.email')" class="input-style" type="email" v-model="email" required />
+        <input :placeholder="$t('userEdit.address')" class="input-style" type="text" v-model="street" required />
       </div>
       <div class="flex">
-        <input :placeholder="$t('userEdit.district')" class="input-style" type="text" id="district" required="" v-model="citizen.district">
-        <input :placeholder="$t('userEdit.city')" class="input-style" type="text" id="city" required="" v-model="citizen.city">
+        <input :placeholder="$t('userEdit.district')" class="input-style" type="text" v-model="number" required />
+        <input :placeholder="$t('userEdit.city')" class="input-style" type="text" v-model="city" required />
       </div>
       <div class="flex">
-        <input :placeholder="$t('userEdit.profile_picture')" class="input-style" type="text" id="profileImage" v-model="citizen.profileImage">
+        <input :placeholder="$t('userEdit.postalCode')" class="input-style" type="text" v-model="postalCode" required />
+        <input :placeholder="$t('userEdit.country')" class="input-style" type="text" v-model="country" required />
       </div>
-        <div class="buttons">
+      <div class="flex">
+        <input class="input-style" type="file" accept="image/*" @change="handleImageUpload" />
+      </div>
+      <div class="image-container" v-if="profileImage">
+        <img :src="profileImage" alt="Preview" class="preview-img" />
+      </div>
+      <div class="buttons">
         <button type="submit">Save Changes</button>
-        <button @click="closePopup">Cancel</button>
-        <button @click="deleteAccount">Delete Account</button>
+        <button type="button" @click="closePopup">Cancel</button>
+        <button type="button" @click="deleteAccount">Delete Account</button>
       </div>
     </form>
   </div>
 </template>
+
 <script>
-import {CitizenApiService} from '../../../services/citizenapi.service.js';
+import { CitizenApiService } from '../../../services/citizenapi.service.js';
+
 export default {
   props: {
     citizen: Object,
   },
   data() {
+    const fullNameParts = this.citizen.fullName?.split(' ') || [''];
     return {
-      citizenService: new CitizenApiService()
+      firstname: fullNameParts[0] || '',
+      lastname: fullNameParts.slice(1).join(' ') || '',
+      email: this.citizen.email || '',
+      profileImage: this.citizen.profileImage || '',
+      street: this.citizen.street || '',
+      number: this.citizen.number || '',
+      city: this.citizen.city || '',
+      postalCode: this.citizen.postalCode || '',
+      country: this.citizen.country || '',
+      citizenService: new CitizenApiService(),
     };
   },
   methods: {
-    updateProfile() {
-      console.log('Updating profile:', this.citizen);
-      this.closePopup();
-      this.citizenService.updateCitizen(this.citizen.id, this.citizen);
-      localStorage.setItem('citizen', JSON.stringify(this.citizen));
+    handleImageUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.profileImage = e.target.result;
+      };
+      reader.readAsDataURL(file);
     },
-    deleteAccount() {
-      console.log('Deleting account:', this.citizen);
+    async updateProfile() {
+      await this.citizenService.updateCitizen(this.citizen.id, {
+        firstName: this.firstname,
+        lastName: this.lastname,
+        email: this.email,
+        street: this.street,
+        number: this.number,
+        city: this.city,
+        postalCode: this.postalCode,
+        country: this.country,
+        profileImage: this.profileImage
+      });
       this.closePopup();
-      // Aquí iría la lógica para eliminar la cuenta en el backend
+      window.location.reload();
+    },
+    async deleteAccount() {
+      const confirmDelete = confirm(this.$t('userEdit.confirmDelete'));
+
+      if (!confirmDelete) return;
+
+      try {
+        await this.citizenService.deleteCitizen(this.citizen.id);
+        localStorage.clear();
+        this.$router.push("/login");
+      } catch (error) {
+        console.error("Error deleting account:", error);
+        alert("There was an issue deleting your account.");
+      }
     },
     closePopup() {
       this.$emit('close');
-    }
-  }
+    },
+  },
 };
 </script>
+
+
 <style scoped>
-.flex {
-  display: flex;
-  width: 100%;
-}
-#profileImage{
-  width: 97%;
-}
 .popup {
-  background-color: #6DC9FF; /* Color de fondo del popup */
+  background-color: #55B0DB;
   border-radius: 10px;
   padding: 20px;
-  width: 70%; /* Ancho del popup */
-  max-width: 600px; /* Ancho máximo del popup */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Sombra ligera */
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  margin: auto;
 }
+
+.flex {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.input-style {
+  flex: 1;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.preview-img {
+  width: 100px;
+  height: 100px;
+  margin-top: 10px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+}
+
 .buttons {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
   margin-top: 20px;
 }
-button{
-  font-size: 15px;
+
+button {
+  padding: 10px;
+  flex: 1;
+  border: none;
+  border-radius: 5px;
+  background-color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
-@media (max-width: 1000px) {
+
+button:hover {
+  background-color: #eee;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
   .popup {
-    width: 90%; /* Ajustar ancho del popup para dispositivos móviles */
+    width: 95%;
+    padding: 15px;
   }
-  .flex, .buttons {
+
+  .flex {
     flex-direction: column;
   }
-  button, input {
+
+  .buttons {
+    flex-direction: column;
+  }
+
+  .input-style,
+  button {
     width: 100%;
+  }
+
+  .preview-img {
+    width: 80px;
+    height: 80px;
   }
 }
 </style>

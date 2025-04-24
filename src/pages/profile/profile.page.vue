@@ -1,71 +1,68 @@
 <script>
 import ToolbarCitizen from "../../components/toolbar/toolbarCitizen.component.vue";
-import ToolbarAuthority from "../../components/toolbar/toolbarAuthority.component.vue";
-import AuthorityProfilePage from "../../components/profile/government/authority-profile.page.vue";
 import CitizenProfilePage from "../../components/profile/citizen/user-profile.page.vue";
-import {CitizenApiService} from "../../services/citizenapi.service.js";
-import {AuthorityApiService} from "../../services/authorityapi.service.js";
+import { CitizenApiService } from "../../services/citizenapi.service.js";
+
 export default {
   name: "ProfilePage",
   components: {
     ToolbarCitizen,
-    ToolbarAuthority,
-    AuthorityProfilePage,
     CitizenProfilePage,
   },
   data() {
-  return {
-    userEmail: '',
-    userRole: '',
-    citizenService: new CitizenApiService(),
-    authorityService: new AuthorityApiService(),
-    userInfo: {},
-  };
-},
+    return {
+      userEmail: '',
+      userInfo: {},
+      citizenService: new CitizenApiService(),
+    };
+  },
   methods: {
-    getUserRoleAndEmail() {
-      // Obtener el email y rol del usuario desde localStorage
+    getUserEmail() {
       this.userEmail = localStorage.getItem('userEmail');
-      this.userRole = localStorage.getItem('userRole');
-      console.log(this.userEmail, this.userRole);
+      console.log('localStorage:', {
+        userEmail: this.userEmail,
+        token: localStorage.getItem('authToken')
+      });
     },
-  fetchUserInfo() {
-    if (this.userRole === 'citizen') {
+
+    fetchUserInfo() {
+      if (!this.userEmail) {
+        console.warn("No user email found.");
+        return;
+      }
+
+      console.log("Buscando citizen con email:", this.userEmail);
+
       this.citizenService.getCitizenByEmail(this.userEmail)
           .then((response) => {
-            this.userInfo = response.data[0];
+            if (Array.isArray(response?.data)) {
+              this.userInfo = response.data.find(c => c.email === this.userEmail);
+            } else {
+              this.userInfo = response.data;
+            }
+
             localStorage.setItem('citizen', JSON.stringify(this.userInfo));
-            console.log(this.userInfo);
+            console.log("Citizen info:", this.userInfo);
           })
-          .catch((error) => {
-            console.log(error);
-          });
-    } else if (this.userRole === 'authority') {
-      this.authorityService.getAuthorityByEmail(this.userEmail)
-          .then((response) => {
-            this.userInfo = response.data[0];
-            console.log(this.userInfo);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+          .catch(console.error);
     }
-  }
   },
-   created() {
-     this.getUserRoleAndEmail();
-     this.fetchUserInfo();
-    }
+  created() {
+    this.getUserEmail();
+    this.fetchUserInfo();
+  }
 };
 </script>
 
 <template>
-  <template class="container" v-if="userRole === 'authority'">
-    <AuthorityProfilePage :authority="userInfo" />
-  </template>
-  <template class="container" v-else-if="userRole === 'citizen'">
-    <CitizenProfilePage :citizen="userInfo" />
-  </template>
+  <div class="container">
+    <ToolbarCitizen />
+    <CitizenProfilePage
+        v-if="userInfo && Object.keys(userInfo).length"
+        :citizen="userInfo"
+    />
+    <p v-else style="color: gray; text-align: center;">Cargando perfil...</p>
+  </div>
 </template>
 
 <style scoped>
@@ -83,12 +80,13 @@ button {
 }
 
 .container {
-  margin: 0;
   display: flex;
-  place-items: center;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10vh 5vw 0 5vw;
+  width: 100%;
+  box-sizing: border-box;
 }
+
 </style>

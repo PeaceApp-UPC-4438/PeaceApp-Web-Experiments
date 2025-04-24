@@ -1,9 +1,10 @@
 import axios from "axios";
+import {environment} from "../environments/environment.js";
 
 export class AuthorityApiService {
     baseUrl = ""
     constructor() {
-        this.baseUrl = "http://localhost:3000"
+        this.baseUrl = environment.baseUrl
     }
 
     async getAllGovernments() {

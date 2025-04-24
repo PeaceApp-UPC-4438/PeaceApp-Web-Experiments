@@ -15,7 +15,7 @@
 </template>
 <style scoped>
 .toolbar {
-  background-color: #1878F3;
+  background-color: #1C597C;
   color: white;
   display: flex;
   justify-content: space-between;

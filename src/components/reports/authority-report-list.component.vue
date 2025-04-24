@@ -1,53 +1,55 @@
 <template>
   <header>
     <div v-if="role === 'citizen'">
-      <CitizenToolbar/>
-    </div>
-    <div v-else-if="role === 'authority'">
-      <AuthorityToolbar/>
+      <CitizenToolbar />
     </div>
   </header>
   <div class="container">
-    <h1>
-      {{$t("reports.title")}}
-    </h1>
+    <h1>{{ $t("reports.title") }}</h1>
     <div class="filters">
       <div class="filter-option">
-        <label for="filter-type">{{$t("reports.type_label")}}</label>
+        <label for="filter-type">{{ $t("reports.type_label") }}</label>
         <select v-model="filterType" id="filter-type">
-          <option value="">{{ $t('reports.all') }}</option>
+          <option value="">{{ $t("reports.all") }}</option>
           <option v-for="type in uniqueTypes" :key="type" :value="type">{{ type }}</option>
         </select>
       </div>
       <div class="filter-option">
-        <label for="filter-date">{{$t('reports.date_label')}}</label>
-        <input type="date" v-model="filterDate" id="filter-date">
+        <label for="filter-date">{{ $t("reports.date_label") }}</label>
+        <input type="date" v-model="filterDate" id="filter-date" />
       </div>
       <div class="filter-option">
-        <label for="filter-district">{{$t('reports.district_label')}}</label>
+        <label for="filter-district">{{ $t("reports.district_label") }}</label>
         <select v-model="filterDistrict" id="filter-district">
-          <option value="">{{ $t('reports.all') }}</option>
+          <option value="">{{ $t("reports.all") }}</option>
           <option v-for="district in uniqueDistricts" :key="district" :value="district">{{ district }}</option>
         </select>
       </div>
       <div class="filter-option">
-        <button @click="clearFilters">{{$t('reports.clear_filters')}}</button>
+        <button @click="clearFilters">{{ $t("reports.clear_filters") }}</button>
       </div>
     </div>
+
     <div class="reports-container">
       <ul v-if="filteredReports.length" class="reports-grid">
         <li v-for="report in filteredReports" :key="report.id" class="report-item">
           <h2>{{ report.type }}</h2>
           <p><strong>{{ $t('reports.date_label') }}</strong> {{ report.date }} <strong>Time:</strong> {{ report.time }}</p>
-          <p><strong>{{$t('reports.district_label')}}</strong> {{ report.district }}</p>
-          <p><strong>{{$t('reports.location_label')}}</strong> {{ report.location }}</p>
-          <p><strong>{{$t('reports.description_label')}}</strong> {{ report.description }}</p>
-          <p><strong>{{$t('reports.user_label')}}</strong> {{ report.user?.firstname + ' ' + report.user?.lastname}}</p>
-          <p><strong>{{$t('reports.evidence_label')}}</strong> <a :href="report.urlEvidence" target="_blank">{{ $t('reports.view_evidence') }}</a></p>
+          <p><strong>{{ $t('reports.district_label') }}</strong> {{ report.district }}</p>
+          <p><strong>{{ $t('reports.location_label') }}</strong> {{ report.location }}</p>
+          <p><strong>{{ $t('reports.description_label') }}</strong> {{ report.description }}</p>
+          <p><strong>{{ $t('reports.user_label') }}</strong>
+            {{ report.citizenFullName || $t('reports.unknown_user') }}
+          </p>
+          <p><strong>{{ $t('reports.evidence_label') }}</strong>
+            <a :href="report.urlEvidence" target="_blank">{{ $t('reports.view_evidence') }}</a>
+          </p>
         </li>
       </ul>
       <ul v-else class="reports-grid">
-        <li class="report-item"><h2>{{$t('reports.no_reports')}}</h2></li>
+        <li class="report-item">
+          <h2>{{ $t("reports.no_reports") }}</h2>
+        </li>
       </ul>
     </div>
   </div>
@@ -55,19 +57,19 @@
 
 <script>
 import { ReportApiService } from "../../services/reportapi.service.js";
-import AuthorityToolbar from "../toolbar/toolbarAuthority.component.vue";
+import { CitizenApiService } from "../../services/citizenapi.service.js";
 import CitizenToolbar from "../toolbar/toolbarCitizen.component.vue";
-import ToolbarCitizen from "../../app.vue";
+
 export default {
   name: "ReportsList",
   components: {
-    CitizenToolbar,
-    AuthorityToolbar
+    CitizenToolbar
   },
   data() {
     return {
       reports: [],
       api: new ReportApiService(),
+      citizenService: new CitizenApiService(),
       filterType: "",
       filterDate: "",
       filterDistrict: "",
@@ -78,10 +80,21 @@ export default {
     try {
       const response = await this.api.getAll();
       this.reports = response.data;
+
+      // Obtener nombres de ciudadanos por cada report
+      for (const report of this.reports) {
+        if (report.citizenId) {
+          const citizenRes = await this.citizenService.getCitizenById(report.citizenId);
+          report.citizenFullName = citizenRes?.data?.fullName || null;
+        }
+      }
+
+      console.log("Reportes con nombre de ciudadano:", this.reports);
     } catch (error) {
       console.error("Error fetching reports:", error);
     }
-    await this.getRole();
+
+    this.role = localStorage.getItem("userRole");
   },
   computed: {
     uniqueTypes() {
@@ -92,34 +105,25 @@ export default {
     },
     filteredReports() {
       let filtered = this.reports;
-      if (this.filterType) {
-        filtered = filtered.filter(report => report.type === this.filterType);
-      }
-      if (this.filterDate) {
-        filtered = filtered.filter(report => report.date === this.filterDate);
-      }
-      if (this.filterDistrict) {
-        filtered = filtered.filter(report => report.district === this.filterDistrict);
-      }
+      if (this.filterType) filtered = filtered.filter(r => r.type === this.filterType);
+      if (this.filterDate) filtered = filtered.filter(r => r.date === this.filterDate);
+      if (this.filterDistrict) filtered = filtered.filter(r => r.district === this.filterDistrict);
       return filtered;
     }
   },
   methods: {
-    async clearFilters() {
+    clearFilters() {
       this.filterType = "";
       this.filterDate = "";
       this.filterDistrict = "";
-    },
-    async getRole() {
-      this.role = localStorage.getItem('userRole');
     }
-  },
+  }
 };
 </script>
 
 <style scoped>
 .container {
-  background-color: #01A1FF;
+  background-color: #1F79AA;
   padding: 10vh 0 0 0;
   display: flex;
   justify-content: center;
