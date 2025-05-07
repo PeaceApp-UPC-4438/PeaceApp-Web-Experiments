@@ -1,6 +1,5 @@
 <script setup>
 import ToolbarCitizen from "./components/toolbar/toolbarCitizen.component.vue";
-import ToolbarAuthority from "./components/toolbar/toolbarAuthority.component.vue";
 </script>
 <script>
 import {authUserService} from "./services/authuser.service.js";
