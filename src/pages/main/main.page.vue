@@ -30,16 +30,27 @@ export default {
 
         if (response && response.status === 200) {
           const user = response.data;
-          console.log("User authenticated: ", user);
-
           localStorage.setItem('userEmail', user.username);
-          localStorage.setItem('userRole', 'citizen');
+          localStorage.setItem('userRole', 'ROLE_USER');
           localStorage.setItem('authToken', user.token);
+          localStorage.setItem('userId', user.id);
 
-          this.error = null;
-          this.$router.push('/profile');
-        } else {
-          this.error = "Incorrect email or password.";
+          // Guardar ubicación actual
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                  localStorage.setItem("userLat", position.coords.latitude);
+                  localStorage.setItem("userLng", position.coords.longitude);
+                  this.$router.push('/profile');
+                },
+                (err) => {
+                  console.warn("No se pudo obtener ubicación:", err);
+                  this.$router.push('/profile'); // continuar sin ubicación
+                }
+            );
+          } else {
+            this.$router.push('/profile');
+          }
         }
       } catch (error) {
         console.error("Error during authentication: ", error);
@@ -80,13 +91,20 @@ export default {
     </div>
 
     <!-- Modal dialog for user sign-up -->
-    <Dialog v-model:visible="visible" modal :header="$t('main.user')" :style="{ width: '50vw' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
-      <user-sign />
+    <Dialog
+        v-model:visible="visible"
+        modal
+        :header="$t('main.user')"
+        :style="{ width: '50vw' }"
+        :breakpoints="{ '1199px': '75vw', '575px': '90vw' }"
+    >
+
+    <user-sign />
     </Dialog>
   </div>
 </template>
 
-<style scoped>
+<style>
 .input-container {
   display: inline-block;
 }
@@ -105,6 +123,19 @@ export default {
 .info {
   padding: 1vw;
 }
+::v-deep(.p-dialog-header-icon) {
+  background-color: #55B0DB !important;
+  color: white !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50% !important;
+  width: 2rem;
+  height: 2rem;
+  font-size: 1.2rem;
+}
+
+
 .container {
   display: flex;
   align-items: center;
