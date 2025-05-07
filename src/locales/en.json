@@ -12,7 +12,7 @@
     "message3": "Forgot your password? ",
     "clickHere": "Click here",
     "select": "Select your role:",
-    "user": "User",
+    "user": "Create Account",
     "authority": "Authority",
     "recover": {
       "back": "Go Back",
@@ -27,9 +27,7 @@
     "firstname": "Firstname",
     "lastname": "Lastname",
     "email": "Email",
-    "address": "Address",
-    "district": "District",
-    "city": "City",
+    "phone": "Phone Number",
     "password": "Password",
     "confirm_password": "Confirm Password",
     "terms": "Accept Terms of Service and Security Policies",
@@ -63,12 +61,16 @@
   "reports": {
     "title": "Report list",
     "all": "All",
+    "address_label": "Address",
     "type_label": "Type:",
     "date_label": "Date:",
     "district_label": "District:",
     "location_label": "Location:",
     "description_label": "Description:",
-    "user_label": "Reported by: ",
+    "user_label": "Date: ",
+    "view_scope": "Filters",
+    "my_reports": "My Reports",
+    "all_reports": "All Reports",
     "evidence_label": "Evidence:",
     "clear_filters": "Clear Filters",
     "no_reports": "No reports available.",
@@ -87,7 +89,13 @@
     "upload": "Upload File",
     "send": "Send",
     "placeholders": {
-      "type": "Type",
+      "type": "Select report type",
+      "robbery": "Robbery",
+      "accident": "Accident",
+      "dark_area": "Dark Area",
+      "harassment": "Harassment",
+      "other": "Other",
+      "title": "Title",
       "location": "Location",
       "description": "Description"
     }
@@ -101,7 +109,8 @@
     "toggleHeatmap": "Toggle Heatmap",
     "changeGradient": "Change Gradient",
     "changeOpacity": "Change Opacity",
-    "changeRadius": "Change Radius"
+    "changeRadius": "Change Radius",
+    "placeholder": "Search"
   },
   "authorityEdit": {
     "municipality_name": "Name of the Municipality:",
@@ -116,22 +125,16 @@
     "first_name": "Firstname:",
     "last_name": "Lastname:",
     "email": "Email:",
-    "address": "Address:",
-    "district": "District:",
-    "city": "City:",
-    "profile_picture": "Profile Picture:",
-    "country": "Country:",
-    "postalCode": "Postal Code:",
+    "phone": "Phone Number:",
+    "password": "Password:",
+    "profileImage": "Profile Picture:",
     "confirmDelete": "Are you sure you want to delete your account?"
   },
   "profile": {
     "user": {
       "email": "Email: ",
-      "address": "Address: ",
-      "district": "District: ",
-      "city": "City: ",
-      "country": "Country:",
-      "postalCode": "Postal Code:"
+      "phone": "Phone Number: ",
+      "password": "Password: "
     },
     "authority": {
         "email": "Email: ",

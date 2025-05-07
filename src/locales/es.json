@@ -12,7 +12,7 @@
     "message3": "¿Olvido su contraseña ",
     "clickHere": "Click aquí",
     "select": "Seleccione su rol:",
-    "user": "Usuario",
+    "user": "Crear Cuenta",
     "authority": "Autoridad",
     "recover": {
       "back": "Regresar",
@@ -27,9 +27,7 @@
     "firstname": "Nombre",
     "lastname": "Apellido",
     "email": "Correo electrónico",
-    "address": "Dirección",
-    "district": "Distrito",
-    "city": "Ciudad",
+    "phone": "Número telefónico",
     "password": "Contraseña",
     "confirm_password": "Confirmar Contraseña",
     "terms": "Aceptar Términos de Servicio y Políticas de Seguridad",
@@ -63,12 +61,16 @@
   "reports": {
     "title": "Lista de reportes",
     "all": "Todos",
+    "address_label": "Dirección",
     "type_label": "Tipo:",
     "date_label": "Fecha:",
     "district_label": "Distrito:",
     "location_label": "Ubicación:",
+    "view_scope": "Filtros",
+    "my_reports": "Mis Reportes",
+    "all_reports": "Todos los Reportes",
     "description_label": "Descripción:",
-    "user_label": "Reportado por: ",
+    "user_label": "Fecha: ",
     "evidence_label": "Evidencia:",
     "clear_filters": "Limpiar Filtros",
     "no_reports": "No hay reportes disponibles.",
@@ -87,7 +89,13 @@
     "upload": "Subir Archivo",
     "send": "Enviar",
     "placeholders": {
-      "type": "Tipo",
+      "type": "Selecciona el tipo de reporte",
+      "robbery": "Robo",
+      "accident": "Accidente",
+      "dark_area": "Oscuro",
+      "harassment": "Acoso",
+      "other": "Otro",
+      "title": "Título",
       "location": "Ubicación",
       "description": "Descripción"
     }
@@ -101,7 +109,8 @@
     "toggleHeatmap": "Alternar Mapa de Calor",
     "changeGradient": "Cambiar Gradiente",
     "changeOpacity": "Cambiar Opacidad",
-    "changeRadius": "Cambiar Radio"
+    "changeRadius": "Cambiar Radio",
+    "placeholder": "Buscar"
   },
   "authorityEdit": {
     "municipality_name": "Nombre de la Municipalidad:",
@@ -116,22 +125,16 @@
     "first_name": "Nombres:",
     "last_name": "Apellidos:",
     "email": "Correo Electrónico:",
-    "address": "Dirección:",
-    "district": "Distrito:",
-    "city": "Ciudad:",
-    "profile_picture": "Foto de Perfil:",
-    "country": "Pais:",
-    "postalCode": "Codigo Postal:",
+    "phone": "Número Telefónico:",
+    "password": "Contraseña:",
+    "profileImage": "Foto de Perfil:",
     "confirmDelete": "¿Estas seguro de querer borrar tu cuenta?"
   },
   "profile": {
     "user": {
       "email": "Correo Electrónico: ",
-      "address": "Dirección: ",
-      "district": "Distrito: ",
-      "city": "Ciudad: ",
-      "country": "Pais:",
-      "postalCode": "Codigo Postal:"
+      "phone": "Número telefónico: ",
+      "password": "Contraseña: "
     },
     "authority": {
       "email": "Correo Electrónico:",
