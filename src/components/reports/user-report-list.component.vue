@@ -1,50 +1,39 @@
 <template>
   <header>
-    <div v-if="role === 'citizen'">
       <CitizenToolbar />
-    </div>
   </header>
   <div class="container">
     <h1>{{ $t("reports.title") }}</h1>
     <div class="filters">
       <div class="filter-option">
-        <label for="filter-type">{{ $t("reports.type_label") }}</label>
-        <select v-model="filterType" id="filter-type">
-          <option value="">{{ $t("reports.all") }}</option>
-          <option v-for="type in uniqueTypes" :key="type" :value="type">{{ type }}</option>
+        <label for="reportScope">{{ $t('reports.view_scope') }}</label>
+        <select v-model="reportScope" id="reportScope" @change="fetchReports">
+          <option value="user">{{ $t('reports.my_reports') }}</option>
+          <option value="all">{{ $t('reports.all_reports') }}</option>
         </select>
-      </div>
-      <div class="filter-option">
-        <label for="filter-date">{{ $t("reports.date_label") }}</label>
-        <input type="date" v-model="filterDate" id="filter-date" />
-      </div>
-      <div class="filter-option">
-        <label for="filter-district">{{ $t("reports.district_label") }}</label>
-        <select v-model="filterDistrict" id="filter-district">
-          <option value="">{{ $t("reports.all") }}</option>
-          <option v-for="district in uniqueDistricts" :key="district" :value="district">{{ district }}</option>
-        </select>
-      </div>
-      <div class="filter-option">
-        <button @click="clearFilters">{{ $t("reports.clear_filters") }}</button>
       </div>
     </div>
+
 
     <div class="reports-container">
       <ul v-if="filteredReports.length" class="reports-grid">
         <li v-for="report in filteredReports" :key="report.id" class="report-item">
-          <h2>{{ report.type }}</h2>
-          <p><strong>{{ $t('reports.date_label') }}</strong> {{ report.date }} <strong>Time:</strong> {{ report.time }}</p>
-          <p><strong>{{ $t('reports.district_label') }}</strong> {{ report.district }}</p>
-          <p><strong>{{ $t('reports.location_label') }}</strong> {{ report.location }}</p>
-          <p><strong>{{ $t('reports.description_label') }}</strong> {{ report.description }}</p>
-          <p><strong>{{ $t('reports.user_label') }}</strong>
-            {{ report.citizenFullName || $t('reports.unknown_user') }}
+          <h2>{{ report.title }}</h2>
+          <p><strong>{{ $t('reports.type_label') }}</strong> {{ translateType(report.type) }}</p>
+          <p><strong>{{ $t('reports.address_label') || 'Address:' }}</strong> {{ report.address }}</p>
+          <p><strong>{{ $t('reports.description_label') }}</strong> {{ report.detail }}</p>
+          <p>
+            <strong>{{ $t('reports.user_label') }}</strong>
+            <span v-if="report.citizenFullName">{{ report.citizenFullName }}</span>
+            <span v-else>{{ formatDate(report.createdAt) }}</span>
           </p>
-          <p><strong>{{ $t('reports.evidence_label') }}</strong>
-            <a :href="report.urlEvidence" target="_blank">{{ $t('reports.view_evidence') }}</a>
+          <p v-if="report.image">
+            <strong>{{ $t('reports.evidence_label') || 'Evidence:' }}</strong><br>
+            <img :src="report.image" alt="Evidence" style="max-width: 100%; border-radius: 8px; margin-top: 8px;" />
           </p>
+
         </li>
+
       </ul>
       <ul v-else class="reports-grid">
         <li class="report-item">
@@ -57,7 +46,7 @@
 
 <script>
 import { ReportApiService } from "../../services/reportapi.service.js";
-import { CitizenApiService } from "../../services/citizenapi.service.js";
+import { UserApiService } from "../../services/userapi.service.js";
 import CitizenToolbar from "../toolbar/toolbarCitizen.component.vue";
 
 export default {
@@ -69,31 +58,13 @@ export default {
     return {
       reports: [],
       api: new ReportApiService(),
-      citizenService: new CitizenApiService(),
-      filterType: "",
-      filterDate: "",
-      filterDistrict: "",
+      userService: new UserApiService(),
+      reportScope: "user",
       role: ""
     };
   },
   async created() {
-    try {
-      const response = await this.api.getAll();
-      this.reports = response.data;
-
-      // Obtener nombres de ciudadanos por cada report
-      for (const report of this.reports) {
-        if (report.citizenId) {
-          const citizenRes = await this.citizenService.getCitizenById(report.citizenId);
-          report.citizenFullName = citizenRes?.data?.fullName || null;
-        }
-      }
-
-      console.log("Reportes con nombre de ciudadano:", this.reports);
-    } catch (error) {
-      console.error("Error fetching reports:", error);
-    }
-
+    await this.fetchReports();
     this.role = localStorage.getItem("userRole");
   },
   computed: {
@@ -112,13 +83,47 @@ export default {
     }
   },
   methods: {
-    clearFilters() {
-      this.filterType = "";
-      this.filterDate = "";
-      this.filterDistrict = "";
+    translateType(type) {
+      const types = {
+        Robo: this.$t('reportForm.placeholders.robbery'),
+        Accidente: this.$t('reportForm.placeholders.accident'),
+        Oscuro: this.$t('reportForm.placeholders.dark_area'),
+        Acoso: this.$t('reportForm.placeholders.harassment'),
+        Otro: this.$t('reportForm.placeholders.other'),
+        robbery: this.$t('reportForm.placeholders.robbery'),
+        accident: this.$t('reportForm.placeholders.accident'),
+        dark_area: this.$t('reportForm.placeholders.dark_area'),
+        harassment: this.$t('reportForm.placeholders.harassment'),
+        other: this.$t('reportForm.placeholders.other')
+      };
+      return types[type] || type;
+    },
+    async fetchReports() {
+      try {
+        const userId = localStorage.getItem("userId");
+        const response = this.reportScope === "all"
+            ? await this.api.getAll()
+            : await this.api.getByUserId(userId);
+
+        this.reports = response.data;
+
+        for (const report of this.reports) {
+          if (report.citizenId) {
+            const res = await this.userService.getUserByEmail(report.citizenId);
+            report.citizenFullName = res?.data?.fullName || null;
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching reports:", error);
+      }
+    },
+    formatDate(dateStr) {
+      const date = new Date(dateStr);
+      return date.toLocaleDateString();
     }
   }
 };
+
 </script>
 
 <style scoped>

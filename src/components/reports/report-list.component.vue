@@ -10,11 +10,11 @@
 </template>
 
 <script>
-import AuthorityReportListComponent from "./authority-report-list.component.vue";
+import UserReportListComponent from "./user-report-list.component.vue";
 export default {
   name: "ReportListComponent",
   components: {
-    AuthorityReportListComponent
+    AuthorityReportListComponent: UserReportListComponent
   },
 };
 </script>

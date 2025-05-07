@@ -1,22 +1,21 @@
 <script>
 import { authUserService } from '../../services/authuser.service.js'
-import { CitizenApiService } from '../../services/citizenapi.service.js'
+import { UserApiService } from '../../services/userapi.service.js'
+import user from "primevue/menu";
 
 export default {
   data() {
     return {
       authService: new authUserService(),
-      citizenService: new CitizenApiService(),
+      userApiService: new UserApiService(),
       confirmPassword: '',
       formData: {
-        firstname: '',
+        name: '',
         lastname: '',
         email: '',
         password: '',
-        address: '',
-        district: '',
-        city: '',
-        profileImage: 'https://picsum.photos/200/300'
+        phonenumber: '',
+        profileImage: 'https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg'
       },
       error: null
     };
@@ -24,46 +23,44 @@ export default {
   methods: {
     async createUser() {
       try {
-        // Password validation
         if (this.formData.password !== this.confirmPassword) {
           this.error = "Passwords do not match.";
           return;
         }
-
-        // 1. Create the user using AuthUserService (public sign-up)
         const signUpData = {
           username: this.formData.email,
           password: this.formData.password,
-          role: 'citizen'
+          role: 'ROLE_USER'
         };
         const userResponse = await this.authService.signUp(signUpData);
         console.log("User created:", userResponse);
-
-        // 2. Authenticate the newly created user to retrieve token
+        console.log("User created:", this.formData.profileImage);
+        // Login
         const loginResponse = await this.authService.signInUser(this.formData.email, this.formData.password);
+        let userId = null;
+
         if (loginResponse.status === 200) {
           const user = loginResponse.data;
           localStorage.setItem('userEmail', user.username);
-          localStorage.setItem('userRole', 'citizen');
+          localStorage.setItem('userRole', 'ROLE_USER');
           localStorage.setItem('authToken', user.token);
+          localStorage.setItem('userId', user.id);
+          userId = user.id;
         }
 
-        // 3. Create the citizen entry
-        const citizenData = {
-          firstName: this.formData.firstname,
-          lastName: this.formData.lastname,
+        const userData = {
+          name: this.formData.name,
+          lastname: this.formData.lastname,
           email: this.formData.email,
-          street: this.formData.address,
-          number: "S/N",
-          city: this.formData.city,
-          postalCode: "00000",
-          country: "Peru"
+          password: this.formData.password,
+          phonenumber: this.formData.phonenumber,
+          user_id: userId,
+          profile_image: this.formData.profileImage
         };
 
-        const citizenResponse = await this.citizenService.createCitizen(citizenData);
-        console.log("Citizen created:", citizenResponse);
+        const response = await this.userApiService.createUser(userData);
+        console.log("Full user profile saved:", response);
 
-        // 4. Redirect to profile
         setTimeout(() => {
           this.$router.push({ path: '/profile' });
         }, 3000);
@@ -76,8 +73,26 @@ export default {
 
     async submit() {
       this.error = null;
-      await this.createUser();
+
+      // Obtener ubicación antes de crear usuario
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+              localStorage.setItem("userLat", position.coords.latitude);
+              localStorage.setItem("userLng", position.coords.longitude);
+              this.createUser(); // continúa con el registro
+            },
+            (err) => {
+              console.warn("No se pudo obtener ubicación:", err);
+              this.createUser(); // igual continúa sin ubicación
+            }
+        );
+      } else {
+        console.warn("Geolocalización no disponible.");
+        await this.createUser();
+      }
     }
+
   }
 }
 </script>
@@ -86,20 +101,16 @@ export default {
   <form class="form" @submit.prevent="submit()">
     <p class="message">{{ $t('userForm.message') }}</p>
     <div class="flex">
-      <input :placeholder="$t('userForm.firstname')" class="input-style" type="text" id="input" required="" v-model="formData.firstname">
-      <input :placeholder="$t('userForm.lastname')" class="input-style" type="text" id="input" required="" v-model="formData.lastname">
+      <input :placeholder="$t('userForm.firstname')" class="input-style" type="text" required v-model="formData.name">
+      <input :placeholder="$t('userForm.lastname')" class="input-style" type="text" required v-model="formData.lastname">
     </div>
     <div class="flex">
-      <input :placeholder="$t('userForm.email')" class="input-style" type="email" id="input" required="" v-model="formData.email">
-      <input :placeholder="$t('userForm.address')" class="input-style" type="text" id="input" required="" v-model="formData.address">
+      <input :placeholder="$t('userForm.email')" class="input-style" type="email" required v-model="formData.email">
+      <input :placeholder="$t('userForm.phone')" class="input-style" type="text" required v-model="formData.phonenumber">
     </div>
     <div class="flex">
-      <input :placeholder="$t('userForm.district')" class="input-style" type="text" id="input" required="" v-model="formData.district">
-      <input :placeholder="$t('userForm.city')" class="input-style" type="text" id="input" required="" v-model="formData.city">
-    </div>
-    <div class="flex">
-      <input :placeholder="$t('userForm.password')" class="input-style" type="password" required v-model="confirmPassword">
-      <input :placeholder="$t('userForm.confirm_password')" class="input-style" type="password" required v-model="formData.password">
+      <input :placeholder="$t('userForm.password')" class="input-style" type="password" required v-model="formData.password">
+      <input :placeholder="$t('userForm.confirm_password')" class="input-style" type="password" required v-model="confirmPassword">
     </div>
     <label class="material-checkbox">
       <input type="checkbox" required>

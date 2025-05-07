@@ -5,55 +5,68 @@
   <div class="container-fluid">
     <div class="page-container">
       <div class="form-container">
-        <h1>{{$t('reportForm.title')}}</h1>
+        <h1>{{ $t('reportForm.title') }}</h1>
         <p>{{ $t('reportForm.subtitle') }}</p>
         <form @submit.prevent="createReport" class="form-flex">
           <div class="column">
             <div class="form-group">
-              <label class="label-black">{{$t('reportForm.type')}}</label>
-              <input :placeholder="$t('reportForm.placeholders.type')" class="input-style" type="text" required v-model="reportData.type">
+              <label class="label-black">{{ $t('reportForm.type') }}</label>
+              <select class="input-style" v-model="reportData.type" required>
+                <option disabled value="">{{ $t('reportForm.placeholders.type') }}</option>
+                <option value="robbery">{{ $t('reportForm.placeholders.robbery') }}</option>
+                <option value="accident">{{ $t('reportForm.placeholders.accident') }}</option>
+                <option value="dark_area">{{ $t('reportForm.placeholders.dark_area') }}</option>
+                <option value="harassment">{{ $t('reportForm.placeholders.harassment') }}</option>
+                <option value="other">{{ $t('reportForm.placeholders.other') }}</option>
+              </select>
             </div>
 
-            <label class="label-black">{{ $t('reportForm.dateTime') }}</label>
-            <div class="date-time-container">
-              <input v-model="reportData.date" type="date" required class="input-style">
-              <input v-model="reportData.time" type="time" required class="input-style">
+            <div class="form-group">
+              <label class="label-black">{{ $t('reportForm.location') }}</label>
+              <input v-model="reportData.address" type="text" :placeholder="$t('reportForm.placeholders.location')" required class="input-style" readonly />
             </div>
 
-            <div class="form-group row">
-              <div class="column-half">
-                <label class="label-black">{{ $t('reportForm.district') }}</label>
-                <input v-model="reportData.district" type="text" required class="input-style" readonly />
-              </div>
-              <div class="column-half">
-                <label class="label-black">{{ $t('reportForm.location') }}</label>
-                <input v-model="reportData.location" type="text" :placeholder="$t('reportForm.placeholders.location')" required class="input-style" readonly>
-              </div>
+            <div class="form-group">
+              <label class="label-black">{{ $t('reportForm.title') }}</label>
+              <input v-model="reportData.title" type="text" :placeholder="$t('reportForm.placeholders.title')" required class="input-style" />
             </div>
 
             <div class="form-group">
               <label class="label-black">{{ $t('reportForm.description') }}</label>
-              <textarea :placeholder="$t('reportForm.description')" class="input-style" rows="3" required v-model="reportData.description"></textarea>
+              <textarea
+                  :placeholder="$t('reportForm.placeholders.description')"
+                  class="input-style description-area"
+                  rows="3"
+                  required
+                  v-model="reportData.detail"
+                  maxlength="500"
+              ></textarea>
             </div>
 
             <div class="form-group">
               <div class="evidence-container">
-                <label class="label-black">{{$t('reportForm.evidence')}}</label>
+                <label class="label-black">{{ $t('reportForm.evidence') }}</label>
                 <label for="file-upload" class="upload-button">{{ $t('reportForm.upload') }}</label>
-                <input type="file" id="file-upload" class="file-input" @change="handleFileUpload">
+                <input type="file" id="file-upload" class="file-input" @change="handleFileUpload" />
+                <div class="image-container" v-if="reportData.image">
+                  <img :src="reportData.image" alt="Preview" class="preview-img" />
+                </div>
               </div>
             </div>
           </div>
 
           <div class="column">
-            <div id="report-map" class="map-image"></div>
+            <div id="report-map" class="map-image">
+              <div id="center-pin"></div>
+            </div>
             <div class="button-container">
               <button type="submit">{{ $t('reportForm.send') }}</button>
             </div>
           </div>
+
         </form>
 
-        <div v-if="successMessage" :class="{ 'success-message-overlay': true, 'show': showSuccessMessage }">
+        <div v-if="successMessage" :class="{ 'success-message-overlay': true, show: showSuccessMessage }">
           <div class="success-message">
             {{ successMessage }}
           </div>
@@ -66,40 +79,31 @@
 <script>
 import { ReportApiService } from "../../services/reportapi.service.js";
 import CitizenToolbar from "../../components/toolbar/toolbarCitizen.component.vue";
-import {nextTick} from "vue";
+import CloudinaryService from "../../services/cloudinary.service.js";
+import { nextTick } from "vue";
+import mapboxgl from "mapbox-gl";
+import {LocationApiService} from "../../services/locationapi.service.js";
 
 export default {
-  components: {
-    CitizenToolbar
-  },
+  components: { CitizenToolbar },
   name: "report-component",
   data() {
     return {
       reportData: {
+        title: "",
+        detail: "",
         type: "",
-        date: "",
-        time: "",
-        district: "",
-        location: "",
-        description: "",
-        urlEvidence: "https://example.com/placeholder.jpg",
-        citizenId: null
+        user_id: 0,
+        image: "",
+        address: ""
       },
       api: new ReportApiService(),
+      locationApi: new LocationApiService(),
       successMessage: "",
       showSuccessMessage: false,
       map: null,
       marker: null,
-      districts: [
-        "Ancón", "Ate", "Barranco", "Breña", "Carabayllo", "Cercado de Lima", "Chaclacayo",
-        "Chorrillos", "Cieneguilla", "Comas", "El Agustino", "Independencia", "Jesús María",
-        "La Molina", "La Victoria", "Lince", "Los Olivos", "Lurigancho", "Lurín", "Magdalena del Mar",
-        "Miraflores", "Pachacámac", "Pucusana", "Pueblo Libre", "Puente Piedra", "Punta Hermosa",
-        "Punta Negra", "Rímac", "San Bartolo", "San Borja", "San Isidro", "San Juan de Lurigancho",
-        "San Juan de Miraflores", "San Luis", "San Martín de Porres", "San Miguel", "Santa Anita",
-        "Santa María del Mar", "Santa Rosa", "Santiago de Surco", "Surquillo", "Villa el Salvador",
-        "Villa María del Triunfo"
-      ]
+      coordinates: { lat: null, lng: null }
     };
   },
   mounted() {
@@ -109,97 +113,124 @@ export default {
   },
   methods: {
     async createReport() {
-      const citizen = JSON.parse(localStorage.getItem('citizen'));
-      this.reportData.citizenId = citizen?.id || 0;
-
-        this.reportData.urlEvidence = "https://example.com/placeholder.jpg";
-
-      if (
-          !this.reportData.location ||
-          !this.reportData.district ||
-          this.reportData.district === "Desconocido"
-      ) {
-        alert("Por favor, asegúrate de seleccionar una ubicación válida en el mapa.");
-        return;
-      }
-
+      this.reportData.user_id = parseInt(localStorage.getItem("userId")) || 0;
+      if (!this.reportData.image) return alert("Por favor, sube una imagen como evidencia.");
+      if (!this.reportData.address) return alert("Por favor, selecciona una ubicación válida en el mapa.");
+      this.reportData.address = this.reportData.address.replace(/,/g, '');
 
       try {
-        console.log("Datos a enviar:", JSON.stringify(this.reportData, null, 2));
-        this.reportData.date = new Date(this.reportData.date).toISOString().slice(0, 10);
-        this.reportData.time = this.reportData.time.padStart(5, '0');
+        const reportResponse = await this.api.create(this.reportData);
+        const reportId = reportResponse?.data?.id;
 
-        await this.api.create(this.reportData);
-        this.successMessage = "Report created successfully";
+        if (!reportId) throw new Error("No se recibió el ID del reporte.");
+
+        // Crear la ubicación asociada
+        console.log("Creando ubicación con:", {
+          latitude: this.coordinates.lat,
+          longitude: this.coordinates.lng,
+          idReport: reportId
+        });
+        await this.locationApi.createLocation({
+          latitude: this.coordinates.lat,
+          longitude: this.coordinates.lng,
+          idReport: reportId
+        });
+
+        this.successMessage = "Reporte creado exitosamente";
         this.showSuccessMessage = true;
-
         setTimeout(() => {
           this.showSuccessMessage = false;
-          this.$router.push({ name: 'reports' });
+          this.$router.push({ name: "reports" });
         }, 3000);
       } catch (error) {
-        console.error("Error creating report:", error);
+        console.error("Error al crear el reporte o la ubicación:", error);
       }
     },
 
-    handleFileUpload(event) {
-
+    async handleFileUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      try {
+        const { secure_url } = await CloudinaryService.uploadImage(file);
+        this.reportData.image = secure_url;
+      } catch (error) {
+        console.error("Fallo al subir imagen:", error);
+        alert("Error al subir la imagen. Intenta nuevamente.");
+      }
     },
 
     initMap() {
-      const defaultLocation = { lat: -12.0464, lng: -77.0428 }; // Lima
+      mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
 
-      this.map = new google.maps.Map(document.getElementById('report-map'), {
-        center: defaultLocation,
-        zoom: 12,
-        disableDefaultUI: true,
+      const storedLat = localStorage.getItem("userLat");
+      const storedLng = localStorage.getItem("userLng");
+
+      let userLocation;
+
+      if (storedLat && storedLng) {
+        // Usar ubicación almacenada
+        userLocation = [parseFloat(storedLng), parseFloat(storedLat)];
+        this.setupMap(userLocation);
+      } else {
+        // Obtener ubicación del navegador
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+              const lat = position.coords.latitude;
+              const lng = position.coords.longitude;
+
+              // Guardar en localStorage
+              localStorage.setItem("userLat", lat);
+              localStorage.setItem("userLng", lng);
+
+              userLocation = [lng, lat];
+              this.setupMap(userLocation);
+            },
+            (error) => {
+              console.error("No se pudo obtener la ubicación:", error);
+              const fallback = [-77.0428, -12.0464];
+              this.setupMap(fallback);
+            }
+        );
+      }
+    },
+    setupMap(centerCoords) {
+      this.map = new mapboxgl.Map({
+        container: "report-map",
+        style: "mapbox://styles/mapbox/streets-v11",
+        center: centerCoords,
+        zoom: 14,
+        attributionControl: false
       });
 
-      this.marker = new google.maps.Marker({
-        position: defaultLocation,
-        map: this.map,
-        draggable: true,
-      });
+      this.updateAddress(centerCoords);
 
-      this.reportData.location = `${defaultLocation.lat}, ${defaultLocation.lng}`;
-      this.updateDistrictFromCoords(defaultLocation);
-
-      this.marker.addListener("dragend", () => {
-        const pos = this.marker.getPosition();
-        const latlng = { lat: pos.lat(), lng: pos.lng() };
-
-        this.reportData.location = `${latlng.lat.toFixed(6)}, ${latlng.lng.toFixed(6)}`;
-        this.updateDistrictFromCoords(latlng);
+      this.map.on("moveend", () => {
+        const center = this.map.getCenter();
+        this.updateAddress([center.lng, center.lat]);
       });
     },
 
-    updateDistrictFromCoords(latlng) {
-      const geocoder = new google.maps.Geocoder();
-
-      geocoder.geocode({ location: latlng }, (results, status) => {
-        if (status === "OK" && results.length > 0) {
-          const addressComponents = results[0].address_components;
-          const component = addressComponents.find(c =>
-              c.types.includes("locality") ||
-              c.types.includes("sublocality") ||
-              c.types.includes("administrative_area_level_2")
-          );
-
-          if (component && typeof component.long_name === "string") {
-            this.reportData.district = component.long_name;
-          } else {
-            this.reportData.district = "Desconocido";
-          }
-        } else {
-          console.error("Geocoding failed:", status);
-          this.reportData.district = "Desconocido";
-        }
-      });
+    async updateAddress([lng, lat]) {
+      try {
+        const response = await fetch(
+            `https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?access_token=${import.meta.env.VITE_MAPBOX_ACCESS_TOKEN}`
+        );
+        const data = await response.json();
+        const place = data.features[0]?.place_name || `${lat}, ${lng}`;
+        this.reportData.address = place;
+        this.coordinates = { lat, lng };
+      } catch (error) {
+        console.error("Reverse geocoding failed:", error);
+        this.reportData.address = `${lat}, ${lng}`;
+        this.coordinates = { lat, lng };
+      }
     }
   }
-
 };
 </script>
+
+
+
 <style scoped>
 .map-image {
   width: 100%;
@@ -230,9 +261,55 @@ export default {
 .column-half:last-child{
   margin-left: 20px;
 }
+#report-map {
+  position: relative;
+}
+
+#center-pin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  width: 36px;
+  height: 36px;
+  background-image: url('../../assets/pin.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  z-index: 5;
+  pointer-events: none;
+}
+
+
 .column-half input,
 .column-half select{
   width:100%;
+}
+
+.description-area {
+  max-width: 100%;
+  width: 100%;
+  min-height: 100px;
+  max-height: 200px;
+  padding: 0.8em;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: clamp(12px, 1.2vw, 16px);
+  resize: vertical; /* Allows resizing only vertically */
+  box-sizing: border-box;
+  overflow-y: auto;
+  word-break: break-word;
+}
+.preview-img {
+  width: 100px;
+  height: 100px;
+  margin-top: 10px;
+  border-radius: 10px;
+  object-fit: cover;
+  display: block;
+}
+.image-container {
+  display: flex;
+  justify-content: center;
 }
 .evidence-container {
   display: flex;
