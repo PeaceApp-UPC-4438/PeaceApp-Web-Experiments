@@ -50,4 +50,14 @@ export class authUserService {
             return error.response;
         }
     }
+    async changePassword(data) {
+        try {
+            return await axios.put(`${this.baseUrl}/authentication/change-password`, data, {
+                headers: this.getAuthHeaders()
+            });
+        } catch (e) {
+            console.error('Error changing password', e);
+            return e.response;
+        }
+    }
 }
