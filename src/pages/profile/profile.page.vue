@@ -1,19 +1,19 @@
 <script>
 import ToolbarCitizen from "../../components/toolbar/toolbarCitizen.component.vue";
-import CitizenProfilePage from "../../components/profile/citizen/user-profile.page.vue";
-import { CitizenApiService } from "../../services/citizenapi.service.js";
+import UserProfilePage from "../../components/profile/citizen/user-profile.page.vue";
+import { UserApiService } from "../../services/userapi.service.js";
 
 export default {
   name: "ProfilePage",
   components: {
     ToolbarCitizen,
-    CitizenProfilePage,
+    UserProfilePage,
   },
   data() {
     return {
       userEmail: '',
       userInfo: {},
-      citizenService: new CitizenApiService(),
+      userService: new UserApiService(),
     };
   },
   methods: {
@@ -25,26 +25,21 @@ export default {
       });
     },
 
-    fetchUserInfo() {
+    async fetchUserInfo() {
       if (!this.userEmail) {
         console.warn("No user email found.");
         return;
       }
 
-      console.log("Buscando citizen con email:", this.userEmail);
-
-      this.citizenService.getCitizenByEmail(this.userEmail)
-          .then((response) => {
-            if (Array.isArray(response?.data)) {
-              this.userInfo = response.data.find(c => c.email === this.userEmail);
-            } else {
-              this.userInfo = response.data;
-            }
-
-            localStorage.setItem('citizen', JSON.stringify(this.userInfo));
-            console.log("Citizen info:", this.userInfo);
-          })
-          .catch(console.error);
+      try {
+        console.log("Buscando usuario con email:", this.userEmail);
+        const response = await this.userService.getUserByEmail(this.userEmail);
+        this.userInfo = response.data || {};
+        localStorage.setItem('userInfo', JSON.stringify(this.userInfo));
+        console.log("User info:", this.userInfo);
+      } catch (error) {
+        console.error("Error fetching user info:", error);
+      }
     }
   },
   created() {
@@ -57,9 +52,9 @@ export default {
 <template>
   <div class="container">
     <ToolbarCitizen />
-    <CitizenProfilePage
+    <UserProfilePage
         v-if="userInfo && Object.keys(userInfo).length"
-        :citizen="userInfo"
+        :user="userInfo"
     />
     <p v-else style="color: gray; text-align: center;">Cargando perfil...</p>
   </div>
@@ -88,5 +83,4 @@ button {
   width: 100%;
   box-sizing: border-box;
 }
-
 </style>
