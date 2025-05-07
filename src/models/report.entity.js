@@ -1,13 +1,12 @@
 export class Report {
 
-    constructor(type="", date="", time="", district="", location="",description="", urlEvidence="https://picsum.photos/1600/900", user=user) {
+    constructor(title = "", detail = "", type = "", user_id = 0, image = "https://picsum.photos/1600/900", address = "") {
+        this.title = title;
+        this.detail = detail;
         this.type = type;
-        this.date = date;
-        this.time = time;
-        this.district = district;
-        this.location = location;
-        this.description = description;
-        this.user = user;
+        this.user_id = user_id;
+        this.image = image;
+        this.address = address;
     }
 
 }

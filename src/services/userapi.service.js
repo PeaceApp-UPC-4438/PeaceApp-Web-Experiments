@@ -8,32 +8,76 @@ export class UserApiService {
         this.baseUrl = environment.baseUrl;
     }
 
+    getAuthHeaders() {
+        const token = localStorage.getItem('authToken');
+        return {
+            Authorization: `Bearer ${token}`
+        };
+    }
+
     async getAllUsers() {
         try {
-            const token = localStorage.getItem('authToken');
             return await axios.get(`${this.baseUrl}/users`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
+                headers: this.getAuthHeaders()
             });
         } catch (e) {
-            console.error('Error to obtain users', e);
+            console.error('Error getting users', e);
+            return e.response;
+        }
+    }
+
+    async getUserByEmail(email) {
+        try {
+            return await axios.get(`${this.baseUrl}/users/${email}`, {
+                headers: this.getAuthHeaders()
+            });
+        } catch (e) {
+            console.error('Error getting user by email', e);
             return e.response;
         }
     }
 
     async createUser(data) {
         try {
-            const token = localStorage.getItem('authToken');
             return await axios.post(`${this.baseUrl}/users`, data, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
+                headers: this.getAuthHeaders()
             });
         } catch (e) {
-            console.error('Error creating a user', e);
+            console.error('Error creating user', e);
             return e.response;
         }
     }
 
+    async updateUser(id, data) {
+        try {
+            return await axios.put(`${this.baseUrl}/users/${id}`, data, {
+                headers: this.getAuthHeaders()
+            });
+        } catch (e) {
+            console.error('Error updating user', e);
+            return e.response;
+        }
+    }
+
+    async deleteUser(id) {
+        try {
+            return await axios.delete(`${this.baseUrl}/users/${id}`, {
+                headers: this.getAuthHeaders()
+            });
+        } catch (e) {
+            console.error('Error deleting user', e);
+            return e.response;
+        }
+    }
+
+    async changeUserPassword(id, data) {
+        try {
+            return await axios.put(`${this.baseUrl}/users/change-password/${id}`, data, {
+                headers: this.getAuthHeaders()
+            });
+        } catch (e) {
+            console.error('Error changing user password', e);
+            return e.response;
+        }
+    }
 }

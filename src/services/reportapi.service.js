@@ -1,44 +1,54 @@
 import axios from "axios";
-import { environment } from "../environments/environment.js";
+import {environment} from "../environments/environment.js";
 
 export class ReportApiService {
-    baseUrl = "";
-
     constructor() {
         this.baseUrl = environment.baseUrl;
     }
 
-    async getAll() {
-        let response = null;
-        const token = localStorage.getItem('authToken');
-
-        try {
-            response = await axios.get(`${this.baseUrl}/reports`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
-        } catch (e) {
-            console.error('Error to obtain reports', e);
-        }
-
-        return response;
+    // Reusable headers with auth token
+    getAuthHeaders() {
+        const token = localStorage.getItem("authToken");
+        return {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json"
+        };
     }
 
-    async create(data) {
-        let response = null;
-        const token = localStorage.getItem('authToken');
 
+    // GET reports by user ID
+    async getByUserId(userId) {
         try {
-            response = await axios.post(`${this.baseUrl}/reports`, data, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
+            return await axios.get(`${this.baseUrl}/reports/user/${userId}`, {
+                headers: this.getAuthHeaders()
             });
-        } catch (e) {
-            console.error('Error creating a report', e);
+        } catch (error) {
+            console.error("Error fetching reports by user ID", error);
+            return error.response;
         }
+    }
 
-        return response;
+    // GET all reports
+    async getAll() {
+        try {
+            return await axios.get(`${this.baseUrl}/reports/`, {
+                headers: this.getAuthHeaders()
+            });
+        } catch (error) {
+            console.error("Error fetching all reports", error);
+            return error.response;
+        }
+    }
+
+    // POST create a new report
+    async create(data) {
+        try {
+            return await axios.post(`${this.baseUrl}/reports/`, data, {
+                headers: this.getAuthHeaders()
+            });
+        } catch (error) {
+            console.error("Error creating report", error);
+            return error.response;
+        }
     }
 }
