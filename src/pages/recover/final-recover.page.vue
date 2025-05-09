@@ -101,7 +101,7 @@ export default {
             :placeholder="$t('main.recover.confirmPassword')"
         />
         <button :disabled="!canSubmit" @click="submitPasswordChange">
-          {{ loading ? $t('main.recover.loading') : $t('main.recover.submit') }}
+          {{ $t('main.recover.submit') }}
         </button>
 
         <p v-if="error" class="error">{{ error }}</p>
