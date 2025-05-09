@@ -60,6 +60,7 @@
 <script>
 import { UserApiService } from '../../../services/userapi.service.js';
 import CloudinaryService from '../../../services/cloudinary.service.js';
+import { authUserService } from '../../../services/authuser.service.js';
 
 export default {
   props: {
@@ -74,7 +75,8 @@ export default {
       phonenumber: this.user.phonenumber || '',
       profileImage: this.user.profile_image || '',
       showPassword: false,
-      userService: new UserApiService()
+      userService: new UserApiService(),
+      authService: new authUserService()
     };
   },
   methods: {
@@ -85,39 +87,71 @@ export default {
       try {
         const { secure_url } = await CloudinaryService.uploadImage(file);
         this.profileImage = secure_url;
-        console.log('Image uploaded:', secure_url);
       } catch (error) {
         console.error('Image upload failed:', error);
-        alert('Image upload failed. Please check your Cloudinary preset and try again.');
+        alert('Image upload failed.');
       }
     },
 
     async updateProfile() {
+      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+      const phoneRegex = /^\d{9}$/;
+
+      if (!passwordRegex.test(this.password)) {
+        alert("Password must be at least 8 characters long, include uppercase, lowercase, number, and special character.");
+        return;
+      }
+
+      if (!phoneRegex.test(this.phonenumber)) {
+        alert("Phone number must be exactly 9 digits.");
+        return;
+      }
+
       try {
-        await this.userService.updateUser(this.user.id, {
+        const authResponse = await this.authService.changePassword({
+          username: this.email,
+          password: this.password
+        });
+
+        if (authResponse.status !== 202) {
+          throw new Error('Auth password update failed');
+        }
+
+        const profileUpdate = await this.userService.updateUser(this.user.id, {
           name: this.name,
           lastname: this.lastname,
           email: this.email,
-          password: this.password,
           phonenumber: this.phonenumber,
           profile_image: this.profileImage
         });
+
+        if (![200, 202].includes(profileUpdate.status)) {
+          throw new Error('User profile update failed');
+        }
+
+        const passwordUpdate = await this.userService.changeUserPassword(this.user.id, {
+          password: this.password
+        });
+
+        if (![200, 202].includes(passwordUpdate.status)) {
+          throw new Error('User password update failed');
+        }
+
         this.closePopup();
         window.location.reload();
       } catch (error) {
         console.error('Update failed:', error);
-        alert('There was an issue updating your profile.');
+        alert('Error updating profile.');
       }
     },
 
     closePopup() {
       this.$emit('close');
-    },
-  },
+    }
+  }
 };
+
 </script>
-
-
 
 <style scoped>
 .popup {
@@ -208,99 +242,6 @@ button:hover {
   button {
     width: 100%;
   }
-  .preview-img {
-    width: 80px;
-    height: 80px;
-  }
-}
-</style>
-
-
-<style scoped>
-.popup {
-  background-color: #55B0DB;
-  border-radius: 10px;
-  padding: 20px;
-  width: 90%;
-  max-width: 600px;
-  max-height: 90vh;
-  overflow-y: auto;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  margin: auto;
-}
-
-.flex {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-.input-style {
-  flex: 1;
-  padding: 8px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-.preview-img {
-  width: 100px;
-  height: 100px;
-  margin-top: 10px;
-  border-radius: 50%;
-  object-fit: cover;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.image-container {
-  display: flex;
-  justify-content: center;
-}
-
-.buttons {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-button {
-  padding: 10px;
-  flex: 1;
-  border: none;
-  border-radius: 5px;
-  background-color: #fff;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-button:hover {
-  background-color: #eee;
-}
-
-/* Responsive styles */
-@media (max-width: 768px) {
-  .popup {
-    width: 95%;
-    padding: 15px;
-  }
-
-  .flex {
-    flex-direction: column;
-  }
-
-  .buttons {
-    flex-direction: column;
-  }
-
-  .input-style,
-  button {
-    width: 100%;
-  }
-
   .preview-img {
     width: 80px;
     height: 80px;
