@@ -18,8 +18,17 @@
       "back": "Regresar",
       "message": "Si usted ha olvidado su contraseña, por favor ingrese su correo registrado. Al momento de confirmar su cuenta, le enviaremos un enlace para que pueda reestablecer su contraseña.",
       "know": "¿Conoce su contraseña?",
-      "send": "Enviar código",
-      "alert": "Debes enviar un correo valido"
+      "send": "Aceptar",
+      "alert": "Debes enviar un correo valido",
+      "changePasswordTitle": "Cambiar contraseña",
+      "newPassword": "Nueva contraseña",
+      "confirmPassword": "Confirmar contraseña",
+      "submit": "Guardar",
+      "success": "¡Contraseña cambiada con éxito!",
+      "error": "No se pudo cambiar la contraseña. Inténtalo más tarde.",
+      "required": "Todos los campos son obligatorios.",
+      "mismatch": "Las contraseñas no coinciden.",
+      "missingEmail": "No se encontró el correo o la sesión activa."
     }
   },
   "userForm": {

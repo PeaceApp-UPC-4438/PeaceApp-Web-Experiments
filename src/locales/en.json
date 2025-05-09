@@ -18,8 +18,17 @@
       "back": "Go Back",
       "message": "If you have forgotten your password, please enter your registered email. Upon confirming your account, we will send you a link to reset your password.",
       "know": "Know your password? ",
-      "send": "Send code",
-      "alert": "You must send a valid email"
+      "send": "Accept",
+      "alert": "You must send a valid email",
+      "changePasswordTitle": "Change Password",
+      "newPassword": "New Password",
+      "confirmPassword": "Confirm Password",
+      "submit": "Save",
+      "success": "Password changed successfully!",
+      "error": "Could not change the password. Please try again later.",
+      "required": "All fields are required.",
+      "mismatch": "Passwords do not match.",
+      "missingEmail": "Email or active session not found."
     }
   },
   "userForm": {

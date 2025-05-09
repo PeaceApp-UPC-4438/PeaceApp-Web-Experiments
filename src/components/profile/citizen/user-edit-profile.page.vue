@@ -52,7 +52,6 @@
       <div class="buttons">
         <button type="submit">Save Changes</button>
         <button type="button" @click="closePopup">Cancel</button>
-        <button type="button" @click="deleteAccount">Delete Account</button>
       </div>
     </form>
   </div>
@@ -108,20 +107,6 @@ export default {
       } catch (error) {
         console.error('Update failed:', error);
         alert('There was an issue updating your profile.');
-      }
-    },
-
-    async deleteAccount() {
-      const confirmDelete = confirm(this.$t('userEdit.confirmDelete'));
-      if (!confirmDelete) return;
-
-      try {
-        await this.userService.deleteUser(this.user.id);
-        localStorage.clear();
-        this.$router.push('/login');
-      } catch (error) {
-        console.error('Error deleting account:', error);
-        alert('There was an issue deleting your account.');
       }
     },
 

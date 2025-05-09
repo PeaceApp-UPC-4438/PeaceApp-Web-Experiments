@@ -72,12 +72,17 @@ export class UserApiService {
 
     async changeUserPassword(id, data) {
         try {
+            const token = localStorage.getItem('authToken');
             return await axios.put(`${this.baseUrl}/users/change-password/${id}`, data, {
-                headers: this.getAuthHeaders()
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
             });
         } catch (e) {
             console.error('Error changing user password', e);
             return e.response;
         }
     }
+
 }

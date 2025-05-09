@@ -1,7 +1,6 @@
 <script>
-import { authUserService } from '../../services/authuser.service.js'
-import { UserApiService } from '../../services/userapi.service.js'
-import user from "primevue/menu";
+import { authUserService } from "../../services/authuser.service.js";
+import { UserApiService } from "../../services/userapi.service.js";
 
 export default {
   data() {
@@ -17,36 +16,70 @@ export default {
         phonenumber: '',
         profileImage: 'https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg'
       },
-      error: null
+      error: null,
+      success: null
     };
   },
   methods: {
+    validateInputs() {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const phoneRegex = /^\d{9}$/;
+      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+
+      if (!emailRegex.test(this.formData.email)) {
+        this.error = "Invalid email format.";
+        return false;
+      }
+      if (!phoneRegex.test(this.formData.phonenumber)) {
+        this.error = "Phone number must be exactly 9 digits.";
+        return false;
+      }
+      if (!passwordRegex.test(this.formData.password)) {
+        this.error =
+            "Password must be at least 8 characters, with uppercase, lowercase, number, and special character.";
+        return false;
+      }
+      if (this.formData.password !== this.confirmPassword) {
+        this.error = "Passwords do not match.";
+        return false;
+      }
+      return true;
+    },
+
     async createUser() {
+      this.error = null;
+      this.success = null;
+
+      if (!this.validateInputs()) return;
+
       try {
-        if (this.formData.password !== this.confirmPassword) {
-          this.error = "Passwords do not match.";
-          return;
-        }
         const signUpData = {
           username: this.formData.email,
           password: this.formData.password,
-          role: 'ROLE_USER'
+          role: "ROLE_USER"
         };
-        const userResponse = await this.authService.signUp(signUpData);
-        console.log("User created:", userResponse);
-        console.log("User created:", this.formData.profileImage);
-        // Login
-        const loginResponse = await this.authService.signInUser(this.formData.email, this.formData.password);
-        let userId = null;
 
-        if (loginResponse.status === 200) {
-          const user = loginResponse.data;
-          localStorage.setItem('userEmail', user.username);
-          localStorage.setItem('userRole', 'ROLE_USER');
-          localStorage.setItem('authToken', user.token);
-          localStorage.setItem('userId', user.id);
-          userId = user.id;
+        const signUpResponse = await this.authService.signUp(signUpData);
+        if (![200, 201].includes(signUpResponse.status)) {
+          this.error = "Failed to create account.";
+          return;
         }
+
+        const loginResponse = await this.authService.signInUser(
+            this.formData.email,
+            this.formData.password
+        );
+
+        if (loginResponse.status !== 200) {
+          this.error = "Login failed after registration.";
+          return;
+        }
+
+        const user = loginResponse.data;
+        localStorage.setItem("userEmail", user.username);
+        localStorage.setItem("userRole", "ROLE_USER");
+        localStorage.setItem("authToken", user.token);
+        localStorage.setItem("userId", user.id);
 
         const userData = {
           name: this.formData.name,
@@ -54,71 +87,87 @@ export default {
           email: this.formData.email,
           password: this.formData.password,
           phonenumber: this.formData.phonenumber,
-          user_id: userId,
+          user_id: user.id,
           profile_image: this.formData.profileImage
         };
 
-        const response = await this.userApiService.createUser(userData);
-        console.log("Full user profile saved:", response);
-
-        setTimeout(() => {
-          this.$router.push({ path: '/profile' });
-        }, 3000);
-
+        const profileResponse = await this.userApiService.createUser(userData);
+        if ([200, 201].includes(profileResponse.status)) {
+          this.success = "Account created successfully!";
+          setTimeout(() => this.$router.push({ path: "/profile" }), 3000);
+        } else {
+          this.error = "Failed to save user profile.";
+        }
       } catch (error) {
-        console.error("Error creating user:", error);
-        this.error = error?.response?.data?.message || "Registration error.";
+        console.error("Registration error:", error);
+        this.error = error?.response?.data?.message || "Unexpected error occurred.";
       }
     },
 
     async submit() {
-      this.error = null;
-
-      // Obtener ubicación antes de crear usuario
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
-            (position) => {
-              localStorage.setItem("userLat", position.coords.latitude);
-              localStorage.setItem("userLng", position.coords.longitude);
-              this.createUser(); // continúa con el registro
+            (pos) => {
+              localStorage.setItem("userLat", pos.coords.latitude);
+              localStorage.setItem("userLng", pos.coords.longitude);
+              this.createUser();
             },
-            (err) => {
-              console.warn("No se pudo obtener ubicación:", err);
-              this.createUser(); // igual continúa sin ubicación
+            () => {
+              this.createUser(); // Continúa sin ubicación
             }
         );
       } else {
-        console.warn("Geolocalización no disponible.");
-        await this.createUser();
+        this.createUser();
+      }
+    },
+
+    restrictToDigits(event) {
+      const key = event.key;
+      if (!/^\d$/.test(key)) {
+        event.preventDefault();
       }
     }
-
   }
-}
+};
 </script>
 
 <template>
   <form class="form" @submit.prevent="submit()">
     <p class="message">{{ $t('userForm.message') }}</p>
+
     <div class="flex">
-      <input :placeholder="$t('userForm.firstname')" class="input-style" type="text" required v-model="formData.name">
-      <input :placeholder="$t('userForm.lastname')" class="input-style" type="text" required v-model="formData.lastname">
+      <input :placeholder="$t('userForm.firstname')" class="input-style" type="text" required v-model="formData.name" />
+      <input :placeholder="$t('userForm.lastname')" class="input-style" type="text" required v-model="formData.lastname" />
     </div>
+
     <div class="flex">
-      <input :placeholder="$t('userForm.email')" class="input-style" type="email" required v-model="formData.email">
-      <input :placeholder="$t('userForm.phone')" class="input-style" type="text" required v-model="formData.phonenumber">
+      <input :placeholder="$t('userForm.email')" class="input-style" type="email" required v-model="formData.email" />
+      <input
+          :placeholder="$t('userForm.phone')"
+          class="input-style"
+          type="text"
+          required
+          maxlength="9"
+          @keypress="restrictToDigits"
+          v-model="formData.phonenumber"
+      />
     </div>
+
     <div class="flex">
-      <input :placeholder="$t('userForm.password')" class="input-style" type="password" required v-model="formData.password">
-      <input :placeholder="$t('userForm.confirm_password')" class="input-style" type="password" required v-model="confirmPassword">
+      <input :placeholder="$t('userForm.password')" class="input-style" type="password" required v-model="formData.password" />
+      <input :placeholder="$t('userForm.confirm_password')" class="input-style" type="password" required v-model="confirmPassword" />
     </div>
+
     <label class="material-checkbox">
-      <input type="checkbox" required>
+      <input type="checkbox" required />
       <span class="checkmark"></span>
       {{ $t('userForm.terms') }}
     </label>
+
     <button type="submit">{{ $t('userForm.submit') }}</button>
+
     <p v-if="error" class="error">{{ error }}</p>
+    <p v-if="success" class="success">{{ success }}</p>
   </form>
 </template>
 

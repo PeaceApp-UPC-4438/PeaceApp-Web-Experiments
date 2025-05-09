@@ -36,28 +36,19 @@ export class authUserService {
             return error.response;
         }
     }
-
-    async getUsers() {
-        const token = localStorage.getItem('authToken');
+    async changePassword(data) {
         try {
-            return await this.http.get('/users', {
+            const token = localStorage.getItem('authToken'); // <- necesario
+            return await this.http.put('/authentication/change-password', data, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
-            });
-        } catch (error) {
-            console.error("Error getting users", error);
-            return error.response;
-        }
-    }
-    async changePassword(data) {
-        try {
-            return await axios.put(`${this.baseUrl}/authentication/change-password`, data, {
-                headers: this.getAuthHeaders()
             });
         } catch (e) {
             console.error('Error changing password', e);
             return e.response;
         }
     }
+
+
 }

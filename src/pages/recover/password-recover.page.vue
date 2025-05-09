@@ -1,26 +1,51 @@
 <script>
+import { authUserService } from '../../services/authuser.service.js';
+import { UserApiService } from "../../services/userapi.service";
+
 export default {
   data() {
     return {
-      email: ''
-    }
+      email: '',
+      userApi: new UserApiService(),
+      authService: new authUserService()
+    };
   },
   methods: {
     redirectLanding() {
       const Link = 'https://g2webapplication-wx54.github.io/landing-page-web-app/';
       window.location.href = Link;
     },
-    validateAndRedirect() {
+
+    async validateAndRedirect() {
       if (this.email.trim() === '') {
-        alert(this.$t('main.recover.alert')); // Puedes definir esta clave en tu archivo de traducción
+        alert(this.$t('main.recover.alert')); // "Por favor, ingresa tu correo."
         return;
       }
-      this.$router.push('/recover');
+
+      try {
+        const dummyPassword = 'owo'; // HOLY FUCK
+        const loginResponse = await this.authService.signInUser(this.email, dummyPassword);
+
+        if (loginResponse.status === 200 && loginResponse.data) {
+          const user = loginResponse.data;
+
+
+          localStorage.setItem("recoveryEmail", user.username); // Asumiendo que username === email
+
+          // Redirigimos a pantalla de recuperación
+          this.$router.push('/recover');
+        } else {
+          alert(this.$t('main.recover.notFound')); // "Correo no registrado."
+        }
+      } catch (error) {
+        console.error('Error during dummy login', error);
+        alert(this.$t('main.recover.notFound')); // "Correo no registrado."
+      }
     }
   }
-}
-</script>
+};
 
+</script>
 
 <template>
   <div class="padre">
@@ -28,12 +53,18 @@ export default {
       <div class="box1">
         <img class="logo" src="/src/assets/PeaceApp.png" alt="logo" />
         <h2 class="info">{{ $t('main.title') }}</h2>
-        <button class="butInfo" @click="redirectLanding">{{$t('main.buttonInfo')}}</button>
+        <button class="butInfo" @click="redirectLanding">{{ $t('main.buttonInfo') }}</button>
       </div>
       <div class="box2">
-        <h3>{{$t('main.recover.message')}}</h3>
+        <h3>{{ $t('main.recover.message') }}</h3>
         <div class="input-container">
-          <input :placeholder="$t('main.email')" class="input-style" type="text" id="input" v-model="email" required />
+          <input
+              :placeholder="$t('main.email')"
+              class="input-style"
+              type="email"
+              v-model="email"
+              required
+          />
         </div>
         <div class="bts">
           <button @click="validateAndRedirect">{{ $t('main.recover.send') }}</button>
@@ -46,11 +77,13 @@ export default {
   </div>
 </template>
 
+
 <style scoped>
-.padre{
+.padre {
   padding: 20vh 10vw 0 10vw;
 }
-.logo{
+
+.logo {
   width: 50%;
 }
 
@@ -63,24 +96,28 @@ button {
   padding: 0.5em 1em;
   margin: 0.5em;
   cursor: pointer;
-  font-size: 20px;
-  height: 10%;
-  width: 50%;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
 }
+
 button:hover {
   background-color: #A1B9C6;
 }
-.box2{
+
+.box2 {
   background-color: #55B0DB;
   font-size: 0.9rem;
+  border-radius: 2%;
 }
 
-.info{
+.info {
   padding: 50px;
 }
+
 .container {
   display: flex;
   align-items: center;
+  justify-content: center;
   font-family: 'Montserrat', sans-serif;
   color: black;
   flex-wrap: wrap;
@@ -90,35 +127,70 @@ button:hover {
   width: fit-content;
 }
 
-.box1, .box2 {
+.box1,
+.box2 {
   flex: 1;
   padding: 20px;
   margin: 10px;
-  border-radius: 2%;
   height: fit-content;
+}
+
+.input-container {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.input-style {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.bts {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.bts button {
+  width: 180px;
+  height: 45px;
+  font-size: 16px;
 }
 
 @media screen and (max-width: 1000px) {
   .container {
-    display: inline-block;
+    display: block;
     padding: 15vw 0 0 0;
     width: 100%;
   }
-  .box1, .box2 {
+
+  .box1,
+  .box2 {
     width: 95%;
     padding: 5px;
   }
+
   .input-container {
-    width: 80%;
+    width: 90%;
+    margin: auto;
   }
-  .padre{
+
+  .padre {
     padding: 0;
   }
-  .bts{
-    display: flex;
+
+  .bts {
     flex-direction: column;
   }
-  .logo{
+
+  .logo {
     width: 100%;
     margin: 0 auto;
   }
