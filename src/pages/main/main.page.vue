@@ -20,7 +20,7 @@ export default {
   methods: {
     // Redirects the user to the landing page
     redirectLanding() {
-      window.location.href = 'https://g2webapplication-wx54.github.io/landing-page-web-app/';
+      window.location.href = 'https://peaceapp-landing-page.netlify.app';
     },
 
     // Handles user authentication using provided credentials
