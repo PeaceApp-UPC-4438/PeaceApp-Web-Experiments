@@ -153,5 +153,11 @@
     },
     "edit": "Edit Profile",
     "logout": "Log out"
-  }
+  },
+    "footer": {
+        "terms": "Terms and Conditions",
+        "questions": "Frequent Questions",
+        "contact": "Contact Us",
+        "about": "About Us"
+    }
 }

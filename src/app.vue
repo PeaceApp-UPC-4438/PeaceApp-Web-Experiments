@@ -125,7 +125,7 @@ export default {
     <!-- Modales -->
     <div v-if="activeModal === 'faq'" class="modal-overlay" @click.self="closeModal">
       <div class="modal-content">
-        <h2>Preguntas Frecuentes</h2>
+        <h2>{{$t('footer.questions')}}</h2>
         <div v-for="(item, index) in faqContent" :key="index" class="faq-item">
           <h3>{{ item.question }}</h3>
           <p>{{ item.answer }}</p>
@@ -136,7 +136,7 @@ export default {
 
     <div v-if="activeModal === 'terms'" class="modal-overlay" @click.self="closeModal">
       <div class="modal-content">
-        <h2>Términos y Condiciones</h2>
+        <h2>{{$t('footer.terms')}}</h2>
 
         <div v-for="(section, index) in termsContent" :key="index" class="terms-section">
           <h3>{{ section.title }}</h3>
@@ -154,9 +154,9 @@ export default {
 
     <footer class="footer">
       <div class="footer-links">
-        <span @click="showModal('faq')">Preguntas frecuentes</span>
+        <span @click="showModal('faq')">{{$t('footer.questions')}}</span>
         <span class="separator">|</span>
-        <span @click="showModal('terms')">Términos y condiciones</span>
+        <span @click="showModal('terms')">{{$t('footer.terms')}}</span>
       </div>
       <div class="language-section">
         <select v-model="$i18n.locale" @change="changeLanguage($event)" class="locale-select" v-show="showSelect"
