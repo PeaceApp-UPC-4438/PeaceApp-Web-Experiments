@@ -113,7 +113,7 @@ export default {
               this.createUser();
             },
             () => {
-              this.createUser(); // Continúa sin ubicación
+              this.createUser();
             }
         );
       } else {
@@ -161,7 +161,7 @@ export default {
     <label class="material-checkbox">
       <input type="checkbox" required />
       <span class="checkmark"></span>
-      {{ $t('userForm.terms') }}
+      {{ $t('userForm.term') }}
     </label>
 
     <button type="submit">{{ $t('userForm.submit') }}</button>

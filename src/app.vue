@@ -1,5 +1,5 @@
 <script>
-import {authUserService} from "./services/authuser.service.js";
+import { authUserService } from "./services/authuser.service.js";
 
 export default {
   data() {
@@ -8,94 +8,102 @@ export default {
       userService: new authUserService(),
       userEmail: '',
       userRole: '',
-      locales: [
-        { code: 'en', name: '🇺🇸 English', flag: 'us' },
-        { code: 'es', name: '🇪🇸 Español', flag: 'es' }
-      ],
+      locales: [{ code: 'en', name: '🇺🇸 English', flag: 'us' },
+        { code: 'es', name: '🇪🇸 Spanish', flag: 'es' }],
       showSelect: false,
-      activeModal: null, // 'faq' o 'terms'
-      faqContent: [
-        { question: "¿Cómo cambio el idioma?", answer: "Haz clic en el icono de idioma y selecciona tu preferencia." },
-        { question: "¿Dónde veo mis datos?", answer: "En la sección de perfil del usuario." },
-        { question: "¿Cómo publico un reporte?", answer: "Dale clic en el icono de reportes y completa el formulario con los datos que se requieren y dale al botón enviar." }
-      ],
-      termsContent: [
-        {
-          title: "1. Aceptación de los Términos",
-          content: "Al acceder y utilizar esta plataforma, usted acepta cumplir con estos términos y condiciones, así como con nuestra Política de Privacidad. Si no está de acuerdo, absténgase de usar el servicio."
-        },
-        {
-          title: "2. Derechos de los Usuarios",
-          items: [
-            "Acceso al Servicio: Derecho a acceder a la plataforma de forma continua mientras su cuenta esté activa y cumpla con estos términos.",
-            "Funcionalidades: Uso de todas las herramientas disponibles según su nivel de acceso, incluyendo mapa de calor interactivo y reporte de incidentes.",
-            "Privacidad: Protección de sus datos personales conforme a la legislación vigente."
-          ]
-        },
-        {
-          title: "3. Obligaciones del Usuario",
-          items: [
-            "Uso Adecuado: Utilizar la plataforma conforme a la ley, sin contenido difamatorio, ilegal o que infrinja derechos de terceros.",
-            "Veracidad: Responsabilidad sobre la exactitud de la información proporcionada, especialmente en reportes de incidentes.",
-            "Seguridad: Mantener la confidencialidad de sus credenciales y será responsable de toda actividad bajo su cuenta."
-          ]
-        },
-        {
-          title: "4. Restricciones de Uso",
-          items: [
-            "Uso Comercial: Prohibido utilizar la plataforma o sus datos con fines comerciales sin autorización expresa.",
-            "Accesos No Autorizados: No se permite intentar acceder a áreas restringidas del sistema.",
-            "Interferencias: Queda prohibido realizar acciones que afecten el rendimiento o disponibilidad del servicio."
-          ]
-        },
-        {
-          title: "5. Responsabilidades del Proveedor",
-          items: [
-            "Disponibilidad: Mantener la plataforma operativa, notificando mantenimientos programados.",
-            "Protección de Datos: Implementar medidas de seguridad técnicas y organizativas.",
-            "Soporte: Brindar asistencia técnica a través de los canales establecidos."
-          ]
-        },
-        {
-          title: "6. Limitaciones del Proveedor",
-          items: [
-            "Suspensión de Cuentas: Derecho a suspender o eliminar cuentas que violen estos términos.",
-            "Modificaciones: Posibilidad de actualizar o limitar funcionalidades temporalmente por mantenimiento."
-          ]
-        },
-        {
-          title: "7. Propiedad Intelectual",
-          content: "Todos los derechos sobre la plataforma, su diseño y contenidos son propiedad exclusiva del proveedor del servicio. Queda prohibida su reproducción sin autorización."
-        },
-        {
-          title: "8. Limitación de Responsabilidad",
-          items: [
-            "No responsables por daños indirectos o pérdida de datos derivados del uso.",
-            "No responsables por contenido generado por usuarios.",
-            "No responsables por interrupciones por causas ajenas a nuestro control."
-          ]
-        },
-        {
-          title: "9. Modificaciones",
-          content: "Estos términos podrán actualizarse periódicamente. El uso continuado tras modificaciones implica su aceptación."
-        },
-        {
-          title: "Fecha de última actualización",
-          content: new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })
-        }
-      ]
-    }
+      activeModal: null
+    };
   },
   mounted() {
-    this.userService.signInUser('string@string','string').then(
+    this.userService.signInUser('string@string', 'string').then(
         (res) => {
-          console.log('res', res)
+          console.log('res', res);
         },
         error => {
           console.log(error);
         }
     );
     console.log(this.users);
+  },
+  computed: {
+    faqContent() {
+      return [
+        { question: this.$t("userForm.question1"), answer: this.$t("userForm.answer1") },
+        { question: this.$t("userForm.question2"), answer: this.$t("userForm.answer2") },
+        { question: this.$t("userForm.question3"), answer: this.$t("userForm.answer3") }
+      ];
+    },
+    termsContent() {
+      return [
+        {
+          title: this.$t("userForm.terms.title1"),
+          content: this.$t("userForm.terms.content1")
+        },
+        {
+          title: this.$t("userForm.terms.title2"),
+          items: [
+            this.$t("userForm.terms.item2_1"),
+            this.$t("userForm.terms.item2_2"),
+            this.$t("userForm.terms.item2_3")
+          ]
+        },
+        {
+          title: this.$t("userForm.terms.title3"),
+          items: [
+            this.$t("userForm.terms.item3_1"),
+            this.$t("userForm.terms.item3_2"),
+            this.$t("userForm.terms.item3_3")
+          ]
+        },
+        {
+          title: this.$t("userForm.terms.title4"),
+          items: [
+            this.$t("userForm.terms.item4_1"),
+            this.$t("userForm.terms.item4_2"),
+            this.$t("userForm.terms.item4_3")
+          ]
+        },
+        {
+          title: this.$t("userForm.terms.title5"),
+          items: [
+            this.$t("userForm.terms.item5_1"),
+            this.$t("userForm.terms.item5_2"),
+            this.$t("userForm.terms.item5_3")
+          ]
+        },
+        {
+          title: this.$t("userForm.terms.title6"),
+          items: [
+            this.$t("userForm.terms.item6_1"),
+            this.$t("userForm.terms.item6_2")
+          ]
+        },
+        {
+          title: this.$t("userForm.terms.title7"),
+          content: this.$t("userForm.terms.content7")
+        },
+        {
+          title: this.$t("userForm.terms.title8"),
+          items: [
+            this.$t("userForm.terms.item8_1"),
+            this.$t("userForm.terms.item8_2"),
+            this.$t("userForm.terms.item8_3")
+          ]
+        },
+        {
+          title: this.$t("userForm.terms.title9"),
+          content: this.$t("userForm.terms.content9")
+        },
+        {
+          title: this.$t("userForm.terms.lastUpdate"),
+          content: new Date().toLocaleDateString(this.$i18n.locale, {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+          })
+        }
+      ];
+    }
   },
   methods: {
     changeLanguage(event) {
@@ -115,28 +123,27 @@ export default {
   }
 };
 </script>
-
 <template>
   <main>
     <div class="container">
-      <router-view/>
+      <router-view />
     </div>
 
-    <!-- Modales -->
+    <!-- Modals -->
     <div v-if="activeModal === 'faq'" class="modal-overlay" @click.self="closeModal">
       <div class="modal-content">
-        <h2>{{$t('footer.questions')}}</h2>
+        <h2>{{ $t('footer.questions') }}</h2>
         <div v-for="(item, index) in faqContent" :key="index" class="faq-item">
           <h3>{{ item.question }}</h3>
           <p>{{ item.answer }}</p>
         </div>
-        <button @click="closeModal" class="close-button">Cerrar</button>
+        <button @click="closeModal" class="close-button">{{ $t('userForm.close') }}</button>
       </div>
     </div>
 
     <div v-if="activeModal === 'terms'" class="modal-overlay" @click.self="closeModal">
       <div class="modal-content">
-        <h2>{{$t('footer.terms')}}</h2>
+        <h2>{{ $t('footer.terms') }}</h2>
 
         <div v-for="(section, index) in termsContent" :key="index" class="terms-section">
           <h3>{{ section.title }}</h3>
@@ -148,36 +155,35 @@ export default {
           </ul>
         </div>
 
-        <button @click="closeModal" class="close-button">Cerrar</button>
+        <button @click="closeModal" class="close-button">{{ $t('userForm.close') }}</button>
       </div>
     </div>
 
     <footer class="footer">
       <div class="footer-links">
-        <span @click="showModal('faq')">{{$t('footer.questions')}}</span>
+        <span @click="showModal('faq')">{{ $t('footer.questions') }}</span>
         <span class="separator">|</span>
-        <span @click="showModal('terms')">{{$t('footer.terms')}}</span>
+        <span @click="showModal('terms')">{{ $t('footer.terms') }}</span>
       </div>
       <div class="language-section">
         <select v-model="$i18n.locale" @change="changeLanguage($event)" class="locale-select" v-show="showSelect"
-                ref="languageSelect"
-                @blur="hideSelect">
-          <option v-for="locale in locales" :key="locale.code" :value="locale.code" :selected="$i18n.locale === locale.code">
-            <flag :iso="locale.flag" v-bind:squared=false class="flag-icon" /> {{ locale.name }}
+                ref="languageSelect" @blur="hideSelect">
+          <option v-for="locale in locales" :key="locale.code" :value="locale.code"
+                  :selected="$i18n.locale === locale.code">
+            <flag :iso="locale.flag" v-bind:squared="false" class="flag-icon" /> {{ locale.name }}
           </option>
         </select>
         <img src="./assets/Language.png" alt="Language" @click="showSelect = !showSelect">
       </div>
     </footer>
-
   </main>
 </template>
 
 <style scoped>
-/* Estilos base */
+/* Base layout */
 .container {
   height: fit-content;
-  padding-bottom: 70px; /* Espacio para el footer */
+  padding-bottom: 70px; /* Space for footer */
 }
 
 body {
@@ -188,7 +194,7 @@ body {
   min-height: 100vh;
 }
 
-/* Footer mejorado */
+/* Enhanced footer */
 footer {
   align-items: center;
   display: flex;
@@ -243,7 +249,7 @@ footer {
   user-select: none;
 }
 
-/* Selector de idioma mejorado */
+/* Language selector */
 .language-section {
   display: flex;
   align-items: center;
@@ -278,7 +284,7 @@ img:hover {
   transform: scale(1.1);
 }
 
-/* Modales elegantes */
+/* Modals */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -349,6 +355,7 @@ pre {
   border-left: 4px solid #3498db;
 }
 
+/* Button */
 .close-button {
   background-color: #3498db;
   color: white;
@@ -370,7 +377,7 @@ pre {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
-/* Animaciones */
+/* Animations */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -453,6 +460,5 @@ pre {
   line-height: 1.5;
   color: #555;
 }
-
 
 </style>
