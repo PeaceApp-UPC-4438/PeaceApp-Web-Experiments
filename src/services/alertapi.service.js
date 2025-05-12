@@ -65,7 +65,7 @@ export class AlertApiService {
     // DELETE all alerts
     async deleteAll() {
         try {
-            return await axios.delete(`${this.baseUrl}/alerts`, {
+            return await axios.delete(`${this.baseUrl}/alerts/`, {
                 headers: this.getAuthHeaders()
             });
         } catch (error) {

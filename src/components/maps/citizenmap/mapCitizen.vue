@@ -39,7 +39,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import CitizenToolbar from '../../toolbar/toolbarCitizen.component.vue';
 import { LocationApiService } from '../../../services/locationapi.service.js';
 import { ReportApiService } from '../../../services/reportapi.service.js';
-import { AlertApiService } from '../../../services/alertapi.service.js'; // Asegúrate de tenerlo creado
+import { AlertApiService } from '../../../services/alertapi.service.js';
 
 export default {
   components: { CitizenToolbar },
@@ -67,6 +67,8 @@ export default {
   mounted() {
     mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
     this.getCurrentLocation();
+      this.deleteExistingAlerts();
+      localStorage.setItem('alertsDeletedOnce', 'true');
   },
   watch: {
     '$i18n.locale'(newLocale) {
@@ -74,6 +76,14 @@ export default {
     }
   },
   methods: {
+    async deleteExistingAlerts() {
+      try {
+        const response = await this.alertApi.deleteAll();
+        console.log("All alerts deleted:", response.status);
+      } catch (err) {
+        console.error("Error deleting alerts on first load:", err);
+      }
+    },
     calculateDistance(lat1, lon1, lat2, lon2) {
       const R = 6371; // Radio de la Tierra en km
       const dLat = (lat2 - lat1) * Math.PI / 180;

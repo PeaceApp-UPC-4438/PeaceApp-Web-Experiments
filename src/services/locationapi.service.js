@@ -8,7 +8,6 @@ export class LocationApiService {
 
     getAuthHeaders() {
         const token = localStorage.getItem("authToken");
-        console.log("Token usado:", token);
         return {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json"
