@@ -152,23 +152,7 @@ export default {
       </div>
     </div>
 
-    <footer class="footer">
-      <div class="footer-links">
-        <span @click="showModal('faq')">{{$t('footer.questions')}}</span>
-        <span class="separator">|</span>
-        <span @click="showModal('terms')">{{$t('footer.terms')}}</span>
-      </div>
-      <div class="language-section">
-        <select v-model="$i18n.locale" @change="changeLanguage($event)" class="locale-select" v-show="showSelect"
-                ref="languageSelect"
-                @blur="hideSelect">
-          <option v-for="locale in locales" :key="locale.code" :value="locale.code" :selected="$i18n.locale === locale.code">
-            <flag :iso="locale.flag" v-bind:squared=false class="flag-icon" /> {{ locale.name }}
-          </option>
-        </select>
-        <img src="./assets/Language.png" alt="Language" @click="showSelect = !showSelect">
-      </div>
-    </footer>
+
   </main>
 </template>
 
