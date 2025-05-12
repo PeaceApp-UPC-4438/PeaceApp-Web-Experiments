@@ -12,7 +12,7 @@ export default {
   },
   methods: {
     redirectLanding() {
-      const Link = 'https://g2webapplication-wx54.github.io/landing-page-web-app/';
+      const Link = 'https://peaceapp-landing-page.netlify.app';
       window.location.href = Link;
     },
 
