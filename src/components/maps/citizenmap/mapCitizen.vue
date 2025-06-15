@@ -13,7 +13,6 @@
             <i class="pi" :class="{'pi-search': !isLoading, 'pi-spinner pi-spin': isLoading}" style="color: black"></i>
           </button>
         </div>
-        <button v-if="hasRoute" class="clear-route" @click="clearRoute">{{ $t('map.clearRoute') }}</button>
       </div>
       <div v-if="routeError" class="error-message">{{ routeError }}</div>
     </div>
@@ -41,6 +40,12 @@ import { LocationApiService } from '../../../services/locationapi.service.js';
 import { ReportApiService } from '../../../services/reportapi.service.js';
 import { AlertApiService } from '../../../services/alertapi.service.js';
 
+import robTag from '@/assets/rob_tag.png';
+import carTag from '@/assets/car_tag.png';
+import illumTag from '@/assets/illumination_tag.png';
+import acosoTag from '@/assets/acoso_tag.png';
+import redMarker from '@/assets/red_marker.png';
+
 export default {
   components: { CitizenToolbar },
   name: 'MapDirections',
@@ -60,15 +65,14 @@ export default {
       routeDuration: 0,
       routeInstructions: [],
       alertApi: new AlertApiService(),
-      processedReports: new Set(),
-
+      processedReports: new Set()
     };
   },
   mounted() {
     mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
     this.getCurrentLocation();
-      this.deleteExistingAlerts();
-      localStorage.setItem('alertsDeletedOnce', 'true');
+    this.deleteExistingAlerts();
+    localStorage.setItem('alertsDeletedOnce', 'true');
   },
   watch: {
     '$i18n.locale'(newLocale) {
@@ -85,7 +89,7 @@ export default {
       }
     },
     calculateDistance(lat1, lon1, lat2, lon2) {
-      const R = 6371; // Radio de la Tierra en km
+      const R = 6371;
       const dLat = (lat2 - lat1) * Math.PI / 180;
       const dLon = (lon2 - lon1) * Math.PI / 180;
       const a =
@@ -95,7 +99,7 @@ export default {
           Math.sin(dLon / 2) *
           Math.sin(dLon / 2);
       const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-      return R * c * 1000; // en metros
+      return R * c * 1000;
     },
     async checkNearbyReports() {
       try {
@@ -105,14 +109,11 @@ export default {
         ]);
         const locations = locRes.data;
         const reports = repRes.data;
-
         const userLat = this.currentLocation.lat;
         const userLng = this.currentLocation.lng;
-
         for (const loc of locations) {
           if (!loc || loc.alatitude === 0 || loc.alongitude === 0) continue;
           if (this.processedReports.has(loc.idReport)) continue;
-
           const dist = this.calculateDistance(userLat, userLng, loc.alatitude, loc.alongitude);
           if (dist <= 100) {
             const report = reports.find(r => r.id === loc.idReport);
@@ -135,9 +136,6 @@ export default {
         imageUrl: report.image,
         idReport: report.id
       };
-
-      console.log("Creating alert with data:", alertData);
-
       try {
         const existingAlerts = await this.alertApi.getByUserId(alertData.idUser);
         const alreadyExists = existingAlerts.data.some(alert =>
@@ -145,18 +143,14 @@ export default {
             alert.type === alertData.type &&
             alert.location === alertData.location
         );
-
         if (!alreadyExists) {
           await this.alertApi.create(alertData);
-          console.log("Alert created successfully:", alertData);
-        } else {
-          console.log("Alert already exists. Skipping creation:", alertData);
+          console.log("Alert created:", alertData);
         }
       } catch (error) {
         console.error("Error creating alert:", error);
       }
-    }
-    ,
+    },
     translateType(type) {
       const types = {
         Robo: this.$t('reportForm.placeholders.robbery'),
@@ -172,32 +166,25 @@ export default {
       };
       return types[type] || type;
     },
-
     async loadReportsAndMarkers() {
       try {
         const [locationRes, reportRes] = await Promise.all([
           this.locationApi.getAll(),
           this.reportApi.getAll()
         ]);
-
         const locations = locationRes.data;
         const reports = reportRes.data;
-
         this.clearAllMarkers();
         this.reportMap = {};
-
         reports.forEach(report => {
           this.reportMap[report.id] = report;
         });
-
         locations.forEach(loc => {
           const lat = parseFloat(loc.alatitude);
           const lng = parseFloat(loc.alongitude);
           if (isNaN(lat) || isNaN(lng)) return;
-
           const report = this.reportMap[loc.idReport];
           if (!report) return;
-
           this.createMarker(lng, lat, report);
         });
       } catch (error) {
@@ -207,41 +194,33 @@ export default {
     createMarker(lng, lat, report) {
       const el = document.createElement('div');
       el.className = 'custom-marker';
-
-      // Set marker image based on report type
       const typeToImage = {
-        Robo: '/src/assets/rob_tag.png',
-        robbery: '/src/assets/rob_tag.png',
-        Accidente: '/src/assets/car_tag.png',
-        accident: '/src/assets/car_tag.png',
-        Oscuro: '/src/assets/illumination_tag.png',
-        dark_area: '/src/assets/illumination_tag.png',
-        Acoso: '/src/assets/acoso_tag.png',
-        harassment: '/src/assets/acoso_tag.png',
-        Otro: '/src/assets/red_marker.png',
-        other: '/src/assets/red_marker.png'
+        Robo: robTag,
+        robbery: robTag,
+        Accidente: carTag,
+        accident: carTag,
+        Oscuro: illumTag,
+        dark_area: illumTag,
+        Acoso: acosoTag,
+        harassment: acosoTag,
+        Otro: redMarker,
+        other: redMarker
       };
-
-      const imageUrl = typeToImage[report.type] || '/src/assets/red_marker.png';
-
+      const imageUrl = typeToImage[report.type] || redMarker;
       el.style.backgroundImage = `url('${imageUrl}')`;
       el.style.width = '50px';
       el.style.height = '50px';
       el.style.backgroundSize = 'contain';
       el.style.backgroundRepeat = 'no-repeat';
       el.style.cursor = 'pointer';
-
       const marker = new mapboxgl.Marker({
         element: el,
         anchor: 'bottom'
       }).setLngLat([lng, lat]);
-
       marker.setPopup(this.buildPopup(report));
       marker.addTo(this.map);
-
       this.markers.push({ marker, report, lng, lat });
     },
-
     buildPopup(report) {
       const translatedType = this.translateType(report.type);
       const popupHtml = `
@@ -254,49 +233,37 @@ export default {
       `;
       return new mapboxgl.Popup({ offset: 25 }).setHTML(popupHtml);
     },
-
     updateAllPopups() {
       this.markers.forEach(({ marker, report }) => {
         marker.setPopup(this.buildPopup(report));
       });
     },
-
     clearAllMarkers() {
       this.markers.forEach(({ marker }) => marker.remove());
       this.markers = [];
     },
-
     async calculateRoute() {
       if (!this.endLocationInput) {
         this.routeError = this.$t('map.errors.enterDestination');
         return;
       }
-
       this.isLoading = true;
       this.routeError = null;
-
       try {
         const response = await fetch(
             `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(this.endLocationInput)}.json?access_token=${mapboxgl.accessToken}`
         );
         const data = await response.json();
-
         if (data.features.length > 0) {
           const location = data.features[0].center;
           this.map.flyTo({ center: location, zoom: 14 });
-
-          // Update currentLocation and storage
           this.currentLocation.lat = location[1];
           this.currentLocation.lng = location[0];
           localStorage.setItem("userLat", location[1]);
           localStorage.setItem("userLng", location[0]);
-
           this.hasRoute = true;
-
-          // Check for alerts after moving to searched location
           await this.checkNearbyReports();
-        }
-        else {
+        } else {
           this.routeError = this.$t('map.errors.locationNotFound');
         }
       } catch (error) {
@@ -306,7 +273,6 @@ export default {
         this.isLoading = false;
       }
     },
-
     clearRoute() {
       this.hasRoute = false;
       this.map.flyTo({
@@ -314,11 +280,9 @@ export default {
         zoom: 14
       });
     },
-
     getCurrentLocation() {
       const storedLat = localStorage.getItem("userLat");
       const storedLng = localStorage.getItem("userLng");
-
       if (storedLat && storedLng) {
         this.currentLocation = {
           lat: parseFloat(storedLat),
@@ -342,7 +306,6 @@ export default {
         this.initMap();
       }
     },
-
     initMap() {
       this.map = new mapboxgl.Map({
         container: 'map',
@@ -350,7 +313,6 @@ export default {
         center: [this.currentLocation.lng, this.currentLocation.lat],
         zoom: 14
       });
-
       this.map.on('load', () => {
         this.loadReportsAndMarkers();
         this.checkNearbyReports();
@@ -362,11 +324,8 @@ export default {
         this.currentLocation.lng = center.lng;
         localStorage.setItem("userLat", center.lat);
         localStorage.setItem("userLng", center.lng);
-        console.log("Updated location from map move:", center);
         await this.checkNearbyReports();
       });
-
-
       this.map.addControl(new mapboxgl.NavigationControl());
       this.map.addControl(
           new mapboxgl.GeolocateControl({
@@ -385,8 +344,6 @@ export default {
   }
 };
 </script>
-
-
 <style>
 
 .custom-marker {
