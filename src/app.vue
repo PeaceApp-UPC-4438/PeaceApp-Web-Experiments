@@ -14,6 +14,7 @@ export default {
         { code: 'fr', name: '🇫🇷 Français', flag: 'fr' },
       ],
       showSelect: false,
+      darkMode: false,
       activeModal: null
     };
   },
@@ -109,6 +110,11 @@ export default {
     }
   },
   methods: {
+    toggleDarkMode() {
+      this.darkMode = !this.darkMode;
+      document.body.classList.toggle('dark', this.darkMode);
+      localStorage.setItem('darkMode', this.darkMode);
+    },
     changeLanguage(event) {
       const selectedLanguage = event.target.value;
       this.$i18n.locale = selectedLanguage;
@@ -126,6 +132,7 @@ export default {
   }
 };
 </script>
+
 <template>
   <main>
     <div class="container">

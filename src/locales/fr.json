@@ -143,6 +143,7 @@
     "send": "Envoyer",
     "placeholders": {
       "type": "Sélectionnez le type de rapport",
+      "all_types": "Tous",
       "robbery": "Vol",
       "accident": "Accident",
       "dark_area": "Zone sombre",

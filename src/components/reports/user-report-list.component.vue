@@ -1,6 +1,6 @@
 <template>
   <header>
-      <CitizenToolbar />
+    <CitizenToolbar />
   </header>
   <div class="container">
     <h1>{{ $t("reports.title") }}</h1>
@@ -12,8 +12,20 @@
           <option value="all">{{ $t('reports.all_reports') }}</option>
         </select>
       </div>
-    </div>
 
+      <!-- NUEVO: filtro por tipo -->
+      <div class="filter-option">
+        <label for="filterType">{{ $t('reports.type_label') }}</label>
+        <select v-model="filterType" id="filterType">
+          <option value="">{{ $t('reportForm.placeholders.all_types') }}</option>
+          <option value="Robo">{{ $t('reportForm.placeholders.robbery') }}</option>
+          <option value="Accidente">{{ $t('reportForm.placeholders.accident') }}</option>
+          <option value="Oscuro">{{ $t('reportForm.placeholders.dark_area') }}</option>
+          <option value="Acoso">{{ $t('reportForm.placeholders.harassment') }}</option>
+          <option value="Otro">{{ $t('reportForm.placeholders.other') }}</option>
+        </select>
+      </div>
+    </div>
 
     <div class="reports-container">
       <ul v-if="filteredReports.length" class="reports-grid">
@@ -31,9 +43,7 @@
             <strong>{{ $t('reports.evidence_label') || 'Evidence:' }}</strong><br>
             <img :src="report.image" alt="Evidence" style="max-width: 100%; border-radius: 8px; margin-top: 8px;" />
           </p>
-
         </li>
-
       </ul>
       <ul v-else class="reports-grid">
         <li class="report-item">
@@ -60,6 +70,7 @@ export default {
       api: new ReportApiService(),
       userService: new UserApiService(),
       reportScope: "user",
+      filterType: "",      // NUEVO: filtro tipo reporte
       role: ""
     };
   },
@@ -68,18 +79,22 @@ export default {
     this.role = localStorage.getItem("userRole");
   },
   computed: {
-    uniqueTypes() {
-      return [...new Set(this.reports.map(report => report.type))];
-    },
-    uniqueDistricts() {
-      return [...new Set(this.reports.map(report => report.district))];
-    },
     filteredReports() {
-      let filtered = this.reports;
-      if (this.filterType) filtered = filtered.filter(r => r.type === this.filterType);
-      if (this.filterDate) filtered = filtered.filter(r => r.date === this.filterDate);
-      if (this.filterDistrict) filtered = filtered.filter(r => r.district === this.filterDistrict);
-      return filtered;
+      if (!this.filterType) {
+        return this.reports;
+      }
+      const filter = this.filterType.toLowerCase();
+      return this.reports.filter(report => {
+        const type = (report.type || '').toLowerCase();
+        return (
+            // Compara el tipo con las opciones válidas del filtro
+            (filter === 'robo' && (type === 'robo' || type === 'robbery')) ||
+            (filter === 'accidente' && (type === 'accidente' || type === 'accident')) ||
+            (filter === 'oscuro' && (type === 'oscuro' || type === 'dark_area')) ||
+            (filter === 'acoso' && (type === 'acoso' || type === 'harassment')) ||
+            (filter === 'otro' && (type === 'otro' || type === 'other'))
+        );
+      });
     }
   },
   methods: {
@@ -123,8 +138,8 @@ export default {
     }
   }
 };
-
 </script>
+
 
 <style scoped>
 .container {
