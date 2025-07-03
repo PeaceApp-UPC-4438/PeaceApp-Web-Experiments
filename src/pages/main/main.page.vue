@@ -126,8 +126,6 @@ export default {
       } else {
         this.$router.push('/profile');
       }
-
-      alert('Login exitoso');
     }
   }
 }
@@ -153,8 +151,7 @@ export default {
           <div class="captcha-container">
             <canvas ref="captchaCanvas" width="200" height="60"></canvas>
           </div>
-
-          <input v-model="userData.captcha" type="text" placeholder="Ingrese el código" required class="captcha-input" />
+          <input v-model="userData.captcha" type="text" :placeholder="$t('main.captchaPlaceholder')" required class="captcha-input" />
 
           <button type="submit">{{ $t('main.login') }}</button>
           <p v-if="error" class="error">{{ $t(error) }}</p>

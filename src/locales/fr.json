@@ -33,7 +33,8 @@
     "errorInvalidCaptcha": "Code incorrect, veuillez réessayer.",
     "errorInvalidCredentials": "Identifiants incorrects.",
     "errorEmailNotFound": "L'adresse e‑mail n'existe pas.",
-    "errorEmailCheck": "Erreur lors de la vérification de l'adresse e‑mail."
+    "errorEmailCheck": "Erreur lors de la vérification de l'adresse e‑mail.",
+    "captchaPlaceholder": "Entrez le code"
   },
   "userForm": {
     "message": "Veuillez remplir les informations requises pour créer votre compte",

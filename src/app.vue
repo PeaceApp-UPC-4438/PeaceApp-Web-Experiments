@@ -8,8 +8,11 @@ export default {
       userService: new authUserService(),
       userEmail: '',
       userRole: '',
-      locales: [{ code: 'en', name: '🇺🇸 English', flag: 'us' },
-        { code: 'es', name: '🇪🇸 Spanish', flag: 'es' }],
+      locales: [
+        { code: 'en', name: '🇺🇸 English', flag: 'us' },
+        { code: 'es', name: '🇪🇸 Español', flag: 'es' },
+        { code: 'fr', name: '🇫🇷 Français', flag: 'fr' },
+      ],
       showSelect: false,
       activeModal: null
     };
