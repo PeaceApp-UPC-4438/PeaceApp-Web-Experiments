@@ -29,7 +29,11 @@
       "required": "All fields are required.",
       "mismatch": "Passwords do not match.",
       "missingEmail": "Email or active session not found."
-    }
+    },
+    "errorInvalidCaptcha": "Incorrect code, please try again.",
+    "errorInvalidCredentials": "Incorrect credentials.",
+    "errorEmailNotFound": "The email address does not exist.",
+    "errorEmailCheck": "Error verifying the email address."
   },
   "userForm": {
     "message": "Please fill in the required details to create your account",
@@ -186,18 +190,18 @@
       "password": "Password: "
     },
     "authority": {
-        "email": "Email: ",
-        "contact_number": "Contact Number: ",
-        "office_address": "Office Address: ",
-        "description": "Description: "
+      "email": "Email: ",
+      "contact_number": "Contact Number: ",
+      "office_address": "Office Address: ",
+      "description": "Description: "
     },
     "edit": "Edit Profile",
     "logout": "Log out"
   },
-    "footer": {
-        "terms": "Terms and Conditions",
-        "questions": "Frequent Questions",
-        "contact": "Contact Us",
-        "about": "About Us"
-    }
+  "footer": {
+    "terms": "Terms and Conditions",
+    "questions": "Frequent Questions",
+    "contact": "Contact Us",
+    "about": "About Us"
+  }
 }
