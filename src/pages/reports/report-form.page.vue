@@ -596,5 +596,72 @@ button:hover {
   visibility: visible;
 }
 
+/* MODO OSCURO GENERAL */
+body.dark {
+  background-color: #121212;
+  color: #f5f5f5;
+}
+
+body.dark .form-container {
+  background-color: #1e1e1e;
+  color: #f5f5f5;
+}
+
+body.dark .label-black {
+  color: #ffffff;
+}
+
+body.dark input,
+body.dark select,
+body.dark textarea {
+  background-color: #2a2a2a;
+  color: #f5f5f5;
+  border: 1px solid #555;
+}
+
+body.dark input::placeholder,
+body.dark textarea::placeholder {
+  color: #bbb;
+}
+
+body.dark .description-area {
+  background-color: #2a2a2a;
+  color: #f5f5f5;
+  border-color: #555;
+}
+
+body.dark .upload-button {
+  background-color: #444;
+  color: #f5f5f5;
+}
+
+body.dark .upload-button:hover {
+  background-color: #666;
+}
+
+body.dark .button-container button,
+body.dark button {
+  background-color: #444;
+  color: #fff;
+}
+
+body.dark button:hover {
+  background-color: #666;
+}
+
+body.dark .success-message {
+  background-color: #274f35;
+  color: #d4edda;
+  border-color: #1f4030;
+}
+
+body.dark .page-container p {
+  color: #e0e0e0;
+}
+
+/* Mapa pin no necesita cambios, pero el contenedor podría */
+body.dark .map-image {
+  border: 1px solid #444;
+}
 
 </style>

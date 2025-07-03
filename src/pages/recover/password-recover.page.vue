@@ -77,7 +77,6 @@ export default {
   </div>
 </template>
 
-
 <style scoped>
 .padre {
   padding: 20vh 10vw 0 10vw;
@@ -92,22 +91,38 @@ button {
   color: #161616;
   font-weight: bolder;
   border: none;
-  border-radius: 0.25em;
-  padding: 0.5em 1em;
+  border-radius: 0.5em;
+  padding: 0.6em 1.2em;
   margin: 0.5em;
   cursor: pointer;
   font-size: 16px;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 button:hover {
   background-color: #A1B9C6;
 }
 
+body.dark button {
+  background-color: #22487A;
+  color: #ffffff;
+}
+
+body.dark button:hover {
+  background-color: #2b5dab;
+}
+
 .box2 {
   background-color: #55B0DB;
   font-size: 0.9rem;
-  border-radius: 2%;
+  border-radius: 16px;
+  padding: 20px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark .box2 {
+  background-color: #1e1e1e !important;
+  color: #f5f5f5;
 }
 
 .info {
@@ -127,6 +142,10 @@ button:hover {
   width: fit-content;
 }
 
+body.dark .container {
+  color: white;
+}
+
 .box1,
 .box2 {
   flex: 1;
@@ -142,11 +161,28 @@ button:hover {
 
 .input-style {
   width: 100%;
-  padding: 10px;
-  border-radius: 5px;
-  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
   font-size: 14px;
   box-sizing: border-box;
+  background-color: white;
+  color: black;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark .input-style {
+  background-color: #2a2a2a;
+  color: #ffffff;
+  border: 1px solid #555;
+}
+
+.input-style::placeholder {
+  color: #888;
+}
+
+body.dark .input-style::placeholder {
+  color: #ccc;
 }
 
 .bts {
@@ -194,6 +230,15 @@ button:hover {
     width: 100%;
     margin: 0 auto;
   }
+}
+
+body.dark, html.dark {
+  background-color: #000000 !important;
+  background-image: none !important;
+}
+
+body.dark #app {
+  background-color: #000 !important;
 }
 
 </style>

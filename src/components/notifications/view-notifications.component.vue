@@ -50,7 +50,6 @@ export default {
 <style scoped>
 .container {
   padding: 5vh 2vw;
-
   min-height: 100vh;
 }
 
@@ -76,6 +75,7 @@ export default {
   padding: 20px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s;
+  color: #000;
 }
 
 .alert-card:hover {
@@ -87,4 +87,25 @@ export default {
   border-radius: 6px;
   margin-top: 12px;
 }
+
+/* === MODO OSCURO === */
+body.dark .container {
+  background-color: #121212;
+}
+
+body.dark .title {
+  color: #f5f5f5;
+}
+
+body.dark .alert-card {
+  background-color: #1e1e1e;
+  color: #f5f5f5;
+  border: 1px solid #444;
+  box-shadow: 0 2px 10px rgba(255, 255, 255, 0.05);
+}
+
+body.dark .alert-card:hover {
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+}
+
 </style>

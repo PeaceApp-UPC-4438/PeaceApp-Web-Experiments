@@ -262,4 +262,43 @@ a:hover {
     padding: 20px 0 0 0;
   }
 }
+/* ================= MODO OSCURO ================= */
+body.dark .container {
+  background-color: #121212;
+}
+
+body.dark h1,
+body.dark .filter-option label {
+  color: #f5f5f5;
+}
+
+body.dark .filter-option select,
+body.dark .filter-option input {
+  background-color: #2a2a2a;
+  color: #f5f5f5;
+  border: 1px solid #555;
+}
+
+body.dark .report-item {
+  background-color: #1e1e1e;
+  border-color: #333;
+  box-shadow: 0 1px 6px rgba(255, 255, 255, 0.05);
+}
+
+body.dark .report-item:hover {
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
+}
+
+body.dark .report-item h2 {
+  color: #4ea3ff;
+}
+
+body.dark p {
+  color: #ccc;
+}
+
+body.dark a {
+  color: #7bbfff;
+}
+
 </style>

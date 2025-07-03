@@ -12,6 +12,7 @@ export default {
         { code: 'en', name: '🇺🇸 English', flag: 'us' },
         { code: 'es', name: '🇪🇸 Español', flag: 'es' },
         { code: 'fr', name: '🇫🇷 Français', flag: 'fr' },
+        { code: 'ru', name: '🇷🇺 Русский', flag: 'ru' }
       ],
       showSelect: false,
       darkMode: false,
@@ -28,6 +29,9 @@ export default {
         }
     );
     console.log(this.users);
+    const savedDark = localStorage.getItem('darkMode') === 'true';
+    this.darkMode = savedDark;
+    document.body.classList.toggle('dark', savedDark);
   },
   computed: {
     faqContent() {
@@ -184,27 +188,49 @@ export default {
           </option>
         </select>
         <img src="./assets/Language.png" alt="Language" @click="showSelect = !showSelect">
+        <button @click="toggleDarkMode" class="dark-mode-toggle" :aria-label="darkMode ? 'Light mode' : 'Dark mode'">
+          <svg v-if="!darkMode" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon">
+            <path fill="currentColor"
+                  d="M12 3a1 1 0 0 1 1 1v1.05a7.002 7.002 0 0 1 5.95 5.95H20a1 1 0 1 1 0 2h-1.05a7.002 7.002 0 0 1-5.95 5.95V20a1 1 0 1 1-2 0v-1.05a7.002 7.002 0 0 1-5.95-5.95H4a1 1 0 1 1 0-2h1.05a7.002 7.002 0 0 1 5.95-5.95V4a1 1 0 0 1 1-1Z"/>
+          </svg>
+          <svg v-else xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon">
+            <path fill="currentColor"
+                  d="M12 2a10 10 0 0 0 0 20 10 10 0 0 0 0-20Zm0 18a8 8 0 0 1 0-16c.34 0 .68.02 1.01.06A8.001 8.001 0 0 1 12 20Z"/>
+          </svg>
+        </button>
+
       </div>
     </footer>
   </main>
 </template>
 
 <style scoped>
-/* Base layout */
+main {
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
 .container {
-  height: fit-content;
-  padding-bottom: 70px; /* Space for footer */
+  padding-bottom: 70px;
+  box-sizing: border-box;
 }
 
+/* ----------------- MODO CLARO (POR DEFECTO) ----------------- */
 body {
   margin: 0;
   display: flex;
   place-items: center;
   min-width: 500px;
   min-height: 100vh;
+  background-color: #ffffff;
+  color: #333;
 }
 
-/* Enhanced footer */
+
+/* FOOTER */
 footer {
   align-items: center;
   display: flex;
@@ -216,7 +242,6 @@ footer {
   color: #fff;
   padding: 15px 30px;
   background: linear-gradient(135deg, #3498db, #2c3e50);
-  height: fit-content;
   box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
   z-index: 100;
 }
@@ -259,11 +284,34 @@ footer {
   user-select: none;
 }
 
-/* Language selector */
+/* LANGUAGE + DARK MODE BUTTON */
 .language-section {
   display: flex;
   align-items: center;
   gap: 15px;
+}
+/* Contenedor oscuro */
+.mapboxgl-ctrl-group {
+  background-color: #1e1e2f !important; /* fondo contenedor */
+  border: 1px solid #333 !important;
+  border-radius: 4px;
+}
+
+/* Botones oscuros */
+.mapboxgl-ctrl-group button {
+  background-color: #1e1e2f !important; /* fondo botón */
+  color: white !important;
+  border: none;
+}
+
+/* Íconos dentro del botón (invertir color si es necesario) */
+.mapboxgl-ctrl-icon {
+  filter: invert(1); /* blanco sobre fondo oscuro */
+}
+
+/* Hover */
+.mapboxgl-ctrl-group button:hover {
+  background-color: #2c2c3c !important;
 }
 
 .locale-select {
@@ -273,6 +321,7 @@ footer {
   width: 120px;
   border: none;
   background-color: rgba(255, 255, 255, 0.9);
+  color: #000;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
 }
@@ -294,7 +343,19 @@ img:hover {
   transform: scale(1.1);
 }
 
-/* Modals */
+.dark-mode-button {
+  background: transparent;
+  border: none;
+  font-size: 1.4em;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.dark-mode-button:hover {
+  transform: scale(1.1);
+}
+
+/* MODALS */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -355,17 +416,29 @@ img:hover {
   color: #555;
 }
 
-pre {
-  white-space: pre-wrap;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  line-height: 1.5;
-  background-color: #f8f9fa;
-  padding: 15px;
-  border-radius: 6px;
-  border-left: 4px solid #3498db;
+.terms-section {
+  margin-bottom: 1.5rem;
 }
 
-/* Button */
+.terms-section h3 {
+  color: #2c3e50;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.3rem;
+}
+
+.terms-section p,
+.terms-section li {
+  line-height: 1.6;
+  color: #555;
+}
+
+.terms-section ul {
+  padding-left: 1.2rem;
+  margin-top: 0.5rem;
+}
+
 .close-button {
   background-color: #3498db;
   color: white;
@@ -404,7 +477,67 @@ pre {
   }
 }
 
-/* Responsive */
+/* ----------------- MODO OSCURO ----------------- */
+body.dark {
+  background-color: #121212;
+  color: #f5f5f5;
+}
+
+body.dark .modal-content {
+  background-color: #1e1e1e;
+  color: #f5f5f5;
+}
+
+body.dark .faq-item h3 {
+  color: #4ea3ff;
+}
+
+body.dark .faq-item p,
+body.dark .terms-section p,
+body.dark .terms-section li {
+  color: #ccc;
+}
+
+body.dark .terms-section h3 {
+  color: #f5f5f5;
+  border-color: #444;
+}
+
+body.dark footer {
+  background: linear-gradient(135deg, #333333, #000000);
+  color: #f5f5f5;
+}
+
+body.dark .locale-select {
+  background-color: #2c2c2c;
+  color: #fff;
+}
+
+body.dark select option {
+  background-color: #2c2c2c;
+  color: white;
+}
+
+body.dark .close-button {
+  background-color: #555;
+  color: white;
+}
+
+body.dark .close-button:hover {
+  background-color: #777;
+}
+
+/* CORRECCIÓN DEL FONDO CELESTE DE LA SECCIÓN INTERMEDIA */
+.section-blue {
+  background-color: #3498db;
+  height: 100px; /* o el valor original */
+}
+
+body.dark .section-blue {
+  background-color: #121212;
+}
+
+/* ----------------- RESPONSIVE ----------------- */
 @media (max-width: 768px) {
   footer {
     flex-direction: column;
@@ -443,32 +576,24 @@ pre {
   }
 }
 
-.terms-section {
-  margin-bottom: 1.5rem;
+.dark-mode-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  transition: transform 0.2s ease;
+  color: white;
+  display: flex;
+  align-items: center;
 }
 
-.terms-section h3 {
-  color: #2c3e50;
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 0.3rem;
+.dark-mode-toggle .icon {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
 }
 
-.terms-section p {
-  line-height: 1.6;
-  color: #555;
+.dark-mode-toggle:hover {
+  transform: scale(1.1);
 }
-
-.terms-section ul {
-  padding-left: 1.2rem;
-  margin-top: 0.5rem;
-}
-
-.terms-section li {
-  margin-bottom: 0.5rem;
-  line-height: 1.5;
-  color: #555;
-}
-
 </style>
