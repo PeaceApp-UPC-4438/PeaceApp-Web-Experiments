@@ -115,6 +115,17 @@ export default {
   padding: 20vh 0 0 0;
   margin: 0 auto;
 }
+.show-pass {
+  background: none;
+  border: none;
+  cursor: pointer;
+  vertical-align: middle;
+  padding: 0;
+  margin-left: 10px;
+}
+.show-pass svg {
+  vertical-align: middle;
+}
 
 button {
   background-color: #C4E2F3;
@@ -128,14 +139,14 @@ button {
   font-size: 20px;
   height: 45px;
   width: 30%;
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 button:hover {
   background-color: #A1B9C6;
 }
+
 .show-pass {
-  background: transparent !important;
+  background: none;
   border: none;
   padding: 0;
   margin-left: 8px;
@@ -145,25 +156,13 @@ button:hover {
   justify-content: center;
   width: 24px;
   height: 24px;
-  color: inherit;
 }
-
 .show-pass svg {
   width: 20px;
   height: 20px;
-  stroke: currentColor !important;
-  fill: none !important;         /* <--- Clave: evita fondo azul */
-  background: transparent !important;  /* <--- Clave: quita fondo heredado */
 }
 
-.show-pass svg path {
-  stroke: currentColor !important;
-  fill: none !important;         /* <--- Clave: asegúrate que path tampoco lo pinte */
-}
 
-body.dark .show-pass {
-  color: #f5f5f5;
-}
 .container {
   padding: 10px;
   border-radius: 24px;
@@ -174,7 +173,6 @@ body.dark .show-pass {
   flex-wrap: wrap;
   text-align: center;
   margin: auto;
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .left {
@@ -198,42 +196,6 @@ body.dark .show-pass {
   padding: 0 0 3vh 0;
 }
 
-/* ------------------ MODO OSCURO ------------------ */
-body.dark .container {
-  background-color: #1e1e1e;
-  color: #f5f5f5;
-}
-
-body.dark .right {
-  color: #f5f5f5;
-}
-
-body.dark button {
-  background-color: #22487A;
-  color: #ffffff;
-}
-
-body.dark button:hover {
-  background-color: #2b5dab;
-}
-
-body.dark .left img {
-  border-color: #555;
-}
-
-body.dark .show-pass {
-  color: #f5f5f5;
-}
-
-body.dark .show-pass svg {
-  stroke: currentColor;
-}
-
-body.dark .show-pass svg path {
-  stroke: currentColor !important;
-}
-
-/* ------------------ RESPONSIVE ------------------ */
 @media (max-width: 1000px) {
   .padre {
     padding: 10vh 0 0 0;
@@ -257,5 +219,10 @@ body.dark .show-pass svg path {
     z-index: 1000;
   }
 }
-
+/* MODO OSCURO */
+body.dark .container {
+  background-color: #1e1e1e;
+  color: #f5f5f5;
+  border: 1px solid #444;
+}
 </style>

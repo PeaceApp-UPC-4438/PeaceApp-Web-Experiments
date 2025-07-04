@@ -21,7 +21,8 @@ export default {
       newComment: '',
       commentToDelete: null,
       commentToEdit: null,
-      editedCommentContent: ''
+      editedCommentContent: '',
+      authenticatedUserId: null
     };
   },
   mounted() {
@@ -54,34 +55,20 @@ export default {
       this.editedCommentContent = '';
     },
     async saveEditedComment() {
-      console.log("➡️ Iniciando edición de comentario");
-
-      if (!this.commentToEdit || !this.editedCommentContent.trim()) {
-        console.warn("⚠️ Datos inválidos para editar:", this.commentToEdit, this.editedCommentContent);
-        return;
-      }
+      if (!this.commentToEdit || !this.editedCommentContent.trim()) return;
 
       try {
-        const updatedComment = {
-          ...this.commentToEdit,
-          content: this.editedCommentContent
-        };
-
-        console.log("📦 Comentario a actualizar:", updatedComment);
-
         const response = await new CommentApiService().updateComment(this.commentToEdit.id, this.editedCommentContent);
-
-        console.log("✅ Respuesta del servidor:", response);
 
         if (response.status === 200) {
           this.commentToEdit = null;
           this.editedCommentContent = '';
           await this.fetchReportAndComments();
         } else {
-          console.error("❌ Error esperado, código no 200:", response.status, response.data);
+          console.error("Error al editar:", response.status, response.data);
         }
       } catch (err) {
-        console.error("❌ Error en catch al editar comentario:", err);
+        console.error("Error en edición:", err);
         this.error = 'No se pudo editar el comentario.';
       }
     },
@@ -108,11 +95,15 @@ export default {
         const reportRes = await new ReportApiService().getById(reportId);
         this.report = reportRes.data;
 
+        const email = localStorage.getItem("userEmail");
+        const userRes = await this.userService.getUserByEmail(email);
+        this.authenticatedUserId = parseInt(userRes?.data?.id || 0); // Asegurar tipo número
+
         if (this.report.idUser) {
-          const userRes = await this.userService.getUserById(this.report.idUser);
-          if (userRes && userRes.status === 200 && userRes.data) {
-            this.userName = userRes.data.name || '';
-            this.userLastname = userRes.data.lastname || '';
+          const reporterRes = await this.userService.getUserById(this.report.idUser);
+          if (reporterRes?.status === 200 && reporterRes.data) {
+            this.userName = reporterRes.data.name || '';
+            this.userLastname = reporterRes.data.lastname || '';
           }
         }
 
@@ -122,25 +113,25 @@ export default {
               let fullName = 'Desconocido';
               try {
                 const res = await this.userService.getUserById(comment.userId);
-                if (res && res.data) {
+                if (res?.data) {
                   fullName = `${res.data.name || ''} ${res.data.lastname || ''}`.trim();
                 }
-              } catch (_) {
-              }
+              } catch (_) {}
               return {
                 ...comment,
+                userId: parseInt(comment.userId), // Asegurar tipo número
                 userFullName: fullName
               };
             })
         );
         this.comments = commentsWithUsers;
-
       } catch (err) {
         this.error = 'Error al cargar el reporte o los comentarios';
       } finally {
         this.isLoading = false;
       }
-    },
+    }
+,
     async submitComment() {
       if (!this.newComment.trim()) return;
       try {
@@ -161,12 +152,11 @@ export default {
 
         await new CommentApiService().createComment(payload);
         this.newComment = '';
-        this.fetchReportAndComments();
+        await this.fetchReportAndComments();
       } catch (err) {
         this.error = 'No se pudo enviar el comentario.';
       }
     }
-
   }
 };
 </script>
@@ -209,20 +199,18 @@ export default {
         <p class="meta">
           {{ $t('comments.user') }}: {{ comment.userFullName || $t('comments.unknown') }}<br/>
           {{ $t('comments.date') }}:
-          <span v-if="comment.updatedAt">
-{{ new Date(comment.updatedAt).toLocaleString() }}
-</span>
-          <span v-else>
-  {{ new Date(comment.creationDate).toLocaleString() }}
-</span>
-
+          <span v-if="comment.updatedAt">{{ new Date(comment.updatedAt).toLocaleString() }}</span>
+          <span v-else>{{ new Date(comment.creationDate).toLocaleString() }}</span>
         </p>
-        <div class="actions">
+
+        <!-- Solo muestra los botones si el comentario es del usuario autenticado -->
+        <div class="actions" v-if="comment.userId === authenticatedUserId">
           <button class="edit-btn" @click="openEditModal(comment)">{{ $t("comments.edit") }}</button>
           <button class="delete-btn" @click="confirmDelete(comment)">{{ $t("comments.delete") }}</button>
         </div>
       </div>
     </div>
+
     <!-- MODAL DE EDICIÓN -->
     <div v-if="commentToEdit" class="modal-overlay">
       <div class="modal">
@@ -252,15 +240,14 @@ export default {
 
     <!-- NUEVO COMENTARIO -->
     <div class="new-comment">
-<textarea
-    v-model="newComment"
-    :placeholder="$t('comments.placeholder')"
-></textarea>
+      <textarea
+          v-model="newComment"
+          :placeholder="$t('comments.placeholder')"
+      ></textarea>
       <button @click="submitComment">{{ $t("comments.submit") }}</button>
     </div>
   </div>
 </template>
-
 <style scoped>
 .container {
   background-color: #1F79AA;
