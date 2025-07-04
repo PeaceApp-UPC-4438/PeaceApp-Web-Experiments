@@ -1,13 +1,13 @@
 <script>
-import { UserApiService } from "@/services/userapi.service.js";
-import { useRoute } from 'vue-router';
+import {UserApiService} from "@/services/userapi.service.js";
+import {useRoute} from 'vue-router';
 import CitizenToolbar from "@/components/toolbar/toolbarCitizen.component.vue";
-import { CommentApiService } from "@/services/commentapi.service.js";
-import { ReportApiService } from "@/services/reportapi.service.js";
+import {CommentApiService} from "@/services/commentapi.service.js";
+import {ReportApiService} from "@/services/reportapi.service.js";
 
 export default {
   name: 'ReportComments',
-  components: { CitizenToolbar },
+  components: {CitizenToolbar},
   data() {
     return {
       comments: [],
@@ -46,7 +46,7 @@ export default {
       }
     },
     openEditModal(comment) {
-      this.commentToEdit = { ...comment };
+      this.commentToEdit = {...comment};
       this.editedCommentContent = comment.content;
     },
     cancelEdit() {
@@ -125,7 +125,8 @@ export default {
                 if (res && res.data) {
                   fullName = `${res.data.name || ''} ${res.data.lastname || ''}`.trim();
                 }
-              } catch (_) {}
+              } catch (_) {
+              }
               return {
                 ...comment,
                 userFullName: fullName
@@ -143,13 +144,21 @@ export default {
     async submitComment() {
       if (!this.newComment.trim()) return;
       try {
-        const reportId = this.report.id;
-        const userId = this.report.idUser;
+        const email = localStorage.getItem("userEmail");
+        const userRes = await this.userService.getUserByEmail(email);
+        const userId = userRes?.data?.id;
+
+        if (!userId) {
+          this.error = 'No se pudo obtener el usuario autenticado.';
+          return;
+        }
+
         const payload = {
           content: this.newComment,
           userId,
-          reportId
+          reportId: this.report.id
         };
+
         await new CommentApiService().createComment(payload);
         this.newComment = '';
         this.fetchReportAndComments();
@@ -157,13 +166,14 @@ export default {
         this.error = 'No se pudo enviar el comentario.';
       }
     }
+
   }
 };
 </script>
 
 <template>
   <header>
-    <CitizenToolbar />
+    <CitizenToolbar/>
   </header>
 
   <div class="container">
@@ -186,7 +196,7 @@ export default {
       </p>
       <p v-if="report.image">
         <strong>{{ $t('reports.evidence_label') || 'Evidence:' }}</strong><br>
-        <img :src="report.image" alt="Evidencia" class="evidence-img" />
+        <img :src="report.image" alt="Evidencia" class="evidence-img"/>
       </p>
     </div>
 
@@ -197,7 +207,7 @@ export default {
       <div v-for="comment in comments" :key="comment.id" class="comment-card">
         <p class="content">{{ comment.content }}</p>
         <p class="meta">
-          {{ $t('comments.user') }}: {{ comment.userFullName || $t('comments.unknown') }}<br />
+          {{ $t('comments.user') }}: {{ comment.userFullName || $t('comments.unknown') }}<br/>
           {{ $t('comments.date') }}:
           <span v-if="comment.updatedAt">
 {{ new Date(comment.updatedAt).toLocaleString() }}
@@ -282,6 +292,7 @@ h1 {
   color: #01A1FF;
   margin-top: 0;
 }
+
 .comments-title {
   margin-top: 2rem;
   color: white;
@@ -460,6 +471,7 @@ body.dark .new-comment textarea {
 body.dark .new-comment button {
   background-color: #4ea3ff;
 }
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -513,6 +525,7 @@ body.dark .modal {
 body.dark .modal-actions button:last-child {
   background-color: #555;
 }
+
 @media (max-width: 768px) {
   .container {
     padding: 80px 1rem 2rem;
