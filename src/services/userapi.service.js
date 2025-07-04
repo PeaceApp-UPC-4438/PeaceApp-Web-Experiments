@@ -14,6 +14,16 @@ export class UserApiService {
             Authorization: `Bearer ${token}`
         };
     }
+    async getUserById(id) {
+        try {
+            return await axios.get(`${this.baseUrl}/users/id/${id}`, {
+                headers: this.getAuthHeaders()
+            });
+        } catch (e) {
+            console.error('Error getting user by ID', e);
+            return e.response;
+        }
+    }
 
     async getAllUsers() {
         try {

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { environment } from "../environments/environment.js";
 
-export class ReportApiService {
+export class CommentApiService {
     constructor() {
         this.baseUrl = environment.baseUrl;
     }
@@ -14,50 +14,50 @@ export class ReportApiService {
         };
     }
 
-    // Obtener todos los reportes
-    async getAll() {
+    // Crear un nuevo comentario
+    async createComment(data) {
         try {
-            return await axios.get(`${this.baseUrl}/reports/`, {
+            return await axios.post(`${this.baseUrl}/comments/`, data, {
                 headers: this.getAuthHeaders()
             });
         } catch (error) {
-            console.error("Error fetching all reports", error);
+            console.error("Error creating comment", error);
             return error.response;
         }
     }
 
-    // Obtener reportes por usuario
-    async getByUserId(userId) {
+    // Obtener comentarios por reportId
+    async getCommentsByReportId(reportId) {
         try {
-            return await axios.get(`${this.baseUrl}/reports/user/${userId}`, {
+            return await axios.get(`${this.baseUrl}/comments/report/${reportId}`, {
                 headers: this.getAuthHeaders()
             });
         } catch (error) {
-            console.error("Error fetching reports by user ID", error);
+            console.error("Error fetching comments", error);
             return error.response;
         }
     }
 
-    // Obtener un solo reporte por ID
-    async getById(id) {
+    // Actualizar comentario
+    async updateComment(id, content) {
         try {
-            return await axios.get(`${this.baseUrl}/reports/${id}`, {
+            return await axios.put(`${this.baseUrl}/comments/${id}`, { content }, {
                 headers: this.getAuthHeaders()
             });
         } catch (error) {
-            console.error("Error fetching report by ID", error);
+            console.error("Error updating comment", error);
             return error.response;
         }
     }
 
-    // Crear reporte
-    async create(data) {
+    // Eliminar comentario
+    async deleteComment(id) {
         try {
-            return await axios.post(`${this.baseUrl}/reports/`, data, {
+            return await axios.delete(`${this.baseUrl}/comments/${id}`, {
                 headers: this.getAuthHeaders()
             });
         } catch (error) {
-            console.error("Error creating report", error);
+            console.error("Error deleting comment", error);
             return error.response;
         }
     }

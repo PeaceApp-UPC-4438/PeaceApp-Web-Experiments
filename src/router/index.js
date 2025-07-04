@@ -9,6 +9,7 @@ import passwordRecover from '../pages/recover/password-recover.page.vue'
 import finalRecover from '../pages/recover/final-recover.page.vue'
 import MapCitizen from '../components/maps/citizenmap/mapCitizen.vue'
 import ViewNotificationsComponent from "../components/notifications/view-notifications.component.vue";
+import ReportComment from "../pages/reportComments/report-comments.vue";
 const router= createRouter({
     history: createWebHistory(),
     routes: [
@@ -22,6 +23,7 @@ const router= createRouter({
         {path: '/recover', component: finalRecover},
         {path: '/user/map', component: MapCitizen},
         {path: '/user/notifications', component: ViewNotificationsComponent},
+        { path: '/user/report/:reportId/comments', component: ReportComment, name: 'report-comments' },
     ]
 });
 

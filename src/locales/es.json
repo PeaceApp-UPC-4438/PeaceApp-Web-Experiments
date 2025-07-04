@@ -113,6 +113,7 @@
   },
   "reports": {
     "title": "Lista de reportes",
+    "details": "Detalles de Reporte",
     "all": "Todos",
     "address_label": "Dirección",
     "type_label": "Tipo:",
@@ -124,11 +125,29 @@
     "all_reports": "Todos los Reportes",
     "description_label": "Descripción:",
     "user_label": "Fecha: ",
+    "realUser_label": "Usuario: ",
     "evidence_label": "Evidencia:",
     "clear_filters": "Limpiar Filtros",
     "no_reports": "No hay reportes disponibles.",
     "view_evidence": "Ver Evidencia",
     "button": "Nuevo Reporte"
+  },
+  "comments": {
+    "title": "Comentarios",
+    "none": "No hay comentarios aún.",
+    "user": "Usuario",
+    "unknown": "Desconocido",
+    "date": "Fecha",
+    "edited_at": "Editado el",
+    "edit": "Editar",
+    "delete": "Borrar",
+    "edit_modal_title": "Editar comentario",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "confirm_delete": "¿Estás seguro de que deseas eliminar este comentario?",
+    "confirm_yes": "Sí, eliminar",
+    "submit": "Enviar comentario",
+    "placeholder": "Escribe tu comentario..."
   },
   "reportForm": {
     "title": "Envío de Reporte",

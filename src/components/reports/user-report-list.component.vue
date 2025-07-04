@@ -12,8 +12,6 @@
           <option value="all">{{ $t('reports.all_reports') }}</option>
         </select>
       </div>
-
-      <!-- NUEVO: filtro por tipo -->
       <div class="filter-option">
         <label for="filterType">{{ $t('reports.type_label') }}</label>
         <select v-model="filterType" id="filterType">
@@ -29,22 +27,30 @@
 
     <div class="reports-container">
       <ul v-if="filteredReports.length" class="reports-grid">
-        <li v-for="report in filteredReports" :key="report.id" class="report-item">
-          <h2>{{ report.title }}</h2>
-          <p><strong>{{ $t('reports.type_label') }}</strong> {{ translateType(report.type) }}</p>
-          <p><strong>{{ $t('reports.address_label') || 'Address:' }}</strong> {{ report.address }}</p>
-          <p><strong>{{ $t('reports.description_label') }}</strong> {{ report.detail }}</p>
-          <p>
-            <strong>{{ $t('reports.user_label') }}</strong>
-            <span v-if="report.citizenFullName">{{ report.citizenFullName }}</span>
-            <span v-else>{{ formatDate(report.createdAt) }}</span>
-          </p>
-          <p v-if="report.image">
-            <strong>{{ $t('reports.evidence_label') || 'Evidence:' }}</strong><br>
-            <img :src="report.image" alt="Evidence" style="max-width: 100%; border-radius: 8px; margin-top: 8px;" />
-          </p>
-        </li>
+        <router-link
+            v-for="report in filteredReports"
+            :key="report.id"
+            :to="`/user/report/${report.id}/comments`"
+            class="report-item-link"
+        >
+          <li class="report-item">
+            <h2>{{ report.title }}</h2>
+            <p><strong>{{ $t('reports.type_label') }}</strong> {{ translateType(report.type) }}</p>
+            <p><strong>{{ $t('reports.address_label') || 'Address:' }}</strong> {{ report.address }}</p>
+            <p><strong>{{ $t('reports.description_label') }}</strong> {{ report.detail }}</p>
+            <p>
+              <strong>{{ $t('reports.user_label') }}</strong>
+              <span v-if="report.citizenFullName">{{ report.citizenFullName }}</span>
+              <span v-else>{{ formatDate(report.createdAt) }}</span>
+            </p>
+            <p v-if="report.image">
+              <strong>{{ $t('reports.evidence_label') || 'Evidence:' }}</strong><br>
+              <img :src="report.image" alt="Evidence" style="max-width: 100%; border-radius: 8px; margin-top: 8px;" />
+            </p>
+          </li>
+        </router-link>
       </ul>
+
       <ul v-else class="reports-grid">
         <li class="report-item">
           <h2>{{ $t("reports.no_reports") }}</h2>
@@ -61,16 +67,14 @@ import CitizenToolbar from "../toolbar/toolbarCitizen.component.vue";
 
 export default {
   name: "ReportsList",
-  components: {
-    CitizenToolbar
-  },
+  components: { CitizenToolbar },
   data() {
     return {
       reports: [],
       api: new ReportApiService(),
       userService: new UserApiService(),
       reportScope: "user",
-      filterType: "",      // NUEVO: filtro tipo reporte
+      filterType: "",
       role: ""
     };
   },
@@ -80,14 +84,11 @@ export default {
   },
   computed: {
     filteredReports() {
-      if (!this.filterType) {
-        return this.reports;
-      }
+      if (!this.filterType) return this.reports;
       const filter = this.filterType.toLowerCase();
       return this.reports.filter(report => {
         const type = (report.type || '').toLowerCase();
         return (
-            // Compara el tipo con las opciones válidas del filtro
             (filter === 'robo' && (type === 'robo' || type === 'robbery')) ||
             (filter === 'accidente' && (type === 'accidente' || type === 'accident')) ||
             (filter === 'oscuro' && (type === 'oscuro' || type === 'dark_area')) ||
@@ -119,7 +120,6 @@ export default {
         const response = this.reportScope === "all"
             ? await this.api.getAll()
             : await this.api.getByUserId(userId);
-
         this.reports = response.data;
 
         for (const report of this.reports) {
@@ -300,5 +300,11 @@ body.dark p {
 body.dark a {
   color: #7bbfff;
 }
-
+.report-item-link {
+  text-decoration: none;
+  color: inherit;
+}
+.report-item-link:hover {
+  text-decoration: none;
+}
 </style>

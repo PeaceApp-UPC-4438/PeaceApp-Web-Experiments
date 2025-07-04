@@ -111,8 +111,27 @@
     "cvv": "CVV",
     "checkout": "Payer"
   },
+  "comments": {
+    "title": "Commentaires",
+    "none": "Aucun commentaire pour le moment.",
+    "user": "Utilisateur",
+    "unknown": "Inconnu",
+    "date": "Date",
+    "edited_at": "Modifié le",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "edit_modal_title": "Modifier le commentaire",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "confirm_delete": "Êtes-vous sûr de vouloir supprimer ce commentaire ?",
+    "confirm_yes": "Oui, supprimer",
+    "submit": "Envoyer le commentaire",
+    "placeholder": "Écrivez votre commentaire..."
+  },
+
   "reports": {
     "title": "Liste des rapports",
+    "details": "Détails du rapport",
     "all": "Tous",
     "address_label": "Adresse",
     "type_label": "Type :",
@@ -121,6 +140,7 @@
     "location_label": "Localisation :",
     "description_label": "Description :",
     "user_label": "Date : ",
+    "realUser_label": "Utilisateur : ",
     "view_scope": "Filtres",
     "my_reports": "Mes rapports",
     "all_reports": "Tous les rapports",
