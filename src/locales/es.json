@@ -113,6 +113,7 @@
   },
   "reports": {
     "title": "Lista de reportes",
+    "alert": "Alertas",
     "details": "Detalles de Reporte",
     "all": "Todos",
     "address_label": "Dirección",

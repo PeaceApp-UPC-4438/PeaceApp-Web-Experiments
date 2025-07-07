@@ -131,6 +131,7 @@
 
   "reports": {
     "title": "Liste des rapports",
+    "fr": "Alerte",
     "details": "Détails du rapport",
     "all": "Tous",
     "address_label": "Adresse",

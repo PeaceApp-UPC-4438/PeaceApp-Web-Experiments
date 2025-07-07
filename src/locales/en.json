@@ -131,6 +131,7 @@
 
   "reports": {
     "title": "Report list",
+    "alert": "Alert",
     "details": "Report details",
     "all": "All",
     "address_label": "Address",
