@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <ToolbarCitizen />
-    <h1 class="title">{{ $t('reports.title') }}</h1>
+    <h1 class="title">{{ $t('reports.alert') }}</h1>
 
     <ul class="alert-grid">
       <li v-for="(alert, index) in sortedAlerts" :key="index" class="alert-card">
