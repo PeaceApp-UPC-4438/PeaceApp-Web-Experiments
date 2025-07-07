@@ -1,13 +1,13 @@
 <template>
   <div class="container">
     <ToolbarCitizen />
-    <h1 class="title">Alerts</h1>
+    <h1 class="title">{{ $t('reports.title') }}</h1>
 
     <ul class="alert-grid">
       <li v-for="(alert, index) in sortedAlerts" :key="index" class="alert-card">
-        <h2>{{ alert.type }}</h2>
-        <p><strong>Location:</strong> {{ alert.location }}</p>
-        <p><strong>Description:</strong> {{ alert.description }}</p>
+        <h2>{{ $t('reportForm.placeholders.' + alert.type) }}</h2>
+        <p><strong>{{ $t('reports.location_label') }}</strong> {{ alert.location }}</p>
+        <p><strong>{{ $t('reports.description_label') }}</strong> {{ alert.description }}</p>
         <img v-if="alert.imageUrl" :src="alert.imageUrl" alt="Alert image" class="alert-image" />
       </li>
     </ul>
@@ -16,7 +16,7 @@
 
 <script>
 import ToolbarCitizen from "../toolbar/toolbarCitizen.component.vue";
-import { AlertApiService } from "../../services/alertapi.service.js";
+import {AlertApiService} from "@/services/alertapi.service.js";
 
 export default {
   name: "AlertList",
