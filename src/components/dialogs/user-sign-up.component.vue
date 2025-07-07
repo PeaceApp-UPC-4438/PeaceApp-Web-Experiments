@@ -8,6 +8,7 @@ export default {
       authService: new authUserService(),
       userApiService: new UserApiService(),
       confirmPassword: '',
+      isSubmitting: false, // NUEVO: para evitar registros dobles
       formData: {
         name: '',
         lastname: '',
@@ -35,8 +36,7 @@ export default {
         return false;
       }
       if (!passwordRegex.test(this.formData.password)) {
-        this.error =
-            "Password must be at least 8 characters, with uppercase, lowercase, number, and special character.";
+        this.error = "Password must be at least 8 characters, with uppercase, lowercase, number, and special character.";
         return false;
       }
       if (this.formData.password !== this.confirmPassword) {
@@ -47,10 +47,15 @@ export default {
     },
 
     async createUser() {
+      if (this.isSubmitting) return; // ← Prevenir ejecución doble
+      this.isSubmitting = true;      // ← Bloquear nuevas llamadas
       this.error = null;
       this.success = null;
 
-      if (!this.validateInputs()) return;
+      if (!this.validateInputs()) {
+        this.isSubmitting = false;
+        return;
+      }
 
       try {
         const signUpData = {
@@ -101,6 +106,8 @@ export default {
       } catch (error) {
         console.error("Registration error:", error);
         this.error = error?.response?.data?.message || "Unexpected error occurred.";
+      } finally {
+        this.isSubmitting = false; // ← Siempre liberar
       }
     },
 
@@ -130,6 +137,7 @@ export default {
   }
 };
 </script>
+
 
 <template>
   <form class="form" @submit.prevent="submit()">
