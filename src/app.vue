@@ -214,7 +214,7 @@ main {
   flex-direction: column;
 }
 .container {
-  padding-bottom: 70px;
+  padding-bottom: 150px;
   box-sizing: border-box;
 }
 
