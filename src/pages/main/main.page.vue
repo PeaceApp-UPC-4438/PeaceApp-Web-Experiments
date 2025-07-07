@@ -1,135 +1,143 @@
 <script>
-import userSign from '../../components/dialogs/user-sign-up.component.vue';
-import { authUserService } from "@/services/authuser.service.js";
-import { UserApiService } from "@/services/userapi.service.js";
+import { authUserService } from "../../services/authuser.service.js";
+import { UserApiService } from "../../services/userapi.service.js";
 
 export default {
-  components: {
-    userSign,
-  },
   data() {
     return {
-      visible: false,
-      userData: {
-        email: '',
-        password: '',
-        captcha: ''
-      },
       authService: new authUserService(),
       userApiService: new UserApiService(),
+      confirmPassword: '',
+      isSubmitting: false, // NUEVO: para evitar registros dobles
+      formData: {
+        name: '',
+        lastname: '',
+        email: '',
+        password: '',
+        phonenumber: '',
+        profileImage: 'https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg'
+      },
       error: null,
-      captchaCode: ''
+      success: null
     };
   },
-  mounted() {
-    this.generateCaptcha();
-  },
   methods: {
-    redirectLanding() {
-      window.location.href = 'https://peaceapp-landing-page.netlify.app';
+    validateInputs() {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const phoneRegex = /^\d{9}$/;
+      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+
+      if (!emailRegex.test(this.formData.email)) {
+        this.error = "Invalid email format.";
+        return false;
+      }
+      if (!phoneRegex.test(this.formData.phonenumber)) {
+        this.error = "Phone number must be exactly 9 digits.";
+        return false;
+      }
+      if (!passwordRegex.test(this.formData.password)) {
+        this.error = "Password must be at least 8 characters, with uppercase, lowercase, number, and special character.";
+        return false;
+      }
+      if (this.formData.password !== this.confirmPassword) {
+        this.error = "Passwords do not match.";
+        return false;
+      }
+      return true;
     },
 
-    generateCaptcha() {
-      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-      let code = '';
-      for (let i = 0; i < 6; i++) {
-        code += chars.charAt(Math.floor(Math.random() * chars.length));
-      }
-      this.captchaCode = code;
-
-      const canvas = this.$refs.captchaCanvas;
-      const ctx = canvas.getContext('2d');
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.font = '30px Arial';
-      ctx.fillStyle = 'black';
-
-      for (let i = 0; i < 5; i++) {
-        ctx.beginPath();
-        ctx.moveTo(Math.random() * canvas.width, Math.random() * canvas.height);
-        ctx.lineTo(Math.random() * canvas.width, Math.random() * canvas.height);
-        ctx.strokeStyle = 'rgba(0, 0, 0, 0.1)';
-        ctx.stroke();
-      }
-
-      for (let i = 0; i < this.captchaCode.length; i++) {
-        ctx.save();
-        ctx.translate(20 + (i * 30), 30);
-        ctx.rotate(Math.random() * 0.2 - 0.1);
-        ctx.fillText(this.captchaCode.charAt(i), 0, 0);
-        ctx.restore();
-      }
-    },
-
-    async authenticateUser() {
-      try {
-        const response = await this.authService.signInUser(this.userData.email, this.userData.password);
-
-        if (response && response.status === 200) {
-          const user = response.data;
-          localStorage.setItem('authToken', user.token);
-          localStorage.setItem('userEmail', user.username);
-          localStorage.setItem('userRole', 'ROLE_USER');
-          localStorage.setItem('userId', user.id);
-          return user;
-        }
-        this.error = 'main.errorInvalidCredentials';
-        return null;
-      } catch (error) {
-        console.error("Error during authentication: ", error);
-        this.error = 'main.errorInvalidCredentials';
-        return null;
-      }
-    },
-
-    async onSubmit() {
+    async createUser() {
+      if (this.isSubmitting) return; // ← Prevenir ejecución doble
+      this.isSubmitting = true;      // ← Bloquear nuevas llamadas
       this.error = null;
+      this.success = null;
 
-      if (this.userData.captcha !== this.captchaCode) {
-        this.error = 'main.errorInvalidCaptcha';
-        this.generateCaptcha();
-        return;
-      }
-
-      const user = await this.authenticateUser();
-
-      if (!user) {
-        this.generateCaptcha();
+      if (!this.validateInputs()) {
+        this.isSubmitting = false;
         return;
       }
 
       try {
-        const userResp = await this.userApiService.getUserByEmail(this.userData.email);
-        if (!userResp || !userResp.data) {
-          this.error = 'main.errorEmailNotFound';
-          this.generateCaptcha();
+        const signUpData = {
+          username: this.formData.email,
+          password: this.formData.password,
+          role: "ROLE_USER"
+        };
+
+        const signUpResponse = await this.authService.signUp(signUpData);
+        if (![200, 201].includes(signUpResponse.status)) {
+          this.error = "Failed to create account.";
           return;
         }
-      } catch (err) {
-        console.error('Error al buscar usuario por email:', err);
-        this.error = 'main.errorEmailCheck';
-        this.generateCaptcha();
-        return;
-      }
 
+        const loginResponse = await this.authService.signInUser(
+            this.formData.email,
+            this.formData.password
+        );
+
+        if (loginResponse.status !== 200) {
+          this.error = "Login failed after registration.";
+          return;
+        }
+
+        const user = loginResponse.data;
+        localStorage.setItem("userEmail", user.username);
+        localStorage.setItem("userRole", "ROLE_USER");
+        localStorage.setItem("authToken", user.token);
+        localStorage.setItem("userId", user.id);
+
+        const userData = {
+          name: this.formData.name,
+          lastname: this.formData.lastname,
+          email: this.formData.email,
+          password: this.formData.password,
+          phonenumber: this.formData.phonenumber,
+          user_id: user.id,
+          profile_image: this.formData.profileImage
+        };
+
+        const profileResponse = await this.userApiService.createUser(userData);
+        if ([200, 201].includes(profileResponse.status)) {
+          this.success = "Account created successfully!";
+          setTimeout(() => this.$router.push({ path: "/profile" }), 3000);
+        } else {
+          this.error = "Failed to save user profile.";
+        }
+      } catch (error) {
+        console.error("Registration error:", error);
+        this.error = error?.response?.data?.message || "Unexpected error occurred.";
+      } finally {
+        this.isSubmitting = false; // ← Siempre liberar
+      }
+    },
+
+    async submit() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
-            (position) => {
-              localStorage.setItem("userLat", position.coords.latitude);
-              localStorage.setItem("userLng", position.coords.longitude);
-              this.$router.push('/profile');
+            (pos) => {
+              localStorage.setItem("userLat", pos.coords.latitude);
+              localStorage.setItem("userLng", pos.coords.longitude);
+              this.createUser();
             },
-            (err) => {
-              console.warn("No se pudo obtener ubicación:", err);
-              this.$router.push('/profile');
+            () => {
+              this.createUser();
             }
         );
       } else {
-        this.$router.push('/profile');
+        this.createUser();
+      }
+    },
+
+    restrictToDigits(event) {
+      const key = event.key;
+      if (!/^\d$/.test(key)) {
+        event.preventDefault();
       }
     }
   }
-}
+};
 </script>
+
 
 <template>
   <div class="padre">
