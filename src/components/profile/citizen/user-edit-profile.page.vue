@@ -138,7 +138,8 @@ export default {
         }
 
         this.closePopup();
-        window.location.reload();
+        this.$emit('close');
+        this.$router.push('/profile');
       } catch (error) {
         console.error('Update failed:', error);
         alert('Error updating profile.');
